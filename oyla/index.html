@@ -1,0 +1,635 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ZOIKA — Rings Made Without Compromise</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --red:#8f1830;
+  --ink:#141414;
+  --gray:#6f6f6f;
+  --hair:#141414;
+  --card:#f4f3f1;
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'Inter',-apple-system,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);color:var(--ink);background:#fff;line-height:1.65;font-size:15px}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+.serif{font-family:var(--serif)}
+
+/* nav — transparent over the hero video, solid once scrolled past it */
+nav{position:fixed;inset:0 0 auto 0;z-index:50;display:flex;align-items:center;justify-content:space-between;
+  padding:22px 44px;background:transparent;backdrop-filter:none;transition:background .35s,backdrop-filter .35s,box-shadow .35s}
+nav.scrolled{background:rgba(255,255,255,.82);backdrop-filter:blur(10px);box-shadow:0 1px 0 var(--hair)}
+.logo{font-family:var(--serif);font-size:30px;color:var(--red);letter-spacing:1px;display:flex;align-items:center;gap:2px}
+.logo::before{content:'';width:30px;height:30px;border:2.5px solid var(--red);border-radius:50%;margin-right:-14px}
+.nav-r{display:flex;align-items:center;gap:38px}
+.nav-r a{font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--red);font-weight:500}
+.nav-r a:hover{opacity:.65}
+.lines{width:34px;cursor:pointer}
+.lines span{display:block;height:2px;background:var(--red);margin:5px 0}
+@media(max-width:640px){
+  nav{padding:16px 20px}
+  .logo{font-size:23px}
+  .logo::before{width:23px;height:23px;margin-right:-11px}
+  .nav-r{gap:18px}
+  .nav-r>a{display:none}
+  .lines{width:26px}
+  .bag{font-size:11px;white-space:nowrap}
+}
+.bag{font-size:12.5px;letter-spacing:.12em;color:var(--red);font-weight:500;cursor:pointer}
+
+/* hero — scroll-scrubbed video (320vh pinned stage) */
+.hero{height:320vh;position:relative;background:#fff}
+.hero .pin{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;align-items:flex-end}
+.hero .art{position:absolute;inset:0}
+.hero .art video{width:100%;height:100%;object-fit:cover;object-position:50% 30%;display:block}
+.hero .caption{position:relative;z-index:5;padding:0 44px 64px;will-change:opacity,transform}
+.hero h1{font-family:var(--serif);font-weight:400;font-size:clamp(3rem,7.5vw,6.6rem);line-height:1.02;letter-spacing:.01em;text-transform:uppercase}
+.pill{display:inline-flex;align-items:center;gap:10px;margin-top:30px;padding:12px 22px;border-radius:999px;
+  background:#fff;border:1px solid var(--hair);font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;
+  box-shadow:0 4px 18px rgba(0,0,0,.07);cursor:pointer;transition:.25s}
+.pill:hover{background:var(--ink);color:#fff}
+.pill i{width:24px;height:24px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-style:normal;font-size:14px;transition:.25s}
+.pill:hover i{background:#fff;color:var(--ink)}
+
+/* filmstrip — pinned section, images glide sideways, then reveal a film (effect 01) */
+.strip{height:640vh;position:relative;background:#fff;border-top:1px solid var(--hair)}
+.strip-pin{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;align-items:center}
+.strip-track{display:flex;gap:2vw;padding:0 6vw;height:76vh;will-change:transform}
+/* reveal window — grows from the centered last image (width 0→100vw), full-screen, then scrubs */
+.strip-reveal{position:absolute;top:0;left:50%;transform:translateX(-50%);height:100vh;width:0;overflow:hidden;z-index:2;background:#000;will-change:width}
+.strip-reveal .reveal-media{position:absolute;top:0;left:50%;transform:translateX(-50%);width:100vw;height:100%}
+.strip-reveal .reveal-media video{width:100%;height:100%;object-fit:cover;display:block}
+.strip-item{position:relative;flex:0 0 auto;width:56vw;height:100%;overflow:hidden;background:var(--card);border-radius:6px}
+.strip-item img{width:100%;height:100%;object-fit:contain;padding:8%}
+.strip-item::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 60%,rgba(20,20,20,.55))}
+.s-cap{position:absolute;z-index:3;left:0;right:0;bottom:0;display:flex;align-items:baseline;gap:1.1rem;flex-wrap:wrap;padding:1.8rem 2rem;color:#fff}
+.s-cap .s-no{font-family:var(--serif);opacity:.7}
+.s-cap .s-nm{font-family:var(--serif);font-size:clamp(1.3rem,2.6vw,2.1rem)}
+.s-cap .s-tg{margin-left:auto;align-self:center;font-size:11px;letter-spacing:.22em;text-transform:uppercase;opacity:.85;color:#f2d9df}
+.strip-hint{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--gray)}
+@media(max-width:820px){.strip{height:720vh}.strip-item{width:82vw}}
+
+/* products — full-viewport 3-up grid, edge-to-edge hairline dividers */
+.shop{min-height:100vh;border-top:1px solid var(--hair)}
+.shop-grid{display:grid;grid-template-columns:repeat(3,1fr);min-height:100vh}
+.card{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:14px;
+  padding:50px 30px;border-right:1px solid var(--hair);border-bottom:1px solid var(--hair);cursor:pointer;transition:background .3s}
+.card:nth-child(3n){border-right:0}
+.card:nth-last-child(-n+3){border-bottom:0}
+.card:hover{background:var(--card)}
+.card-img{width:100%;max-width:280px;height:280px;display:grid;place-items:center;overflow:hidden}
+.card-img img{max-width:78%;max-height:78%;object-fit:contain;transition:transform .5s cubic-bezier(.16,1,.3,1)}
+.card:hover .card-img img{transform:scale(1.08)}
+.card-name{font-size:18px;font-weight:600;font-family:var(--sans)}
+.card-price{font-size:16px;color:var(--gray)}
+@media(max-width:820px){.shop-grid{grid-template-columns:1fr;min-height:auto}.card{border-right:0;padding:44px 24px}.card:nth-last-child(-n+3){border-bottom:1px solid var(--hair)}.card:last-child{border-bottom:0}}
+
+/* manifesto */
+.mani{border-top:1px solid var(--hair);display:grid;grid-template-columns:1fr 1fr}
+.mani-left{padding:90px 60px;border-right:1px solid var(--hair);display:flex;flex-direction:column;gap:40px;
+  position:sticky;top:93px;align-self:start;height:calc(100vh - 93px)}
+.mani-left h2{font-family:var(--serif);font-weight:400;font-size:clamp(2rem,3.4vw,3.1rem);line-height:1.1}
+.mani-left p{max-width:520px;font-size:16.5px;color:#2c2c2c}
+.mani-left .pill{align-self:flex-start;margin-top:auto}
+.cells{display:flex;flex-direction:column}
+.cell{border-bottom:1px solid var(--hair);padding:80px 60px}
+.cell:last-child{border-bottom:0}
+.cell h3{font-family:var(--serif);font-weight:400;font-size:clamp(2.2rem,3.6vw,3.4rem);line-height:1.08}
+.cell p{color:#2c2c2c;margin-top:18px;font-size:16px}
+.cell small{display:block;color:var(--gray);margin-top:10px;font-size:12.5px}
+@media(max-width:820px){.mani{grid-template-columns:1fr}.mani-left{border-right:0;border-bottom:1px solid var(--hair);padding:60px 30px;position:static;height:auto}.cell{padding:56px 30px}}
+
+/* footer */
+footer{border-top:1px solid var(--hair);padding:70px 44px 50px}
+.fgrid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr) minmax(0,1.2fr);gap:50px}
+.fgrid h5{font-size:13px;font-weight:600;margin-bottom:26px}
+.fgrid p,.fgrid a{display:block;font-size:14.5px;color:#2c2c2c;padding:4px 0}
+.fgrid a:hover{color:var(--red)}
+.fgrid .dim{color:var(--gray)}
+.newsbox{display:flex;align-items:center;background:var(--card);border-radius:999px;padding:6px 6px 6px 20px;margin-top:18px;max-width:420px;width:100%}
+.newsbox input{flex:1;min-width:0;border:0;background:none;outline:0;font:inherit;font-size:14px;color:var(--ink)}
+.newsbox button{display:inline-flex;align-items:center;gap:8px;border:0;background:#fff;border-radius:999px;padding:10px 18px;
+  font:600 11px var(--sans);letter-spacing:.16em;text-transform:uppercase;cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.08)}
+.newsbox button i{width:20px;height:20px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-style:normal;font-size:13px}
+.newsbox button:hover{background:var(--ink);color:#fff}
+@media(max-width:820px){.fgrid{grid-template-columns:minmax(0,1fr);gap:36px}}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
+.rv.in{opacity:1;transform:none}
+
+/* story */
+.story{border-top:1px solid var(--hair)}
+.story-grid{display:grid;grid-template-columns:1fr 1fr;min-height:80vh}
+.story-ph{overflow:hidden;border-right:1px solid var(--hair)}
+.story-ph img{width:100%;height:100%;object-fit:cover}
+.story-copy{padding:70px 60px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start}
+.story-copy h2{font-family:var(--serif);font-weight:400;font-size:clamp(1.9rem,3.4vw,3rem);line-height:1.1;margin:18px 0 20px}
+.story-copy p{max-width:460px;font-size:15.5px;color:#2c2c2c}
+@media(max-width:820px){.story-grid{grid-template-columns:1fr}.story-ph{border-right:0;border-bottom:1px solid var(--hair);max-height:60vh}.story-copy{padding:50px 26px}}
+
+/* quotes */
+.quotes{border-top:1px solid var(--hair);padding:90px 44px}
+.q-head{font-family:var(--serif);font-weight:400;font-size:clamp(1.9rem,3.4vw,3rem);text-align:center;margin-bottom:56px}
+.q-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;max-width:1200px;margin:0 auto}
+.q{padding:10px 34px;border-right:1px solid var(--hair)}
+.q:last-child{border-right:0}
+.q blockquote{font-family:var(--serif);font-style:italic;font-size:18px;line-height:1.6;color:#2c2c2c}
+.q figcaption{margin-top:18px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gray)}
+@media(max-width:820px){.q-grid{grid-template-columns:1fr}.q{border-right:0;border-bottom:1px solid var(--hair);padding:26px 6px}}
+
+/* care / faq */
+.care{border-top:1px solid var(--hair);padding:90px 44px}
+.care-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:60px;max-width:1200px;margin:0 auto}
+.care h2{font-family:var(--serif);font-weight:400;font-size:clamp(1.9rem,3.4vw,3rem);line-height:1.1}
+.muted-p{color:var(--gray);margin-top:14px;max-width:300px}
+.acc{border-bottom:1px solid var(--hair)}
+.acc-q{width:100%;display:flex;justify-content:space-between;align-items:center;background:none;border:0;cursor:pointer;
+  font:600 15px var(--sans);padding:22px 4px;text-align:left;color:var(--ink)}
+.acc-q span{width:28px;height:28px;border:1px solid var(--hair);border-radius:999px;display:grid;place-items:center;font-weight:400;transition:.25s}
+.acc.open .acc-q span{transform:rotate(45deg);background:var(--red);color:#fff;border-color:var(--red)}
+.acc-a{max-height:0;overflow:hidden;transition:max-height .4s ease;color:#4d483f;font-size:14.5px;line-height:1.75;padding:0 40px 0 4px}
+.acc.open .acc-a{max-height:200px;padding-bottom:22px}
+@media(max-width:820px){.care-grid{grid-template-columns:1fr;gap:30px}}
+
+/* visit strip — dark editorial CTA, ink→wine gradient + grain + ring motif */
+.visit{position:relative;overflow:hidden;border-top:1px solid var(--hair);padding:130px 44px;color:#fff;
+  background:
+    radial-gradient(120% 140% at 12% -10%,rgba(143,24,48,.55),transparent 55%),
+    linear-gradient(120deg,#0c0c0c,var(--ink) 45%,var(--red) 145%)}
+.visit::before{content:'';position:absolute;inset:0;opacity:.5;mix-blend-mode:overlay;pointer-events:none;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/></svg>")}
+.visit::after{content:'';position:absolute;right:-8vw;top:50%;transform:translateY(-50%);width:46vw;height:46vw;max-width:640px;max-height:640px;
+  border:1px solid rgba(255,255,255,.14);border-radius:50%;pointer-events:none}
+.visit-ring2{position:absolute;right:2vw;top:50%;transform:translateY(-50%);width:30vw;height:30vw;max-width:420px;max-height:420px;
+  border:1px solid rgba(255,255,255,.1);border-radius:50%;pointer-events:none}
+.visit-inner{position:relative;z-index:2;max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1.3fr 1fr;gap:60px;align-items:end;text-align:left}
+.visit .k{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.6)}
+.visit h2{font-family:var(--serif);font-weight:400;font-size:clamp(2.2rem,4.8vw,4rem);margin:16px 0 14px;line-height:1.05}
+.visit p{color:rgba(255,255,255,.75);max-width:420px}
+.visit .pill{background:#fff;color:var(--ink);border:0;margin-top:30px}
+.visit-info{display:flex;flex-direction:column;gap:22px;padding-top:6px;border-top:1px solid rgba(255,255,255,.16)}
+.visit-info div b{display:block;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:6px;font-weight:500}
+.visit-info div span{font-size:15px;color:rgba(255,255,255,.92)}
+@media(max-width:820px){.visit{padding:90px 26px}.visit-inner{grid-template-columns:1fr;gap:40px;text-align:center}.visit p{margin:0 auto}.visit-info{align-items:center;text-align:center}.visit::after,.visit-ring2{display:none}}
+
+/* menu overlay */
+#menu{position:fixed;inset:0;background:rgba(255,255,255,.97);z-index:80;display:flex;flex-direction:column;justify-content:center;padding:0 10vw;
+  opacity:0;visibility:hidden;transition:.35s}
+#menu.open{opacity:1;visibility:visible}
+#menu a{font-family:var(--serif);font-size:clamp(2.2rem,6vw,4rem);padding:10px 0;border-bottom:1px solid var(--hair);display:flex;justify-content:space-between;align-items:center}
+#menu a small{font-family:var(--sans);font-size:11px;letter-spacing:.2em;color:var(--gray);text-transform:uppercase}
+#menu a:hover{color:var(--red);padding-left:12px;transition:.25s}
+#menu .close{position:absolute;top:26px;right:34px;background:none;border:0;font-size:30px;cursor:pointer;color:var(--ink)}
+
+/* bag drawer */
+#bagpanel{position:fixed;top:0;right:0;height:100%;width:min(400px,92vw);background:#fff;z-index:85;box-shadow:-20px 0 60px rgba(0,0,0,.12);
+  transform:translateX(100%);transition:.35s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column}
+#bagpanel.open{transform:none}
+#bagpanel .bp-head{display:flex;justify-content:space-between;align-items:center;padding:22px 24px;border-bottom:1px solid var(--hair)}
+#bagpanel .bp-head b{font-family:var(--serif);font-size:20px}
+#bagpanel .bp-body{flex:1;overflow:auto;padding:10px 24px}
+#bagpanel .bp-item{display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid var(--hair);font-size:14px}
+#bagpanel .bp-item small{color:var(--gray)}
+#bagpanel .bp-foot{border-top:1px solid var(--hair);padding:20px 24px}
+#bagpanel .bp-total{display:flex;justify-content:space-between;font-weight:600;margin-bottom:14px}
+#bagpanel .bp-btn{width:100%;border:0;background:var(--ink);color:#fff;border-radius:999px;padding:15px;font:600 12px var(--sans);letter-spacing:.18em;text-transform:uppercase;cursor:pointer}
+#bagpanel .bp-btn:hover{background:var(--red)}
+#bagoverlay{position:fixed;inset:0;background:rgba(20,20,20,.35);z-index:84;opacity:0;visibility:hidden;transition:.3s}
+#bagoverlay.open{opacity:1;visibility:visible}
+
+/* toast */
+#toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;
+  padding:12px 24px;border-radius:999px;font-size:13px;opacity:0;transition:.3s;z-index:90;pointer-events:none}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="#">ZOIKA</a>
+  <div class="nav-r">
+    <a href="#about">About</a>
+    <div class="lines" aria-hidden="true"><span></span><span></span></div>
+    <span class="bag">[ BAG <b id="bagn">0</b> ]</span>
+  </div>
+</nav>
+
+<!-- HERO — scroll-scrubbed video: the film plays as you scroll -->
+<header class="hero" id="hero">
+  <div class="pin">
+    <div class="art" id="hero-art">
+      <video id="hero-vid" src="assets/hero.mp4" muted playsinline preload="auto" aria-label="ZOIKA editorial film"></video>
+    </div>
+    <div class="caption" id="hero-cap">
+      <h1 class="rv">Measured<br>Purity</h1>
+      <a class="pill rv" href="#shop">Discover <i>+</i></a>
+    </div>
+  </div>
+</header>
+
+<!-- FILMSTRIP — pinned section, images glide sideways as you scroll (effect 01) -->
+<section class="strip" id="strip">
+  <div class="strip-pin">
+    <div class="strip-track" id="stripTrack">
+      <figure class="strip-item"><img src="assets/ring-1.png" alt="Obsidian Coil ring"><span class="s-cap"><span class="s-no">N&deg;01</span><span class="s-nm">Obsidian Coil</span><span class="s-tg">Oxidized Silver</span></span></figure>
+      <figure class="strip-item"><img src="assets/ring-2.png" alt="Void Arc ring"><span class="s-cap"><span class="s-no">N&deg;02</span><span class="s-nm">Void Arc</span><span class="s-tg">Blackened Bronze</span></span></figure>
+      <figure class="strip-item"><img src="assets/ring-3.png" alt="Onyx Hex ring"><span class="s-cap"><span class="s-no">N&deg;03</span><span class="s-nm">Onyx Hex</span><span class="s-tg">Sterling Silver</span></span></figure>
+      <figure class="strip-item"><img src="assets/ring-4.png" alt="Shadow Sigil ring"><span class="s-cap"><span class="s-no">N&deg;04</span><span class="s-nm">Shadow Sigil</span><span class="s-tg">Raw Brass</span></span></figure>
+      <figure class="strip-item"><img src="assets/ring-5.png" alt="Eclipse Band ring"><span class="s-cap"><span class="s-no">N&deg;05</span><span class="s-nm">Eclipse Band</span><span class="s-tg">Oxidized Silver</span></span></figure>
+    </div>
+    <!-- reveal panel: after the strip glides to the last image, this expands out of it into a scrubbed film -->
+    <div class="strip-reveal" id="revealPanel">
+      <div class="reveal-media">
+        <video id="revealVid" src="assets/reveal.mp4" muted playsinline preload="auto" aria-label="ZOIKA film"></video>
+      </div>
+    </div>
+    <span class="strip-hint" id="stripHint">Scroll — the collection glides ↓</span>
+  </div>
+</section>
+
+<!-- PRODUCTS — full-viewport 3-up grid -->
+<section class="shop" id="shop">
+  <div class="shop-grid">
+    <article class="card rv" onclick="addBag('Obsidian Coil')">
+      <div class="card-img"><img src="assets/ring-1.png" alt="Obsidian Coil ring"></div>
+      <h3 class="card-name">Obsidian Coil</h3>
+      <span class="card-price">$480</span>
+    </article>
+    <article class="card rv" onclick="addBag('Void Arc')">
+      <div class="card-img"><img src="assets/ring-2.png" alt="Void Arc ring"></div>
+      <h3 class="card-name">Void Arc</h3>
+      <span class="card-price">$560</span>
+    </article>
+    <article class="card rv" onclick="addBag('Onyx Hex')">
+      <div class="card-img"><img src="assets/ring-3.png" alt="Onyx Hex ring"></div>
+      <h3 class="card-name">Onyx Hex</h3>
+      <span class="card-price">$620</span>
+    </article>
+    <article class="card rv" onclick="addBag('Shadow Sigil')">
+      <div class="card-img"><img src="assets/ring-4.png" alt="Shadow Sigil ring"></div>
+      <h3 class="card-name">Shadow Sigil</h3>
+      <span class="card-price">$740</span>
+    </article>
+    <article class="card rv" onclick="addBag('Eclipse Band')">
+      <div class="card-img"><img src="assets/ring-5.png" alt="Eclipse Band ring"></div>
+      <h3 class="card-name">Eclipse Band</h3>
+      <span class="card-price">$820</span>
+    </article>
+    <article class="card rv" onclick="addBag('Matte Skull')">
+      <div class="card-img"><img src="assets/ring-1.png" alt="Matte Skull ring"></div>
+      <h3 class="card-name">Matte Skull</h3>
+      <span class="card-price">$950</span>
+    </article>
+  </div>
+</section>
+
+<!-- STORY (editorial split) -->
+<section class="story" id="story">
+  <div class="story-grid">
+    <div class="story-ph rv"><img src="assets/hero.png" alt="ZOIKA editorial"></div>
+    <div class="story-copy rv">
+      <span class="pill">Worn, not displayed</span>
+      <h2>Jewelry that<br>earns its scratches</h2>
+      <p>A ZOIKA ring is not meant to sit in a box. It is meant to be worn to work, to dinners, to arguments and airports — and to look better for it. The oxidised finish deepens with your skin; every mark is a date stamp.</p>
+      <p style="margin-top:16px">We photograph our rings on hands, never on velvet. Because that is where they live.</p>
+      <a class="pill" href="#shop" style="margin-top:26px;display:inline-flex;align-items:center;gap:10px">Shop the collection <i style="font-style:normal">+</i></a>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="quotes" id="quotes">
+  <h2 class="q-head rv">Word of hand</h2>
+  <div class="q-grid">
+    <figure class="q rv">
+      <blockquote>“I have worn the Void Arc every day for a year. It has been in the sea, the gym and one wedding — it just gets better.”</blockquote>
+      <figcaption>Lena M. — Berlin</figcaption>
+    </figure>
+    <figure class="q rv">
+      <blockquote>“Heavy in the best way. You feel it when you talk with your hands, and people notice.”</blockquote>
+      <figcaption>Tomas R. — Vienna</figcaption>
+    </figure>
+    <figure class="q rv">
+      <blockquote>“Bought one for myself, then two as gifts. The unboxing alone converted my sister.”</blockquote>
+      <figcaption>Aditi K. — London</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- CARE / FAQ -->
+<section class="care" id="care">
+  <div class="care-grid">
+    <div class="rv">
+      <h2>Care &amp;<br>Questions</h2>
+      <p class="muted-p">Everything you need to know before and after your ring arrives.</p>
+    </div>
+    <div class="rv">
+      <div class="acc" data-acc>
+        <button class="acc-q">How do I find my size? <span>+</span></button>
+        <div class="acc-a">Order our free sizer kit, or measure a ring you already own against our printable chart. Exchanges for sizing are always free within 30 days.</div>
+      </div>
+      <div class="acc" data-acc>
+        <button class="acc-q">How do I care for oxidised silver? <span>+</span></button>
+        <div class="acc-a">Wear it — skin contact maintains the finish. Avoid chlorine and harsh cleaners. If the patina ever wears unevenly, send it back and we re-oxidise it free of charge.</div>
+      </div>
+      <div class="acc" data-acc>
+        <button class="acc-q">Where do you ship? <span>+</span></button>
+        <div class="acc-a">Worldwide, tracked and insured, from our Berlin studio. EU orders arrive in 2–4 days, everywhere else in 5–10.</div>
+      </div>
+      <div class="acc" data-acc>
+        <button class="acc-q">What does the lifetime guarantee cover? <span>+</span></button>
+        <div class="acc-a">Any structural failure, stone-setting issue or finish defect — forever. It does not cover loss, but it does cover honest wear.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT STRIP -->
+<section class="visit rv" id="contact">
+  <span class="visit-ring2" aria-hidden="true"></span>
+  <div class="visit-inner">
+    <div>
+      <span class="k">The Atelier</span>
+      <h2>Visit us<br>in Berlin</h2>
+      <p>Private fittings, Tuesday to Saturday — or write to us any time.</p>
+      <a class="pill" href="mailto:studio@zoika.example" style="display:inline-flex;align-items:center;gap:10px">studio@zoika.example <i style="font-style:normal">+</i></a>
+    </div>
+    <div class="visit-info">
+      <div><b>Address</b><span>Torstraße 12, 10119<br>Berlin, Germany</span></div>
+      <div><b>Hours</b><span>Tue–Sat, 11:00–19:00<br>By appointment</span></div>
+      <div><b>Studio Line</b><span>+49 30 1234 5678</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- MANIFESTO -->
+<section class="mani" id="about">
+  <div class="mani-left">
+    <h2 class="rv">Made Without Compromise</h2>
+    <div class="rv">
+      <p>Every ZOIKA ring begins as raw metal in one maker's hands and never leaves them until it is finished. There is no production line — the material decides the form, and we follow it.</p>
+      <p style="margin-top:18px">We shape oxidized silver, blackened bronze and raw brass. The weight is intentional. The edges stay honest. Nothing is polished away just to feel easy.</p>
+      <p style="margin-top:18px">This is jewelry as a statement, not an accessory — a piece you keep for life, not a season.</p>
+    </div>
+    <a class="pill rv" href="#shop">View Collection <i>+</i></a>
+  </div>
+  <div class="cells">
+    <div class="cell rv">
+      <h3>Handmade</h3>
+      <p>Every ring crafted by a single artisan, start to finish.</p>
+    </div>
+    <div class="cell rv">
+      <h3>14–92g<br>Per piece</h3>
+      <p>Deliberate weight — each ring is a physical presence you feel.</p>
+    </div>
+    <div class="cell rv">
+      <h3>Sterling<br>&amp; Silver</h3>
+      <p>Oxidized metals only — no plating, no shortcuts.</p>
+    </div>
+    <div class="cell rv">
+      <h3>Lifetime<br>Guarantee</h3>
+      <p>We stand behind every piece we make, forever.</p>
+      <small>Est. ZOIKA Studio, 2019.</small>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="fgrid">
+    <div class="rv">
+      <h5>Sign in</h5>
+      <p>Handcrafted in small batches<br>ZOIKA Studio</p>
+      <p class="dim" style="margin-top:14px">Based in Berlin<br>© ZOIKA 2026<br>All pieces are original designs.</p>
+    </div>
+    <div class="rv">
+      <h5>Instagram</h5>
+      <a href="#">Refund Policy</a>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+    </div>
+    <div class="rv">
+      <h5>Newsletter</h5>
+      <p class="dim">Join our list. Be first to know new drops. 10% off your first order.</p>
+      <form class="newsbox" onsubmit="event.preventDefault(); this.reset(); addToast('Subscribed — welcome to ZOIKA');">
+        <input type="email" placeholder="Email" required>
+        <button type="submit">Subscribe <i>+</i></button>
+      </form>
+    </div>
+  </div>
+</footer>
+
+<!-- MENU OVERLAY -->
+<div id="menu">
+  <button class="close" onclick="toggleMenu(false)" aria-label="Close">×</button>
+  <a href="#shop" onclick="toggleMenu(false)">Shop <small>05 pieces</small></a>
+  <a href="#story" onclick="toggleMenu(false)">Story <small>worn, not displayed</small></a>
+  <a href="#care" onclick="toggleMenu(false)">Care <small>faq &amp; sizing</small></a>
+  <a href="#about" onclick="toggleMenu(false)">About <small>the studio</small></a>
+  <a href="#contact" onclick="toggleMenu(false)">Contact <small>berlin atelier</small></a>
+</div>
+
+<!-- BAG DRAWER -->
+<div id="bagoverlay" onclick="toggleBag(false)"></div>
+<aside id="bagpanel" aria-label="Shopping bag">
+  <div class="bp-head"><b>Your Bag</b><button class="close" style="position:static;font-size:24px" onclick="toggleBag(false)">×</button></div>
+  <div class="bp-body" id="bp-body"><p style="color:var(--gray);text-align:center;padding:40px 0;font-size:14px">Your bag is empty.</p></div>
+  <div class="bp-foot">
+    <div class="bp-total"><span>Total</span><span id="bp-total">$0</span></div>
+    <button class="bp-btn" onclick="addToast('Demo checkout — connect payments to go live')">Checkout</button>
+  </div>
+</aside>
+
+<div id="toast"></div>
+
+<script>
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .12 });
+document.querySelectorAll('.rv').forEach(el => io.observe(el));
+
+/* ===== scroll-scrubbed hero video ===== */
+const heroSec = document.getElementById('hero');
+const heroCap = document.getElementById('hero-cap');
+const video   = document.getElementById('hero-vid');
+const navEl   = document.querySelector('nav');
+const clamp01 = v => Math.max(0, Math.min(1, v));
+
+let targetTime = 0;        // where the scroll says the film should be
+let currentTime = 0;       // smoothed playhead we actually apply
+let heroDuration = 0;
+
+video.pause();
+/* warm up the decoder now, before the user scrolls — the first-ever seek on a fresh
+   video pays a one-time cold-start cost; doing it here (during idle load) instead of
+   on the user's first scroll frame is what removes the felt "late start" lag */
+function warmUpHero(){
+  heroDuration = video.duration;
+  video.currentTime = 0.001;
+}
+if (video.readyState >= 1) warmUpHero();
+else video.addEventListener('loadedmetadata', warmUpHero, { once: true });
+
+function heroCaption(p){
+  /* headline + pill hold, then melt away as the macro takes over */
+  const fade = 1 - clamp01((p - .5) / .3);
+  heroCap.style.opacity = fade;
+  heroCap.style.transform = `translateY(${(1 - fade) * 30}px)`;
+  heroCap.style.pointerEvents = fade < .2 ? 'none' : '';
+}
+
+function heroTick(){
+  const vh = window.innerHeight;
+  const p = clamp01(window.scrollY / (heroSec.offsetHeight - vh));   // 0 → 1 across the pinned stage
+  heroCaption(p);
+  if (heroDuration){
+    targetTime = p * heroDuration;
+    /* smooth interpolation toward the scroll target */
+    currentTime += (targetTime - currentTime) * 0.08;
+    /* seeking guard: only ask for a new frame once the decoder finished the last one */
+    if (!video.seeking && Math.abs(video.currentTime - currentTime) > 0.01){
+      video.currentTime = currentTime;
+    }
+  }
+  requestAnimationFrame(heroTick);
+}
+requestAnimationFrame(heroTick);
+
+/* nav: transparent over the pinned hero AND the pinned filmstrip/reveal stage; solid over normal content */
+function navUpdate(){
+  const y = window.scrollY, vh = window.innerHeight;
+  const overHero = y <= heroSec.offsetHeight - vh - 4;
+  const strip = document.getElementById('strip');
+  const sTop = strip.offsetTop, sEnd = sTop + strip.offsetHeight - vh;
+  const overStrip = y >= sTop - 1 && y <= sEnd + 1;
+  navEl.classList.toggle('scrolled', !(overHero || overStrip));
+}
+window.addEventListener('scroll', navUpdate, { passive: true });
+window.addEventListener('resize', navUpdate);
+navUpdate();
+
+/* filmstrip → reveal — ONE pinned stage, three phases:
+   1) images glide sideways until the last one lands centered
+   2) a window grows out of that centered image (0 → 100vw)
+   3) the film scrubs inside it (seeking guard for smoothness) */
+const stripSec   = document.getElementById('strip');
+const stripTrack = document.getElementById('stripTrack');
+const stripHint  = document.getElementById('stripHint');
+const revealPanel = document.getElementById('revealPanel');
+const rvVideo    = document.getElementById('revealVid');
+const GLIDE_END  = 0.50;   // 0 → .50  filmstrip glides, last image centered
+const EXPAND_END = 0.66;   // .50 → .66 window opens; .66 → 1 scrubs
+let rvCurrent = 0, rvDur = 0;
+rvVideo.pause();
+/* same decoder warm-up as the hero video — pays the first-seek cost before it's needed */
+function warmUpReveal(){
+  rvDur = rvVideo.duration;
+  rvVideo.currentTime = 0.001;
+}
+if (rvVideo.readyState >= 1) warmUpReveal();
+else rvVideo.addEventListener('loadedmetadata', warmUpReveal, { once: true });
+
+function stripTick(){
+  const rect = stripSec.getBoundingClientRect();
+  const total = stripSec.offsetHeight - window.innerHeight;
+  const p = clamp01(-rect.top / total);
+
+  /* phase 1 — glide; last image ends centered exactly at GLIDE_END */
+  const gp = clamp01(p / GLIDE_END);
+  const last = stripTrack.lastElementChild;
+  const dist = last.offsetLeft + last.offsetWidth / 2 - window.innerWidth / 2;
+  stripTrack.style.transform = `translateX(${-gp * dist}px)`;
+
+  /* phase 2 — window grows out of the centered last image */
+  const ep = clamp01((p - GLIDE_END) / (EXPAND_END - GLIDE_END));
+  revealPanel.style.width = (ep * 100) + 'vw';
+  if (stripHint) stripHint.style.opacity = 1 - ep;
+
+  /* phase 3 — scrub the film */
+  if (rvDur){
+    const sp = clamp01((p - EXPAND_END) / (1 - EXPAND_END));
+    const tgt = sp * rvDur;
+    rvCurrent += (tgt - rvCurrent) * 0.08;
+    if (!rvVideo.seeking && Math.abs(rvVideo.currentTime - rvCurrent) > 0.01){
+      rvVideo.currentTime = rvCurrent;
+    }
+  }
+  requestAnimationFrame(stripTick);
+}
+requestAnimationFrame(stripTick);
+
+let tT;
+function addToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.style.opacity = 1;
+  clearTimeout(tT); tT = setTimeout(() => t.style.opacity = 0, 1800);
+}
+
+/* ---- bag with items + drawer ---- */
+const PRICES = { 'Obsidian Coil': 480, 'Void Arc': 560, 'Onyx Hex': 620, 'Shadow Sigil': 740, 'Eclipse Band': 820, 'Matte Skull': 950 };
+const bagItems = {};
+function renderBag(){
+  const count = Object.values(bagItems).reduce((n, q) => n + q, 0);
+  document.getElementById('bagn').textContent = count;
+  const body = document.getElementById('bp-body');
+  const names = Object.keys(bagItems);
+  if (!names.length){
+    body.innerHTML = '<p style="color:var(--gray);text-align:center;padding:40px 0;font-size:14px">Your bag is empty.</p>';
+  } else {
+    body.innerHTML = names.map(n => `
+      <div class="bp-item">
+        <span>${n}<br><small>Qty ${bagItems[n]} · $${PRICES[n]}</small></span>
+        <span style="display:flex;align-items:center;gap:12px">
+          <b>$${PRICES[n] * bagItems[n]}</b>
+          <button onclick="removeBag('${n}')" style="background:none;border:0;cursor:pointer;color:var(--gray);font-size:16px">×</button>
+        </span>
+      </div>`).join('');
+  }
+  const total = names.reduce((s, n) => s + PRICES[n] * bagItems[n], 0);
+  document.getElementById('bp-total').textContent = '$' + total;
+}
+function addBag(name){
+  bagItems[name] = (bagItems[name] || 0) + 1;
+  renderBag();
+  addToast(name + ' added to bag');
+}
+function removeBag(name){
+  delete bagItems[name];
+  renderBag();
+}
+function toggleBag(open){
+  document.getElementById('bagpanel').classList.toggle('open', open);
+  document.getElementById('bagoverlay').classList.toggle('open', open);
+}
+document.querySelector('.bag').addEventListener('click', () => toggleBag(true));
+
+/* ---- menu overlay ---- */
+function toggleMenu(open){
+  document.getElementById('menu').classList.toggle('open', open);
+}
+document.querySelector('.lines').addEventListener('click', () => toggleMenu(true));
+
+/* ---- accordion ---- */
+document.querySelectorAll('[data-acc] .acc-q').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item = btn.parentElement;
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('[data-acc]').forEach(a => a.classList.remove('open'));
+    if (!wasOpen) item.classList.add('open');
+  });
+});
+
+function slideShop(dir){
+  const s = document.getElementById('shop');
+  s.scrollBy({ left: dir * s.clientWidth / 3, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>

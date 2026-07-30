@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>POWERLIFT — Fitness & Gym</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#111;
+  --dark:#0d0d0d;
+  --dark2:#141414;
+  --pink:#f03e5e;
+  --gray:#8a8a8a;
+  --line:#e9e9e9;
+  --line-dark:#232323;
+  --head:'Montserrat',sans-serif;
+  --body:'Poppins',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--body);color:var(--ink);background:#fff;line-height:1.7;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1260px;margin:0 auto;padding:0 24px}
+.sec{padding:110px 0;position:relative}
+
+h1,h2,h3,h4{font-family:var(--head);text-transform:uppercase;line-height:1.05}
+.h-big{font-weight:900;font-size:clamp(2.2rem,5.4vw,4.4rem);letter-spacing:.5px}
+.lead{color:var(--gray);max-width:560px;font-size:15.5px}
+
+/* ghost outline word */
+.ghost{position:absolute;top:40px;left:-14px;z-index:0;font-family:var(--head);font-weight:900;text-transform:uppercase;
+  font-size:clamp(6rem,17vw,15rem);line-height:.8;color:transparent;-webkit-text-stroke:1px rgba(0,0,0,.08);pointer-events:none;user-select:none;writing-mode:vertical-rl;transform:rotate(180deg)}
+.dark .ghost{-webkit-text-stroke:1px rgba(255,255,255,.07)}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:10px;background:var(--ink);color:#fff;font-family:var(--head);font-weight:700;
+  text-transform:uppercase;letter-spacing:.14em;font-size:12px;padding:17px 34px;position:relative;border:0;cursor:pointer;transition:.25s}
+.btn::after{content:'';position:absolute;right:-6px;bottom:-6px;width:100%;height:100%;border:1px solid var(--ink);z-index:-1;transition:.25s}
+.btn:hover{background:var(--pink)}
+.btn:hover::after{border-color:var(--pink)}
+.btn.light{background:#fff;color:var(--ink)}
+.btn.light::after{border-color:#fff}
+
+/* ============ NAV ============ */
+.topnav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:flex-end;transition:.3s}
+.topnav .bar{background:rgba(13,13,13,.96);display:flex;align-items:center;gap:44px;padding:0 48px;height:76px;width:min(920px,100%)}
+.logo{position:fixed;top:16px;left:36px;z-index:101;font-family:var(--head);font-weight:900;font-size:26px;color:#fff;
+  border:2px solid #fff;width:52px;height:52px;display:grid;place-items:center;letter-spacing:-1px}
+.topnav a{color:#fff;font-family:var(--head);font-weight:600;text-transform:uppercase;letter-spacing:.22em;font-size:12px;position:relative;padding:6px 0}
+.topnav a:hover{color:var(--pink)}
+.topnav a.on::after{content:'';position:absolute;left:0;right:0;bottom:0;height:2px;background:#fff}
+.burger{margin-left:auto;display:none;background:none;border:0;cursor:pointer}
+.burger span{display:block;width:26px;height:2px;background:#fff;margin:6px 0}
+@media(max-width:900px){
+  .topnav .bar{width:100%;gap:24px;padding:0 20px}
+  .topnav a{display:none}
+  .burger{display:block}
+  .topnav.open a{display:block}
+  .topnav.open .bar{flex-direction:column;height:auto;align-items:flex-start;padding:80px 28px 30px}
+}
+
+/* ============ HERO ============ */
+.hero{height:100vh;min-height:640px;position:relative;background:var(--dark);overflow:hidden;display:flex;align-items:flex-end}
+.hero .slice{position:absolute;inset:0;background-size:cover;background-position:center}
+.hero .s1{clip-path:polygon(0 0,46% 0,32% 100%,0 100%);
+  background-image:linear-gradient(rgba(10,10,10,.45),rgba(10,10,10,.45)),url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=1400&q=80&auto=format&fit=crop')}
+.hero .s2{clip-path:polygon(46% 0,72% 0,58% 100%,32% 100%);
+  background-image:linear-gradient(rgba(10,10,10,.55),rgba(10,10,10,.55)),url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1400&q=80&auto=format&fit=crop')}
+.hero .s3{clip-path:polygon(72% 0,100% 0,100% 100%,58% 100%);
+  background-image:linear-gradient(rgba(10,10,10,.4),rgba(10,10,10,.4)),url('https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=1400&q=80&auto=format&fit=crop')}
+.hero .content{position:relative;z-index:5;width:100%;padding:0 0 90px}
+.hero h1{color:#fff;font-weight:900;font-size:clamp(2.6rem,7vw,6rem);letter-spacing:1px}
+.hero h1 em{font-style:normal;color:var(--pink)}
+.hero p{color:#cfcfcf;text-transform:uppercase;letter-spacing:.3em;font-size:12px;margin:18px 0 34px}
+
+/* ============ FITNESS / MASONRY ============ */
+.center-head{text-align:center;margin-bottom:64px}
+.center-head .lead{margin:18px auto 0;text-align:center}
+.masonry{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:150px;gap:10px}
+.masonry .tile{position:relative;overflow:hidden}
+.masonry img{width:100%;height:100%;object-fit:cover;transition:.5s}
+.masonry .tile:hover img{transform:scale(1.06)}
+.masonry .t1{grid-row:span 2}
+.masonry .t2{grid-row:span 3}
+.masonry .t3{grid-column:span 2;grid-row:span 3}
+.masonry .t4{grid-row:span 3}
+.masonry .t5{grid-row:span 2}
+.masonry .t6{grid-column:span 2;grid-row:span 2}
+@media(max-width:800px){.masonry{grid-template-columns:repeat(2,1fr)}.masonry .t3,.masonry .t6{grid-column:span 2}}
+
+/* ============ STAFF ============ */
+.dark{background:var(--dark);color:#fff}
+.staff-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:60px;margin-top:70px}
+.coach{display:flex;gap:16px}
+.coach .ph{flex:1;aspect-ratio:4/5;overflow:hidden;background:#1c1c1c}
+.coach img{width:100%;height:100%;object-fit:cover;filter:grayscale(18%);transition:.4s}
+.coach:hover img{filter:grayscale(0)}
+.coach .side{writing-mode:vertical-rl;display:flex;gap:12px;align-items:flex-start}
+.coach .side b{font-family:var(--head);font-weight:800;text-transform:uppercase;font-size:clamp(16px,1.6vw,22px);letter-spacing:.06em}
+.coach .side small{text-transform:uppercase;letter-spacing:.22em;font-size:10px;color:var(--gray)}
+@media(max-width:900px){.staff-grid{grid-template-columns:1fr;gap:44px}}
+
+/* ============ REVIEWS ============ */
+.reviews{overflow:hidden}
+.review-slide{display:none;max-width:760px}
+.review-slide.on{display:block;animation:fade .5s ease}
+@keyframes fade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.review-slide p{font-style:italic;color:#555;font-size:17px}
+.review-slide .who{margin-top:22px;display:flex;align-items:center;gap:14px}
+.review-slide .who img{width:52px;height:52px;border-radius:0;object-fit:cover}
+.review-slide .who b{font-family:var(--head);text-transform:uppercase;font-size:13px;letter-spacing:.1em}
+.review-slide .who small{display:block;color:var(--gray);font-size:11px;text-transform:uppercase;letter-spacing:.18em}
+.rev-nav{margin-top:36px;display:flex;gap:12px}
+.rev-nav button{width:46px;height:46px;border:1px solid #ccc;background:#fff;cursor:pointer;font-size:18px;transition:.2s}
+.rev-nav button:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+/* ============ BANNER ============ */
+.banner{height:46vh;min-height:320px;background:linear-gradient(rgba(10,10,10,.5),rgba(10,10,10,.5)),
+  url('https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?w=1800&q=80&auto=format&fit=crop') center/cover fixed;
+  display:grid;place-items:center;text-align:center}
+.banner h2{color:#fff;font-weight:900;font-size:clamp(1.8rem,4.5vw,3.4rem)}
+.banner .btn{margin-top:26px}
+
+/* ============ BMI ============ */
+.bmi-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:70px;align-items:start}
+.bmi-form{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:34px}
+.bmi-form input,.bmi-form select{padding:15px 16px;border:1px solid #ddd;font:inherit;font-size:14px;color:#444;width:100%;background:#fff}
+.bmi-form .full{grid-column:span 2}
+.bmi-result{margin-top:22px;font-family:var(--head);font-weight:800;font-size:20px;text-transform:uppercase;min-height:30px}
+.bmi-result span{color:var(--pink)}
+table.bmi{width:100%;border-collapse:collapse;margin-top:10px}
+table.bmi th,table.bmi td{text-align:left;padding:16px 12px;border-bottom:1px solid var(--line);font-size:14.5px}
+table.bmi th{font-family:var(--head);text-transform:uppercase;font-size:13px;letter-spacing:.08em}
+table.bmi td:first-child{border-right:1px solid var(--line)}
+@media(max-width:900px){.bmi-grid{grid-template-columns:1fr}}
+
+/* ============ TIMETABLE ============ */
+.tt-wrap{overflow-x:auto;margin-top:60px}
+.tt{display:grid;grid-template-columns:130px repeat(7,minmax(120px,1fr));border:1px solid var(--line-dark);min-width:980px}
+.tt>div{border:1px solid var(--line-dark);padding:14px 8px;text-align:center;font-size:12px;display:flex;flex-direction:column;justify-content:center;min-height:64px}
+.tt .head{font-family:var(--head);font-weight:800;text-transform:uppercase;letter-spacing:.14em;font-size:11px;background:#111}
+.tt .time{color:#bbb;letter-spacing:.06em;font-size:12px}
+.tt .cls b{font-family:var(--head);font-weight:800;text-transform:uppercase;font-size:12.5px;letter-spacing:.04em}
+.tt .cls small{color:#9a9a9a;text-transform:uppercase;font-size:9.5px;letter-spacing:.18em;margin-top:5px}
+.tt .cls:hover{background:var(--pink)}
+.tt .cls:hover small{color:#ffd6de}
+
+/* ============ FOOTER ============ */
+footer{background:#0a0a0a;color:#9a9a9a;padding:80px 0 0}
+.fcols{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:44px;padding-bottom:60px}
+footer h4{color:#fff;font-size:13px;letter-spacing:.2em;margin-bottom:22px}
+footer a{display:block;padding:5px 0;font-size:14px}
+footer a:hover{color:#fff}
+.fbot{border-top:1px solid #1d1d1d;padding:24px 0;font-size:12px;text-transform:uppercase;letter-spacing:.16em;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+@media(max-width:900px){.fcols{grid-template-columns:1fr 1fr}}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(30px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
+.rv.in{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<a class="logo" href="#top">PL</a>
+<nav class="topnav" id="nav">
+  <div class="bar">
+    <a href="#top" class="on">Home</a>
+    <a href="#fitness">About</a>
+    <a href="#staff">Staff</a>
+    <a href="#reviews">Reviews</a>
+    <a href="#bmi">BMI</a>
+    <a href="#timetable">Timetable</a>
+    <a href="#contact">Contact</a>
+    <button class="burger" onclick="document.getElementById('nav').classList.toggle('open')" aria-label="menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="top">
+  <div class="slice s1"></div>
+  <div class="slice s2"></div>
+  <div class="slice s3"></div>
+  <div class="wrap content">
+    <p class="rv">Functional Fitness · Strength · Conditioning</p>
+    <h1 class="rv">Train Hard.<br>Live <em>Strong.</em></h1>
+    <div class="rv" style="margin-top:36px">
+      <a class="btn" href="#bmi">Get Started</a>
+    </div>
+  </div>
+</header>
+
+<!-- FITNESS -->
+<section class="sec" id="fitness">
+  <div class="wrap">
+    <div class="center-head rv">
+      <h2 class="h-big">What Is Functional<br>Fitness All About</h2>
+      <p class="lead">Real-world strength built with compound movement, smart programming and coaching that meets you at your level — from first session to competition day.</p>
+    </div>
+    <div class="masonry rv">
+      <div class="tile t1"><img src="https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=800&q=80&auto=format&fit=crop" alt="barbell"></div>
+      <div class="tile t2"><img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&q=80&auto=format&fit=crop" alt="training"></div>
+      <div class="tile t3"><img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=1200&q=80&auto=format&fit=crop" alt="workout"></div>
+      <div class="tile t4"><img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&q=80&auto=format&fit=crop" alt="kettlebell"></div>
+      <div class="tile t5"><img src="https://images.unsplash.com/photo-1549060279-7e168fcee0c2?w=800&q=80&auto=format&fit=crop" alt="weights"></div>
+      <div class="tile t6"><img src="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=1200&q=80&auto=format&fit=crop" alt="gym floor"></div>
+    </div>
+  </div>
+</section>
+
+<!-- STAFF -->
+<section class="sec dark" id="staff">
+  <span class="ghost">Staff</span>
+  <div class="wrap" style="position:relative;z-index:2">
+    <div class="center-head rv">
+      <h2 class="h-big">Meet The Coaches</h2>
+      <p class="lead" style="margin:18px auto 0">Certified, obsessed with form, and personally invested in every member's progress.</p>
+    </div>
+    <div class="staff-grid">
+      <div class="coach rv">
+        <div class="ph"><img src="https://images.unsplash.com/photo-1567013127542-490d757e51fc?w=700&q=80&auto=format&fit=crop" alt="coach"></div>
+        <div class="side"><small>Crossfit Coach</small><b>Marcus Bell</b></div>
+      </div>
+      <div class="coach rv">
+        <div class="ph"><img src="https://images.unsplash.com/photo-1550345332-09e3ac987658?w=700&q=80&auto=format&fit=crop" alt="coach"></div>
+        <div class="side"><small>Cardio & Conditioning</small><b>Dana Reyes</b></div>
+      </div>
+      <div class="coach rv">
+        <div class="ph"><img src="https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=700&q=80&auto=format&fit=crop" alt="coach"></div>
+        <div class="side"><small>Bodybuilding Coach</small><b>Viktor Hale</b></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="sec reviews" id="reviews">
+  <span class="ghost" style="writing-mode:horizontal-tb;transform:none;top:auto;bottom:20px;left:auto;right:-10px">&rdquo;</span>
+  <div class="wrap" style="position:relative;z-index:2">
+    <h2 class="h-big rv" style="margin-bottom:48px">Reviews From You</h2>
+    <div class="review-slide on">
+      <p>"Six months in and I've dropped 12&nbsp;kg while adding 40&nbsp;kg to my deadlift. The coaches actually watch every rep — this place changed how I think about training."</p>
+      <div class="who">
+        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&q=80&auto=format&fit=crop" alt="">
+        <div><b>Sarah K.</b><small>Member · 6 months</small></div>
+      </div>
+    </div>
+    <div class="review-slide">
+      <p>"I came for the open gym, stayed for the community. The timetable makes it easy to mix powerlifting with cardio burn sessions around my shifts."</p>
+      <div class="who">
+        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&q=80&auto=format&fit=crop" alt="">
+        <div><b>Adil R.</b><small>Member · 1 year</small></div>
+      </div>
+    </div>
+    <div class="review-slide">
+      <p>"As a complete beginner I was intimidated by barbells. Two months of coaching later I squat with confidence. Best decision I made this year."</p>
+      <div class="who">
+        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&q=80&auto=format&fit=crop" alt="">
+        <div><b>Elena M.</b><small>Member · 2 months</small></div>
+      </div>
+    </div>
+    <div class="rev-nav">
+      <button onclick="revStep(-1)" aria-label="prev">&#8592;</button>
+      <button onclick="revStep(1)" aria-label="next">&#8594;</button>
+    </div>
+  </div>
+</section>
+
+<!-- BANNER -->
+<section class="banner">
+  <div class="rv">
+    <h2>Your Only Limit Is You</h2>
+    <a class="btn light" href="#contact">Join The Gym</a>
+  </div>
+</section>
+
+<!-- BMI -->
+<section class="sec" id="bmi">
+  <span class="ghost">Body</span>
+  <div class="wrap bmi-grid" style="position:relative;z-index:2">
+    <div class="rv">
+      <h2 class="h-big">What Is BMI</h2>
+      <p class="lead" style="margin-top:18px">Body Mass Index is a quick starting point — enter your numbers and see where you stand, then let a coach build the plan.</p>
+      <form class="bmi-form" onsubmit="calcBMI(event)">
+        <input id="bmi-h" type="number" min="80" max="250" placeholder="Height / cm" required>
+        <input id="bmi-w" type="number" min="20" max="300" placeholder="Weight / kg" required>
+        <input id="bmi-a" type="number" min="10" max="100" placeholder="Age">
+        <select id="bmi-g"><option value="">Gender</option><option>Female</option><option>Male</option></select>
+        <div class="full"><button class="btn" type="submit">Calculate &#9998;</button></div>
+      </form>
+      <div class="bmi-result" id="bmi-out"></div>
+    </div>
+    <div class="rv">
+      <table class="bmi">
+        <tr><th>BMI</th><th>Weight Status</th></tr>
+        <tr><td>Below 18.5</td><td>Underweight</td></tr>
+        <tr><td>18.5 – 24.9</td><td>Healthy</td></tr>
+        <tr><td>25.0 – 29.9</td><td>Overweight</td></tr>
+        <tr><td>30.0 – and above</td><td>Obese</td></tr>
+      </table>
+      <p style="margin-top:16px;font-size:13px;color:var(--gray)"><b style="color:var(--ink)">BMR</b> Metabolic Rate / <b style="color:var(--ink)">BMI</b> Body Mass Index</p>
+    </div>
+  </div>
+</section>
+
+<!-- TIMETABLE -->
+<section class="sec dark" id="timetable">
+  <span class="ghost">Timetable</span>
+  <div class="wrap" style="position:relative;z-index:2">
+    <div class="center-head rv">
+      <h2 class="h-big">Weekly Timetable</h2>
+    </div>
+    <div class="tt-wrap rv">
+      <div class="tt" id="tt"></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="contact">
+  <div class="wrap fcols">
+    <div>
+      <h4>Powerlift</h4>
+      <p style="font-size:14px;max-width:300px">Strength and conditioning gym built around coaching, community and consistent progress. First session is on us.</p>
+    </div>
+    <div>
+      <h4>Visit</h4>
+      <a href="#">12 Iron Street, Industrial District</a>
+      <a href="#">Mon–Sat · 06:00 – 22:00</a>
+      <a href="#">Sunday · 08:00 – 14:00</a>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <a href="tel:+10000000000">+1 000 000 0000</a>
+      <a href="mailto:train@powerlift.fit">train@powerlift.fit</a>
+    </div>
+    <div>
+      <h4>Follow</h4>
+      <a href="#">Instagram</a>
+      <a href="#">YouTube</a>
+      <a href="#">Facebook</a>
+    </div>
+  </div>
+  <div class="wrap fbot">
+    <span>© 2026 Powerlift Demo</span>
+    <span>Original build — inspired layout, free imagery</span>
+  </div>
+</footer>
+
+<script>
+/* reveal on scroll */
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .12 });
+document.querySelectorAll('.rv').forEach(el => io.observe(el));
+
+/* reviews slider */
+let rIdx = 0;
+function revStep(d){
+  const s = document.querySelectorAll('.review-slide');
+  s[rIdx].classList.remove('on');
+  rIdx = (rIdx + d + s.length) % s.length;
+  s[rIdx].classList.add('on');
+}
+setInterval(() => revStep(1), 7000);
+
+/* BMI calculator */
+function calcBMI(e){
+  e.preventDefault();
+  const h = +document.getElementById('bmi-h').value / 100;
+  const w = +document.getElementById('bmi-w').value;
+  if (!h || !w) return;
+  const bmi = w / (h * h);
+  let status = 'Underweight';
+  if (bmi >= 18.5) status = 'Healthy';
+  if (bmi >= 25) status = 'Overweight';
+  if (bmi >= 30) status = 'Obese';
+  document.getElementById('bmi-out').innerHTML = `Your BMI: <span>${bmi.toFixed(1)}</span> — ${status}`;
+}
+
+/* timetable build */
+const days = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+const times = ['06:00 - 07:00','07:00 - 08:00','08:00 - 09:00','09:00 - 10:00','10:00 - 11:00','12:00 - 13:00','18:00 - 19:00','19:00 - 20:00','20:00 - 21:00'];
+const C = (n, t) => ({ n, t });
+const plan = {
+  'Mon': { 0: C('Open Gym',''), 2: C('Power Lifting','Marcus Bell'), 5: C('Cardio Burn','Dana Reyes'), 6: C('Crossfit Class','Marcus Bell'), 8: C('Cardio Burn','Dana Reyes') },
+  'Tue': { 1: C('Crossfit Class','Marcus Bell'), 3: C('Open Gym',''), 7: C('Power Lifting','Viktor Hale') },
+  'Wed': { 2: C('Power Lifting','Viktor Hale'), 5: C('Cardio Burn','Dana Reyes'), 6: C('Open Gym','') },
+  'Thu': { 0: C('Crossfit Class','Marcus Bell'), 4: C('Open Gym',''), 8: C('Cardio Burn','Dana Reyes') },
+  'Fri': { 2: C('Power Lifting','Viktor Hale'), 4: C('Open Gym',''), 5: C('Crossfit Class','Marcus Bell') },
+  'Sat': { 1: C('Cardio Burn','Dana Reyes'), 4: C('Open Gym',''), 5: C('Crossfit Class','Marcus Bell') },
+  'Sun': { 1: C('Open Gym',''), 5: C('Crossfit Class','Marcus Bell') },
+};
+const tt = document.getElementById('tt');
+let html = '<div class="head"></div>' + days.map(d => `<div class="head">${d}</div>`).join('');
+times.forEach((time, ti) => {
+  html += `<div class="time">${time}</div>`;
+  days.forEach(d => {
+    const c = plan[d][ti];
+    html += c ? `<div class="cls"><b>${c.n}</b>${c.t ? `<small>${c.t}</small>` : ''}</div>` : '<div></div>';
+  });
+});
+tt.innerHTML = html;
+</script>
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>THE MERIDIAN — Sixty Floors Above Everything</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@200;300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=2">
+</head>
+<body>
+
+<!-- ═══ NAV ═══ -->
+<nav class="nav" id="nav">
+  <div class="nav-logo">THE&nbsp;MERIDIAN</div>
+  <div class="nav-right">
+    <span class="nav-price">$12,500,000</span>
+    <a href="#showing" class="nav-cta">Private Showing</a>
+  </div>
+</nav>
+
+<!-- ═══ TOUR PROGRESS RAIL (fixed) ═══ -->
+<aside class="tour-rail" id="tourRail" aria-hidden="true">
+  <div class="rail-line"><div class="rail-fill" id="railFill"></div></div>
+  <ul class="rail-stops">
+    <li class="rail-stop" data-stop="0"><span class="stop-dot"></span><span class="stop-label">The Approach</span></li>
+    <li class="rail-stop" data-stop="1"><span class="stop-dot"></span><span class="stop-label">The Arrival</span></li>
+    <li class="rail-stop" data-stop="2"><span class="stop-dot"></span><span class="stop-label">The Flow</span></li>
+    <li class="rail-stop" data-stop="3"><span class="stop-dot"></span><span class="stop-label">The Terrace</span></li>
+  </ul>
+</aside>
+
+<!-- ═══ HERO ═══ -->
+<header class="hero">
+  <div class="hero-media">
+    <img src="assets/hero.jpg" alt="The Meridian tower at dusk" class="hero-img" id="heroImg">
+    <div class="hero-veil"></div>
+  </div>
+  <div class="hero-content">
+    <p class="hero-kicker reveal">Penthouse 60 · The Meridian · New York</p>
+    <h1 class="hero-title">
+      <span class="line"><span>Sixty floors</span></span>
+      <span class="line"><span>above <em>everything</em></span></span>
+    </h1>
+    <p class="hero-sub reveal">A single residence crowning the city's most graceful tower.</p>
+  </div>
+  <div class="hero-scroll">
+    <span>Begin the tour</span>
+    <div class="scroll-line"></div>
+  </div>
+</header>
+
+<!-- ═══ FACTS STRIP ═══ -->
+<section class="facts">
+  <div class="facts-inner">
+    <div class="fact reveal"><span class="fact-num">4</span><span class="fact-label">Bedrooms</span></div>
+    <div class="fact-div"></div>
+    <div class="fact reveal"><span class="fact-num">5.5</span><span class="fact-label">Bathrooms</span></div>
+    <div class="fact-div"></div>
+    <div class="fact reveal"><span class="fact-num">7,200</span><span class="fact-label">Square Feet</span></div>
+    <div class="fact-div"></div>
+    <div class="fact reveal"><span class="fact-num">Private</span><span class="fact-label">Elevator</span></div>
+  </div>
+</section>
+
+<!-- ═══ SCROLL-SCRUB TOUR ═══ -->
+<section class="tour" id="tour">
+  <div class="tour-sticky">
+    <video id="tourVideo" class="tour-video" muted playsinline preload="auto" src="assets/tour.mp4"></video>
+    <div class="tour-grain"></div>
+    <div class="tour-caption" id="tourCaption">
+      <span class="caption-roman" id="captionRoman">I</span>
+      <span class="caption-name" id="captionName">The Approach</span>
+      <span class="caption-desc" id="captionDesc">Dusk. The city ignites beneath you.</span>
+    </div>
+    <!-- loader: holds the tour until the full film is downloaded, so scrubbing is smooth the first time -->
+    <div class="tour-loader" id="tourLoader">
+      <div class="tour-loader-inner">
+        <span class="tour-loader-kicker">The Meridian · Private Tour</span>
+        <div class="tour-loader-bar"><div class="tour-loader-fill" id="tourLoaderFill"></div></div>
+        <span class="tour-loader-label">Preparing your ascent…</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ INTERLUDE ═══ -->
+<section class="interlude">
+  <p class="interlude-text reveal">Every surface, every sightline, every hour of light —<br>composed as one continuous work.</p>
+</section>
+
+<!-- ═══ GALLERY ═══ -->
+<section class="gallery" id="gallery">
+  <div class="section-head reveal">
+    <span class="section-kicker">The Residence</span>
+    <h2 class="section-title">A gallery of moments</h2>
+  </div>
+  <div class="gallery-grid">
+    <figure class="g-item g-wide reveal"><img src="assets/gal-1.jpg" alt="The tower at dusk" loading="lazy"><figcaption>The crown at blue hour</figcaption></figure>
+    <figure class="g-item reveal"><img src="assets/gal-2.jpg" alt="Living room" loading="lazy"><figcaption>The great room</figcaption></figure>
+    <figure class="g-item reveal"><img src="assets/gal-3.jpg" alt="Chef's kitchen" loading="lazy"><figcaption>Chef's kitchen</figcaption></figure>
+    <figure class="g-item reveal"><img src="assets/gal-4.jpg" alt="Primary suite" loading="lazy"><figcaption>Primary suite</figcaption></figure>
+    <figure class="g-item g-wide reveal"><img src="assets/gal-5.jpg" alt="Terrace and infinity pool" loading="lazy"><figcaption>The terrace, sixty floors up</figcaption></figure>
+  </div>
+</section>
+
+<!-- ═══ AMENITIES ═══ -->
+<section class="amenities">
+  <div class="section-head reveal">
+    <span class="section-kicker">Appointments</span>
+    <h2 class="section-title">Considered without compromise</h2>
+  </div>
+  <ul class="amenity-list">
+    <li class="amenity reveal"><span class="a-index">01</span><span class="a-name">Wraparound terrace with infinity-edge pool</span></li>
+    <li class="amenity reveal"><span class="a-index">02</span><span class="a-name">Direct private elevator entry</span></li>
+    <li class="amenity reveal"><span class="a-index">03</span><span class="a-name">Floor-to-ceiling glass on all four exposures</span></li>
+    <li class="amenity reveal"><span class="a-index">04</span><span class="a-name">Calacatta Oro marble throughout</span></li>
+    <li class="amenity reveal"><span class="a-index">05</span><span class="a-name">Chef's kitchen by Officine Gullo</span></li>
+    <li class="amenity reveal"><span class="a-index">06</span><span class="a-name">Gas fireplace with honed basalt surround</span></li>
+    <li class="amenity reveal"><span class="a-index">07</span><span class="a-name">Primary suite with dual dressing galleries</span></li>
+    <li class="amenity reveal"><span class="a-index">08</span><span class="a-name">Full-floor smart home &amp; concierge service</span></li>
+  </ul>
+</section>
+
+<!-- ═══ PRICE ═══ -->
+<section class="price">
+  <div class="price-inner">
+    <span class="price-kicker reveal">Offered at</span>
+    <h2 class="price-figure" id="priceFigure">$12,500,000</h2>
+    <p class="price-note reveal">Penthouse 60 · Approximately $1,736 per square foot</p>
+  </div>
+</section>
+
+<!-- ═══ SHOWING / FORM ═══ -->
+<section class="showing" id="showing">
+  <div class="showing-grid">
+    <div class="agent-card reveal">
+      <div class="agent-photo"><span>AV</span></div>
+      <div class="agent-info">
+        <span class="agent-name">Alexandra Voss</span>
+        <span class="agent-title">Director, Tower Residences</span>
+        <span class="agent-firm">Meridian Private Brokerage</span>
+        <a class="agent-line" href="tel:+12125550160">+1 212 555 0160</a>
+        <a class="agent-line" href="mailto:av@meridianprivate.com">av@meridianprivate.com</a>
+      </div>
+    </div>
+    <div class="form-wrap reveal">
+      <span class="section-kicker">By appointment only</span>
+      <h2 class="section-title">Request a private showing</h2>
+      <form class="showing-form" id="showingForm">
+        <div class="field"><input type="text" id="fName" required placeholder=" "><label for="fName">Full name</label></div>
+        <div class="field"><input type="email" id="fEmail" required placeholder=" "><label for="fEmail">Email</label></div>
+        <div class="field"><input type="tel" id="fPhone" placeholder=" "><label for="fPhone">Phone</label></div>
+        <div class="field"><textarea id="fMsg" rows="3" placeholder=" "></textarea><label for="fMsg">Preferred date &amp; notes</label></div>
+        <button type="submit" class="form-submit"><span>Request Showing</span></button>
+        <p class="form-done" id="formDone">Thank you. Alexandra will be in touch within the hour.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <span class="footer-logo">THE&nbsp;MERIDIAN</span>
+  <span class="footer-fine">Penthouse 60 · New York · Exclusive listing of Meridian Private Brokerage. All renderings are artist's impressions.</span>
+</footer>
+
+<script src="main.js?v=2"></script>
+</body>
+</html>
