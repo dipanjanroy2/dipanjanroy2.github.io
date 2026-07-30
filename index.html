@@ -98,33 +98,42 @@
   /* FEATURED — Vidbold spotlight */
   .featured{padding:1.5rem 0 clamp(3rem,6vw,5rem);}
   .feat-card{position:relative;border-radius:22px;overflow:hidden;border:1px solid rgba(201,161,90,.28);
-    background:var(--ink2);box-shadow:0 40px 100px -40px rgba(201,161,90,.18);}
-  .feat-media{position:relative;aspect-ratio:16/8;overflow:hidden;background:#0d0d10;}
-  .feat-media video,.feat-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
-  .feat-media::after{content:'';position:absolute;inset:0;
-    background:linear-gradient(100deg,rgba(10,10,13,.96) 0%,rgba(10,10,13,.85) 32%,rgba(10,10,13,.35) 62%,transparent 85%),
-                linear-gradient(0deg,rgba(10,10,13,.6),transparent 40%);}
-  .feat-content{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;
-    padding:clamp(1.8rem,5vw,4rem);max-width:640px;}
+    background:linear-gradient(150deg,#141019 0%,var(--ink2) 55%);
+    box-shadow:0 40px 100px -40px rgba(201,161,90,.18);
+    padding:clamp(2rem,4.5vw,3.5rem);display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(2rem,4vw,3.5rem);align-items:center;}
+  .feat-card::before{content:'';position:absolute;top:-30%;right:-10%;width:60%;height:150%;pointer-events:none;
+    background:radial-gradient(ellipse at center,rgba(139,92,246,.16),transparent 65%);}
+  .feat-left{position:relative;z-index:2;}
   .feat-badge{display:inline-flex;align-items:center;gap:.5rem;width:fit-content;font-size:.66rem;letter-spacing:.18em;
     text-transform:uppercase;color:var(--accent);border:1px solid rgba(201,161,90,.35);background:rgba(201,161,90,.08);
-    padding:.4rem .85rem;border-radius:100px;margin-bottom:1.2rem;}
+    padding:.4rem .85rem;border-radius:100px;margin-bottom:1.3rem;}
   .feat-badge .dot{width:6px;height:6px;border-radius:50%;background:#3ddc84;box-shadow:0 0 8px #3ddc84;}
-  .feat-content h3{font-family:var(--serif);font-size:clamp(2rem,4.5vw,3.2rem);font-weight:400;line-height:1.05;margin-bottom:.7rem;}
-  .feat-content h3 em{font-style:italic;color:var(--accent);}
-  .feat-quote{font-family:var(--serif);font-style:italic;font-size:clamp(1rem,1.6vw,1.2rem);color:var(--bone);
-    opacity:.92;margin-bottom:.9rem;}
-  .feat-content p.desc{color:var(--dim);font-size:clamp(.88rem,1.2vw,1rem);line-height:1.7;margin-bottom:1.4rem;max-width:34rem;}
-  .feat-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.8rem;}
-  .feat-tags span{font-size:.72rem;color:var(--bone);border:1px solid var(--line);background:rgba(255,255,255,.03);
-    padding:.35rem .8rem;border-radius:6px;}
+  .feat-left h3{font-family:var(--serif);font-size:clamp(1.9rem,3.8vw,2.9rem);font-weight:400;line-height:1.06;margin-bottom:.8rem;}
+  .feat-left h3 em{font-style:italic;color:var(--accent);}
+  .feat-what{color:var(--dim);font-size:clamp(.9rem,1.25vw,1.02rem);line-height:1.75;margin-bottom:1.5rem;}
+  .feat-what b{color:var(--bone);font-weight:500;}
+  .feat-flow{display:flex;align-items:center;flex-wrap:wrap;gap:.5rem;margin-bottom:1.7rem;
+    font-size:.74rem;letter-spacing:.04em;}
+  .feat-flow span{border:1px solid var(--line);background:rgba(255,255,255,.03);padding:.4rem .8rem;border-radius:6px;color:var(--bone);}
+  .feat-flow i{font-style:normal;color:var(--accent);opacity:.7;}
+  .feat-flow .out{border-color:rgba(201,161,90,.4);background:rgba(201,161,90,.1);color:var(--accent);}
   .feat-cta{display:inline-flex;align-items:center;gap:.5rem;width:fit-content;font-size:.85rem;font-weight:500;
     background:var(--accent);color:var(--ink);padding:.85rem 1.6rem;border-radius:100px;transition:.25s;}
   .feat-cta:hover{background:#e0b876;transform:translateY(-2px);}
-  @media (max-width:760px){
-    .feat-media{aspect-ratio:auto;min-height:560px;}
-    .feat-media::after{background:linear-gradient(180deg,rgba(10,10,13,.55) 0%,rgba(10,10,13,.75) 45%,rgba(10,10,13,.98) 78%);}
-    .feat-content{justify-content:flex-end;max-width:none;padding:2rem 1.5rem 2.2rem;}
+
+  .feat-right{position:relative;z-index:2;}
+  .feat-benefits{display:flex;flex-direction:column;gap:.9rem;margin-bottom:1.6rem;}
+  .ben{display:flex;gap:.85rem;align-items:flex-start;}
+  .ben-ico{flex-shrink:0;width:30px;height:30px;border-radius:8px;display:grid;place-items:center;
+    background:rgba(201,161,90,.1);border:1px solid rgba(201,161,90,.25);color:var(--accent);font-size:.82rem;}
+  .ben-txt strong{display:block;font-size:.9rem;font-weight:500;color:var(--bone);margin-bottom:.12rem;}
+  .ben-txt span{font-size:.8rem;color:var(--dim);line-height:1.55;}
+  .feat-stats{display:flex;gap:1.6rem;flex-wrap:wrap;padding-top:1.3rem;border-top:1px solid var(--line);}
+  .feat-stats div .n{font-family:var(--serif);font-size:1.4rem;color:var(--accent);}
+  .feat-stats div .l{font-size:.68rem;color:var(--dim);letter-spacing:.08em;text-transform:uppercase;}
+
+  @media (max-width:880px){
+    .feat-card{grid-template-columns:1fr;gap:2rem;}
   }
 </style>
 </head>
@@ -152,15 +161,39 @@
 
 <section class="featured wrap">
   <a class="feat-card reveal" href="https://vidbold.io/" target="_blank" rel="noopener">
-    <div class="feat-media">
-      <video src="https://boldgrowai.com/showcase/work-vidbold.mp4" autoplay muted loop playsinline preload="metadata"></video>
-      <div class="feat-content">
-        <span class="feat-badge"><span class="dot"></span>Featured · Live SaaS Product</span>
-        <h3>Vidbold — the <em>AI video studio</em>, shipped.</h3>
-        <p class="feat-quote">"Type a prompt. Get a branded video."</p>
-        <p class="desc">Not a concept — a real, live product I designed and built end-to-end: scripts, AI voiceover, B-roll, and captions, automated for founders, marketers and agencies.</p>
-        <div class="feat-tags"><span>AI Video</span><span>SaaS</span><span>Automation</span><span>Live Product</span></div>
-        <span class="feat-cta">Visit vidbold.io ↗</span>
+    <div class="feat-left">
+      <span class="feat-badge"><span class="dot"></span>Featured · Live SaaS Product</span>
+      <h3>Vidbold — the <em>AI video studio</em> I built and shipped.</h3>
+      <p class="feat-what">Not a concept build. A real product people use: you <b>type an idea</b> — or drop a website, a screen recording, even an existing viral video — and Vidbold returns a <b>finished, branded short-form video</b> with AI voiceover, captions, B-roll and music. No timeline, no editing skills.</p>
+      <div class="feat-flow">
+        <span>Prompt</span><i>→</i><span>Script</span><i>→</i><span>Voiceover</span><i>→</i><span>B-roll + Captions</span><i>→</i><span class="out">Ready to post</span>
+      </div>
+      <span class="feat-cta">Visit vidbold.io ↗</span>
+    </div>
+
+    <div class="feat-right">
+      <div class="feat-benefits">
+        <div class="ben">
+          <span class="ben-ico">⚡</span>
+          <span class="ben-txt"><strong>Idea to posted reel in minutes</strong><span>What used to be a full editing session is now one prompt and a render.</span></span>
+        </div>
+        <div class="ben">
+          <span class="ben-ico">◆</span>
+          <span class="ben-txt"><strong>On-brand every single time</strong><span>Set your logo, colours and fonts once — every reel comes out matching.</span></span>
+        </div>
+        <div class="ben">
+          <span class="ben-ico">▶</span>
+          <span class="ben-txt"><strong>Native 9:16, 1:1 and 16:9</strong><span>Post straight to Reels, TikTok and Shorts — no re-cropping.</span></span>
+        </div>
+        <div class="ben">
+          <span class="ben-ico">✎</span>
+          <span class="ben-txt"><strong>You stay in control</strong><span>Edit the AI script and narration per scene, then re-render as often as you like.</span></span>
+        </div>
+      </div>
+      <div class="feat-stats">
+        <div><div class="n">21</div><div class="l">Languages</div></div>
+        <div><div class="n">15–60s</div><div class="l">Video lengths</div></div>
+        <div><div class="n">0</div><div class="l">Editing skills needed</div></div>
       </div>
     </div>
   </a>
