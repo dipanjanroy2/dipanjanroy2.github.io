@@ -465,16 +465,46 @@ let targetTime = 0;        // where the scroll says the film should be
 let currentTime = 0;       // smoothed playhead we actually apply
 let heroDuration = 0;
 
-video.pause();
-/* warm up the decoder now, before the user scrolls — the first-ever seek on a fresh
-   video pays a one-time cold-start cost; doing it here (during idle load) instead of
-   on the user's first scroll frame is what removes the felt "late start" lag */
-function warmUpHero(){
-  heroDuration = video.duration;
-  video.currentTime = 0.001;
+/* Touch devices can't scroll-scrub reliably: iOS throttles currentTime seeks during
+   scroll momentum and mobile decoders are slow at arbitrary seeks, so the film ends up
+   frozen or stuttering. On touch we let the film simply play on loop instead — real
+   motion beats a stuck frame. Scroll-driven captions/layout still run everywhere. */
+const IS_TOUCH = window.matchMedia('(hover: none) and (pointer: coarse)').matches
+              || 'ontouchstart' in window
+              || window.innerWidth < 900;
+
+function playAmbient(v){
+  v.loop = true;
+  v.muted = true;                 // required for autoplay on iOS/Android
+  v.setAttribute('playsinline','');
+  const go = () => { if (v.paused) v.play().catch(() => {}); };
+
+  go();                                        // try immediately
+  v.addEventListener('loadeddata', go);        // ...and once there are frames
+  v.addEventListener('canplay', go);
+  /* if the browser refuses autoplay until a gesture, the user's first
+     touch/scroll/tap starts it — one of these always fires on a real phone */
+  ['touchstart','pointerdown','click','scroll'].forEach(ev =>
+    document.addEventListener(ev, go, { once: true, passive: true }));
+  /* and kick it again whenever the film scrolls back into view */
+  new IntersectionObserver(es => es.forEach(e => e.isIntersecting ? go() : v.pause()),
+    { threshold: 0.1 }).observe(v);
 }
-if (video.readyState >= 1) warmUpHero();
-else video.addEventListener('loadedmetadata', warmUpHero, { once: true });
+
+if (IS_TOUCH) {
+  playAmbient(video);
+} else {
+  video.pause();
+  /* warm up the decoder now, before the user scrolls — the first-ever seek on a fresh
+     video pays a one-time cold-start cost; doing it here (during idle load) instead of
+     on the user's first scroll frame is what removes the felt "late start" lag */
+  function warmUpHero(){
+    heroDuration = video.duration;
+    video.currentTime = 0.001;
+  }
+  if (video.readyState >= 1) warmUpHero();
+  else video.addEventListener('loadedmetadata', warmUpHero, { once: true });
+}
 
 function heroCaption(p){
   /* headline + pill hold, then melt away as the macro takes over */
@@ -488,7 +518,7 @@ function heroTick(){
   const vh = window.innerHeight;
   const p = clamp01(window.scrollY / (heroSec.offsetHeight - vh));   // 0 → 1 across the pinned stage
   heroCaption(p);
-  if (heroDuration){
+  if (heroDuration && !IS_TOUCH){
     targetTime = p * heroDuration;
     /* smooth interpolation toward the scroll target */
     currentTime += (targetTime - currentTime) * 0.08;
@@ -526,14 +556,18 @@ const rvVideo    = document.getElementById('revealVid');
 const GLIDE_END  = 0.50;   // 0 → .50  filmstrip glides, last image centered
 const EXPAND_END = 0.66;   // .50 → .66 window opens; .66 → 1 scrubs
 let rvCurrent = 0, rvDur = 0;
-rvVideo.pause();
-/* same decoder warm-up as the hero video — pays the first-seek cost before it's needed */
-function warmUpReveal(){
-  rvDur = rvVideo.duration;
-  rvVideo.currentTime = 0.001;
+if (IS_TOUCH) {
+  playAmbient(rvVideo);          // touch: loop the film instead of scrubbing it
+} else {
+  rvVideo.pause();
+  /* same decoder warm-up as the hero video — pays the first-seek cost before it's needed */
+  function warmUpReveal(){
+    rvDur = rvVideo.duration;
+    rvVideo.currentTime = 0.001;
+  }
+  if (rvVideo.readyState >= 1) warmUpReveal();
+  else rvVideo.addEventListener('loadedmetadata', warmUpReveal, { once: true });
 }
-if (rvVideo.readyState >= 1) warmUpReveal();
-else rvVideo.addEventListener('loadedmetadata', warmUpReveal, { once: true });
 
 function stripTick(){
   const rect = stripSec.getBoundingClientRect();
@@ -551,8 +585,8 @@ function stripTick(){
   revealPanel.style.width = (ep * 100) + 'vw';
   if (stripHint) stripHint.style.opacity = 1 - ep;
 
-  /* phase 3 — scrub the film */
-  if (rvDur){
+  /* phase 3 — scrub the film (desktop only; touch plays it on loop) */
+  if (rvDur && !IS_TOUCH){
     const sp = clamp01((p - EXPAND_END) / (1 - EXPAND_END));
     const tgt = sp * rvDur;
     rvCurrent += (tgt - rvCurrent) * 0.08;
