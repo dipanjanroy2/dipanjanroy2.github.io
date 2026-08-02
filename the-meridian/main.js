@@ -151,3 +151,108 @@ requestAnimationFrame(frame);
 /* also update on scroll + seek completion so the scrub keeps pace even if rAF is throttled */
 addEventListener('scroll', update, { passive: true });
 video.addEventListener('seeked', update);
+
+/* ═══════════ GOOEY TEXT REVEAL ═══════════
+   Splits a block into visual lines, wraps each line in a filtered layer, then
+   animates the inner blur out on scroll. Lines are found by measuring where
+   words actually wrap, so it re-splits correctly on resize. */
+(() => {
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const targets = [...document.querySelectorAll('[data-gooey]')];
+  if (!targets.length) return;
+
+  /* wrap every word (and honour <br> / inline tags like <em>) in measurable spans */
+  function tokenize(el) {
+    const out = [];
+    const walk = (node, inherited) => {
+      node.childNodes.forEach(child => {
+        if (child.nodeType === 3) {
+          child.textContent.split(/(\s+)/).forEach(part => {
+            if (!part.length) return;
+            if (/^\s+$/.test(part)) { out.push({ space: true }); return; }
+            const s = document.createElement('span');
+            s.className = 'gooey-w';
+            s.style.display = 'inline-block';
+            s.textContent = part;
+            out.push({ node: inherited ? inherited.cloneNode(false) : null, span: s });
+          });
+        } else if (child.nodeName === 'BR') {
+          out.push({ br: true });
+        } else if (child.nodeType === 1) {
+          walk(child, child);          // e.g. <em> — remember it so we can re-wrap
+        }
+      });
+    };
+    walk(el, null);
+    return out;
+  }
+
+  function build(el) {
+    if (!el.dataset.gooeyHtml) el.dataset.gooeyHtml = el.innerHTML;
+    else el.innerHTML = el.dataset.gooeyHtml;         // restore before re-splitting
+
+    const tokens = tokenize(el);
+    el.innerHTML = '';
+    const frag = document.createDocumentFragment();
+    tokens.forEach(t => {
+      if (t.space) { frag.appendChild(document.createTextNode(' ')); return; }
+      if (t.br) { frag.appendChild(document.createElement('br')); return; }
+      if (t.node) { t.node.appendChild(t.span); frag.appendChild(t.node); }
+      else frag.appendChild(t.span);
+    });
+    el.appendChild(frag);
+
+    /* group words into lines by their vertical position */
+    const words = [...el.querySelectorAll('.gooey-w')];
+    if (!words.length) return;
+    const lines = [];
+    let top = null;
+    words.forEach(w => {
+      const t = Math.round(w.offsetTop);
+      if (top === null || Math.abs(t - top) > 4) { lines.push([]); top = t; }
+      lines[lines.length - 1].push(w.parentNode === el ? w : w.parentNode);
+    });
+
+    /* rebuild as line > inner > words */
+    const out = document.createDocumentFragment();
+    lines.forEach((items, i) => {
+      const line = document.createElement('span');
+      line.className = 'gooey-line';
+      const inner = document.createElement('span');
+      inner.className = 'gooey-inner';
+      inner.style.setProperty('--gi', i);
+      items.forEach((item, j) => {
+        if (j) inner.appendChild(document.createTextNode(' '));
+        inner.appendChild(item);
+      });
+      line.appendChild(inner);
+      out.appendChild(line);
+      /* keep a real space between lines so copy-paste and screen readers
+         don't run the last word of one line into the first of the next */
+      if (i < lines.length - 1) out.appendChild(document.createTextNode(' '));
+    });
+    el.innerHTML = '';
+    el.appendChild(out);
+    el.classList.add('gooey');
+  }
+
+  targets.forEach(build);
+
+  if (reduce) { targets.forEach(t => t.classList.add('in')); return; }
+
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.25, rootMargin: '0px 0px -8% 0px' });
+  targets.forEach(t => io.observe(t));
+
+  /* re-split on resize (line breaks move); keep the revealed state */
+  let rt;
+  addEventListener('resize', () => {
+    clearTimeout(rt);
+    rt = setTimeout(() => targets.forEach(el => {
+      const wasIn = el.classList.contains('in');
+      build(el);
+      if (wasIn) el.classList.add('in');
+    }), 200);
+  });
+})();

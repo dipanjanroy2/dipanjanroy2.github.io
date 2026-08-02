@@ -11,6 +11,17 @@
 </head>
 <body>
 
+<!-- Gooey reveal filter: the alpha threshold is what makes blurred glyphs
+     congeal into solid type as the blur animates out -->
+<svg aria-hidden="true" style="position:absolute;width:0;height:0;pointer-events:none">
+  <defs>
+    <filter id="blur-matrix" x="-50%" y="-50%" width="200%" height="200%">
+      <feColorMatrix in="SourceGraphic" type="matrix"
+        values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 255 -140" />
+    </filter>
+  </defs>
+</svg>
+
 <!-- ═══ NAV ═══ -->
 <nav class="nav" id="nav">
   <div class="nav-logo">THE&nbsp;MERIDIAN</div>
@@ -87,14 +98,14 @@
 
 <!-- ═══ INTERLUDE ═══ -->
 <section class="interlude">
-  <p class="interlude-text reveal">Every surface, every sightline, every hour of light —<br>composed as one continuous work.</p>
+  <p class="interlude-text reveal" data-gooey>Every surface, every sightline, every hour of light —<br>composed as one continuous work.</p>
 </section>
 
 <!-- ═══ GALLERY ═══ -->
 <section class="gallery" id="gallery">
   <div class="section-head reveal">
     <span class="section-kicker">The Residence</span>
-    <h2 class="section-title">A gallery of moments</h2>
+    <h2 class="section-title" data-gooey>A gallery of moments</h2>
   </div>
   <div class="gallery-grid">
     <figure class="g-item g-wide reveal"><img src="assets/gal-1.jpg" alt="The tower at dusk" loading="lazy"><figcaption>The crown at blue hour</figcaption></figure>
@@ -109,7 +120,7 @@
 <section class="amenities">
   <div class="section-head reveal">
     <span class="section-kicker">Appointments</span>
-    <h2 class="section-title">Considered without compromise</h2>
+    <h2 class="section-title" data-gooey>Considered without compromise</h2>
   </div>
   <ul class="amenity-list">
     <li class="amenity reveal"><span class="a-index">01</span><span class="a-name">Wraparound terrace with infinity-edge pool</span></li>
@@ -127,7 +138,7 @@
 <section class="price">
   <div class="price-inner">
     <span class="price-kicker reveal">Offered at</span>
-    <h2 class="price-figure" id="priceFigure">$12,500,000</h2>
+    <h2 class="price-figure" id="priceFigure" data-gooey>$12,500,000</h2>
     <p class="price-note reveal">Penthouse 60 · Approximately $1,736 per square foot</p>
   </div>
 </section>
@@ -147,7 +158,7 @@
     </div>
     <div class="form-wrap reveal">
       <span class="section-kicker">By appointment only</span>
-      <h2 class="section-title">Request a private showing</h2>
+      <h2 class="section-title" data-gooey>Request a private showing</h2>
       <form class="showing-form" id="showingForm">
         <div class="field"><input type="text" id="fName" required placeholder=" "><label for="fName">Full name</label></div>
         <div class="field"><input type="email" id="fEmail" required placeholder=" "><label for="fEmail">Email</label></div>

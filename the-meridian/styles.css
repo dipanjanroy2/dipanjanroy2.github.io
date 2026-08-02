@@ -359,3 +359,30 @@ body {
   .showing-grid { grid-template-columns: 1fr; gap: 3rem; }
   .agent-card { position: static; }
 }
+
+/* ═══ GOOEY TEXT REVEAL ═══
+   Each line carries the alpha-threshold filter; the inner span animates its blur
+   out. Heavily blurred glyphs fall under the threshold and are invisible, so the
+   type appears to congeal out of nothing rather than simply fade. */
+.gooey-line {
+  display: block;
+  filter: url(#blur-matrix) blur(0.4px);
+  -webkit-filter: url(#blur-matrix) blur(0.4px);
+  will-change: filter;
+}
+.gooey-inner {
+  display: inline-block;
+  filter: blur(0.35em);
+  transition: filter 1.5s cubic-bezier(.22, 1, .36, 1);
+  transition-delay: calc(var(--gi, 0) * 110ms);
+  will-change: filter;
+}
+.gooey.in .gooey-inner { filter: blur(0em); }
+
+/* the gooey pass replaces the plain fade on these blocks */
+.gooey.reveal { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .gooey-line { filter: none; -webkit-filter: none; }
+  .gooey-inner { filter: none; transition: none; }
+}
