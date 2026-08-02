@@ -469,9 +469,7 @@ let heroDuration = 0;
    scroll momentum and mobile decoders are slow at arbitrary seeks, so the film ends up
    frozen or stuttering. On touch we let the film simply play on loop instead — real
    motion beats a stuck frame. Scroll-driven captions/layout still run everywhere. */
-const IS_TOUCH = window.matchMedia('(hover: none) and (pointer: coarse)').matches
-              || 'ontouchstart' in window
-              || window.innerWidth < 900;
+const IS_TOUCH = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
 
 function playAmbient(v){
   v.loop = true;
