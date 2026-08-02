@@ -227,7 +227,7 @@ footer{border-top:1px solid var(--hair);padding:70px 44px 50px}
 <header class="hero" id="hero">
   <div class="pin">
     <div class="art" id="hero-art">
-      <video id="hero-vid" src="assets/hero.mp4" muted playsinline preload="auto" aria-label="ZOIKA editorial film"></video>
+      <video id="hero-vid" src="assets/hero.mp4" muted playsinline preload="none" aria-label="ZOIKA editorial film"></video>
     </div>
     <div class="caption" id="hero-cap">
       <h1 class="rv">Measured<br>Purity</h1>
@@ -249,7 +249,7 @@ footer{border-top:1px solid var(--hair);padding:70px 44px 50px}
     <!-- reveal panel: after the strip glides to the last image, this expands out of it into a scrubbed film -->
     <div class="strip-reveal" id="revealPanel">
       <div class="reveal-media">
-        <video id="revealVid" src="assets/reveal.mp4" muted playsinline preload="auto" aria-label="ZOIKA film"></video>
+        <video id="revealVid" src="assets/reveal.mp4" muted playsinline preload="none" aria-label="ZOIKA film"></video>
       </div>
     </div>
     <span class="strip-hint" id="stripHint">Scroll — the collection glides ↓</span>
@@ -460,6 +460,14 @@ const heroCap = document.getElementById('hero-cap');
 const video   = document.getElementById('hero-vid');
 const navEl   = document.querySelector('nav');
 const clamp01 = v => Math.max(0, Math.min(1, v));
+
+/* Phones get a lighter cut of each film (same footage, sized for a phone screen) so
+   the blob preload finishes fast; desktop keeps the full-quality master. */
+const IS_PHONE = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+if (IS_PHONE){
+  video.setAttribute('src', 'assets/hero-m.mp4');
+  document.getElementById('revealVid').setAttribute('src', 'assets/reveal-m.mp4');
+}
 
 /* ── scroll-scrub that also works on phones ──
    Seeking a *streaming* video is what breaks on mobile: iOS throttles seeks during
