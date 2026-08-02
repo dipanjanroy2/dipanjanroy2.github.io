@@ -461,48 +461,51 @@ const video   = document.getElementById('hero-vid');
 const navEl   = document.querySelector('nav');
 const clamp01 = v => Math.max(0, Math.min(1, v));
 
-let targetTime = 0;        // where the scroll says the film should be
-let currentTime = 0;       // smoothed playhead we actually apply
-let heroDuration = 0;
+/* ── scroll-scrub that also works on phones ──
+   Seeking a *streaming* video is what breaks on mobile: iOS throttles seeks during
+   scroll momentum and the decoder keeps waiting on the network. So we download the
+   whole film first and hand the browser a local blob — after that every seek is
+   instant. One seek in flight at a time (`seeking` gate); the `seeked` event drives
+   the next one, so we never queue seeks the decoder can't keep up with. */
+function makeScrub(v){
+  const s = { dur: 0, ready: false, target: 0, seeking: false };
+  const chase = () => {
+    if (s.seeking || !s.ready || s.dur <= 0) return;
+    if (Math.abs(s.target - v.currentTime) < 0.02) return;
+    s.seeking = true;
+    v.currentTime = s.target;
+  };
+  v.pause();
+  v.addEventListener('loadedmetadata', () => { s.dur = v.duration; });
+  v.addEventListener('seeked', () => { s.seeking = false; chase(); });
 
-/* Touch devices can't scroll-scrub reliably: iOS throttles currentTime seeks during
-   scroll momentum and mobile decoders are slow at arbitrary seeks, so the film ends up
-   frozen or stuttering. On touch we let the film simply play on loop instead — real
-   motion beats a stuck frame. Scroll-driven captions/layout still run everywhere. */
-const IS_TOUCH = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+  const markReady = () => {
+    if (s.ready) return;
+    s.ready = true;
+    if (!s.dur && v.duration) s.dur = v.duration;
+    try { v.currentTime = 0.001; } catch(e){}   // warm the decoder before first scroll
+    chase();
+  };
 
-function playAmbient(v){
-  v.loop = true;
-  v.muted = true;                 // required for autoplay on iOS/Android
-  v.setAttribute('playsinline','');
-  const go = () => { if (v.paused) v.play().catch(() => {}); };
+  fetch(v.getAttribute('src'))
+    .then(r => r.blob())
+    .then(b => {
+      v.src = URL.createObjectURL(b);
+      v.load();
+      v.addEventListener('loadeddata', markReady, { once: true });
+      v.addEventListener('canplay', markReady, { once: true });
+      const poll = setInterval(() => { if (v.readyState >= 2){ clearInterval(poll); markReady(); } }, 120);
+      setTimeout(() => { clearInterval(poll); markReady(); }, 5000);   // absolute fallback
+    })
+    .catch(() => { markReady(); });             // network fell back: still allow scrubbing
 
-  go();                                        // try immediately
-  v.addEventListener('loadeddata', go);        // ...and once there are frames
-  v.addEventListener('canplay', go);
-  /* if the browser refuses autoplay until a gesture, the user's first
-     touch/scroll/tap starts it — one of these always fires on a real phone */
-  ['touchstart','pointerdown','click','scroll'].forEach(ev =>
-    document.addEventListener(ev, go, { once: true, passive: true }));
-  /* and kick it again whenever the film scrolls back into view */
-  new IntersectionObserver(es => es.forEach(e => e.isIntersecting ? go() : v.pause()),
-    { threshold: 0.1 }).observe(v);
+  return {
+    seek(p){ if (s.dur > 0){ s.target = p * (s.dur - 0.03); chase(); } },
+    get dur(){ return s.dur; }
+  };
 }
 
-if (IS_TOUCH) {
-  playAmbient(video);
-} else {
-  video.pause();
-  /* warm up the decoder now, before the user scrolls — the first-ever seek on a fresh
-     video pays a one-time cold-start cost; doing it here (during idle load) instead of
-     on the user's first scroll frame is what removes the felt "late start" lag */
-  function warmUpHero(){
-    heroDuration = video.duration;
-    video.currentTime = 0.001;
-  }
-  if (video.readyState >= 1) warmUpHero();
-  else video.addEventListener('loadedmetadata', warmUpHero, { once: true });
-}
+const heroScrub = makeScrub(video);
 
 function heroCaption(p){
   /* headline + pill hold, then melt away as the macro takes over */
@@ -516,15 +519,7 @@ function heroTick(){
   const vh = window.innerHeight;
   const p = clamp01(window.scrollY / (heroSec.offsetHeight - vh));   // 0 → 1 across the pinned stage
   heroCaption(p);
-  if (heroDuration && !IS_TOUCH){
-    targetTime = p * heroDuration;
-    /* smooth interpolation toward the scroll target */
-    currentTime += (targetTime - currentTime) * 0.08;
-    /* seeking guard: only ask for a new frame once the decoder finished the last one */
-    if (!video.seeking && Math.abs(video.currentTime - currentTime) > 0.01){
-      video.currentTime = currentTime;
-    }
-  }
+  heroScrub.seek(p);
   requestAnimationFrame(heroTick);
 }
 requestAnimationFrame(heroTick);
@@ -553,19 +548,8 @@ const revealPanel = document.getElementById('revealPanel');
 const rvVideo    = document.getElementById('revealVid');
 const GLIDE_END  = 0.50;   // 0 → .50  filmstrip glides, last image centered
 const EXPAND_END = 0.66;   // .50 → .66 window opens; .66 → 1 scrubs
-let rvCurrent = 0, rvDur = 0;
-if (IS_TOUCH) {
-  playAmbient(rvVideo);          // touch: loop the film instead of scrubbing it
-} else {
-  rvVideo.pause();
-  /* same decoder warm-up as the hero video — pays the first-seek cost before it's needed */
-  function warmUpReveal(){
-    rvDur = rvVideo.duration;
-    rvVideo.currentTime = 0.001;
-  }
-  if (rvVideo.readyState >= 1) warmUpReveal();
-  else rvVideo.addEventListener('loadedmetadata', warmUpReveal, { once: true });
-}
+/* same blob-preloaded, seek-gated scrub as the hero — works on phones too */
+const revealScrub = makeScrub(rvVideo);
 
 function stripTick(){
   const rect = stripSec.getBoundingClientRect();
@@ -583,15 +567,8 @@ function stripTick(){
   revealPanel.style.width = (ep * 100) + 'vw';
   if (stripHint) stripHint.style.opacity = 1 - ep;
 
-  /* phase 3 — scrub the film (desktop only; touch plays it on loop) */
-  if (rvDur && !IS_TOUCH){
-    const sp = clamp01((p - EXPAND_END) / (1 - EXPAND_END));
-    const tgt = sp * rvDur;
-    rvCurrent += (tgt - rvCurrent) * 0.08;
-    if (!rvVideo.seeking && Math.abs(rvVideo.currentTime - rvCurrent) > 0.01){
-      rvVideo.currentTime = rvCurrent;
-    }
-  }
+  /* phase 3 — scrub the film */
+  revealScrub.seek(clamp01((p - EXPAND_END) / (1 - EXPAND_END)));
   requestAnimationFrame(stripTick);
 }
 requestAnimationFrame(stripTick);
