@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Dipanjan Roy — Web Designer & AI Systems Builder</title>
-<meta name="description" content="I design and build cinematic websites and AI automation systems. Portfolio of scroll-driven, conversion-focused sites across architecture, interior design, luxury real estate, hospitality, retail and entertainment." />
+<title>Dipanjan Roy — Full-Stack Tech Marketer</title>
+<meta name="description" content="Full-stack tech marketer: conversion-first websites, Meta ads, and the WhatsApp + voice AI systems that answer, qualify and book every lead — designed, coded and wired end-to-end by one person." />
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>◆</text></svg>" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -219,6 +219,34 @@
   @media (max-width:880px){
     .feat-card{grid-template-columns:1fr;gap:2rem;}
   }
+
+  /* ── GROWTH SYSTEMS — the marketing machinery, not the mockups ──
+     This is the section that makes the page a tech-marketer portfolio
+     rather than a designer one: the funnel/automation systems that run
+     in production behind the pretty sites. */
+  .systems{padding:0 0 clamp(3rem,6vw,5rem);}
+  .creds{display:flex;flex-wrap:wrap;gap:.6rem;margin:0 0 2.2rem;}
+  .cred{display:inline-flex;align-items:center;gap:.5rem;font-size:.7rem;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--bone);border:1px solid rgba(201,161,90,.35);
+    background:rgba(201,161,90,.07);padding:.5rem 1rem;border-radius:100px;}
+  .cred .dot{width:6px;height:6px;border-radius:50%;background:#3ddc84;box-shadow:0 0 8px #3ddc84;}
+  .sys-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;}
+  @media (max-width:980px){.sys-grid{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:620px){.sys-grid{grid-template-columns:1fr;}}
+  .sys{position:relative;border:1px solid var(--line);border-radius:14px;background:var(--ink2);
+    padding:1.5rem 1.5rem 1.4rem;transition:border-color .35s,transform .35s;}
+  .sys:hover{border-color:rgba(201,161,90,.4);transform:translateY(-4px);}
+  .sys-ico{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;margin-bottom:1rem;
+    background:rgba(201,161,90,.1);border:1px solid rgba(201,161,90,.28);color:var(--accent);font-size:1rem;}
+  .sys h3{font-family:var(--serif);font-size:1.12rem;font-weight:500;margin-bottom:.15rem;}
+  .sys .sk{font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:.6rem;}
+  .sys p{font-size:.83rem;color:var(--dim);line-height:1.65;}
+  .sys p b{color:var(--bone);font-weight:500;}
+  .stack-line{margin-top:2rem;padding-top:1.4rem;border-top:1px solid var(--line);
+    display:flex;flex-wrap:wrap;gap:.45rem;align-items:center;}
+  .stack-line .sl{font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);margin-right:.6rem;}
+  .stack-line span:not(.sl){font-size:.72rem;color:var(--dim);border:1px solid var(--line);
+    padding:.32rem .7rem;border-radius:6px;}
 </style>
 </head>
 <body>
@@ -226,6 +254,7 @@
 <nav>
   <a class="brand" href="#top">Dipanjan <em>Roy</em></a>
   <div class="nav-links">
+    <a href="#systems">Systems</a>
     <a href="#work">Work</a>
     <a href="#about">About</a>
   </div>
@@ -234,18 +263,18 @@
 
 <header class="hero wrap" id="top">
   <div>
-    <p class="eyebrow">Dipanjan Roy — Portfolio</p>
+    <p class="eyebrow">Dipanjan Roy — Tech Marketer</p>
     <h1>
-      <span class="ln"><span>Websites people</span></span>
-      <span class="ln"><span><em>screen-record.</em></span></span>
+      <span class="ln"><span>The page. The ads.</span></span>
+      <span class="ln"><span><em>The AI that closes.</em></span></span>
       <span class="ln"><span>Built by one person.</span></span>
     </h1>
-    <p class="role">I build as a <b id="roleWord">Web Designer</b></p>
-    <p class="pitch">Cinematic, scroll-driven websites — and the AI chatbots and automations that run behind them. Everything on this page is designed and coded end-to-end, solo.</p>
+    <p class="role">I work as a <b id="roleWord">Tech Marketer</b></p>
+    <p class="pitch">Full-stack marketing, actually full-stack: I design the landing page, run the Meta ads, and build the WhatsApp + voice AI that answers every lead in seconds and books the call. One person, zero handoffs.</p>
     <div class="hero-meta">
-      <div><div class="num">16</div><div class="lbl">Concept builds</div></div>
-      <div><div class="num">7</div><div class="lbl">Days to ship</div></div>
-      <div><div class="num">1</div><div class="lbl">Person, start to finish</div></div>
+      <div><div class="num">16</div><div class="lbl">Sites shipped solo</div></div>
+      <div><div class="num">≈2 min</div><div class="lbl">Lead → PDF audit, auto</div></div>
+      <div><div class="num">24/7</div><div class="lbl">WhatsApp AI follow-up</div></div>
     </div>
     <div class="hero-cta">
       <a class="btn btn-solid" href="mailto:dipanjanroy369@gmail.com">Email me</a>
@@ -268,8 +297,8 @@
 <section class="featured wrap">
   <a class="feat-card reveal" href="https://vidbold.io/" target="_blank" rel="noopener">
     <div class="feat-left">
-      <span class="feat-badge"><span class="dot"></span>Featured · Live SaaS Product</span>
-      <h3>Vidbold — the <em>AI video studio</em> I built and shipped.</h3>
+      <span class="feat-badge"><span class="dot"></span>Featured · SaaS I built &amp; market</span>
+      <h3>Vidbold — the <em>AI video studio</em> I built, shipped and market.</h3>
       <p class="feat-what">Not a concept build. A real product people use: you <b>type an idea</b> — or drop a website, a screen recording, even an existing viral video — and Vidbold returns a <b>finished, branded short-form video</b> with AI voiceover, captions, B-roll and music. No timeline, no editing skills.</p>
       <div class="feat-flow">
         <span>Prompt</span><i>→</i><span>Script</span><i>→</i><span>Voiceover</span><i>→</i><span>B-roll + Captions</span><i>→</i><span class="out">Ready to post</span>
@@ -305,6 +334,64 @@
   </a>
 </section>
 
+<section class="wrap systems" id="systems">
+  <div class="section-head reveal">
+    <p class="eyebrow">Growth Systems · In Production</p>
+    <h2>The machinery behind the <em>marketing</em>.</h2>
+    <p>Pretty pages don't close leads — systems do. These run live behind my own funnels: they answer, qualify, follow up and book while I sleep. All designed, coded and wired by me.</p>
+  </div>
+
+  <div class="creds reveal">
+    <span class="cred"><span class="dot"></span>Meta-Verified Tech Provider — WhatsApp Business API</span>
+    <span class="cred">4× AWS Certified</span>
+    <span class="cred">Meta Ads — run hands-on</span>
+  </div>
+
+  <div class="sys-grid reveal">
+    <div class="sys">
+      <div class="sys-ico">◈</div>
+      <span class="sk">WhatsApp AI Sales Agent</span>
+      <h3>Monica</h3>
+      <p>Answers every WhatsApp lead <b>in seconds</b>, reads the buyer's stage, pushes toward a booked call via Cal.com — and hands over to a human the moment it should.</p>
+    </div>
+    <div class="sys">
+      <div class="sys-ico">▤</div>
+      <span class="sk">Automated Lead Magnet</span>
+      <h3>AI Audit Funnel</h3>
+      <p>A visitor drops their website URL — the system researches the site, writes a <b>7–12 page branded PDF audit</b> and delivers it on WhatsApp + email in about two minutes. No human in the loop.</p>
+    </div>
+    <div class="sys">
+      <div class="sys-ico">☎</div>
+      <span class="sk">Voice AI</span>
+      <h3>AI Receptionist</h3>
+      <p>A phone call comes in over SIP; a natural <b>AI voice answers, qualifies and triggers follow-up</b> — so a missed call is never a missed customer.</p>
+    </div>
+    <div class="sys">
+      <div class="sys-ico">⌖</div>
+      <span class="sk">Outbound Data</span>
+      <h3>Lead Engine</h3>
+      <p>Scrapers over Google Places and YouTube plus a daily scheduler that turns raw listings into <b>scored, deduped lead lists</b> ready for outreach.</p>
+    </div>
+    <div class="sys">
+      <div class="sys-ico">✉</div>
+      <span class="sk">Cold Outreach</span>
+      <h3>Dream Machine</h3>
+      <p>Drop a prospect's URL — it scrapes their brand and drafts the <b>cold DM plus a cinematic "your future website" teaser</b>, personalised to them, at batch scale.</p>
+    </div>
+    <div class="sys">
+      <div class="sys-ico">▦</div>
+      <span class="sk">Content Studio</span>
+      <h3>Cadence</h3>
+      <p>A five-agent pipeline that designs carousel posts as pure HTML and renders them through headless Chrome — <b>on-brand social content without an image model</b>.</p>
+    </div>
+  </div>
+
+  <div class="stack-line reveal">
+    <span class="sl">Wired with</span>
+    <span>Meta Ads</span><span>WhatsApp Business API</span><span>n8n</span><span>Supabase</span><span>ElevenLabs</span><span>Brevo</span><span>Cal.com</span><span>Cloudflare</span><span>GA4</span>
+  </div>
+</section>
+
 <section class="wrap practice" id="practice">
   <div class="section-head reveal">
     <p class="eyebrow">Architecture &amp; Interiors</p>
@@ -338,8 +425,8 @@
 <section class="wrap" id="work">
   <div class="section-head reveal">
     <p class="eyebrow">Selected Work</p>
-    <h2>A one-of-one site for every brief.</h2>
-    <p>Architecture, interiors, real estate, hospitality, retail, entertainment — different worlds, same standard: cinematic first frame, fast load, and a scroll that never feels generic.</p>
+    <h2>A one-of-one, <em>conversion-first</em> site for every brief.</h2>
+    <p>Architecture, interiors, real estate, hospitality, retail, entertainment — different worlds, same standard: cinematic first frame, fast load, and one clear action on every page — book, reserve, enquire, buy.</p>
   </div>
 
   <div class="filters reveal" id="filters" role="group" aria-label="Filter work by discipline"></div>
@@ -348,8 +435,8 @@
 
 <section class="cta wrap" id="about">
   <p class="eyebrow" style="justify-content:center;display:flex;">About</p>
-  <h2>I build the <em>whole thing</em> — design, code, and the AI behind it.</h2>
-  <p>No account managers, no handoffs. If you want a site that looks like the ones above — plus the WhatsApp bot, the automation, the lead capture — I'm the person who builds it.</p>
+  <h2>One person who runs the <em>whole growth loop</em>.</h2>
+  <p>Ads, landing page, WhatsApp AI, voice agent, booking — no handoffs, no agency-inside-the-agency. I design it, code it, wire the automation, run the campaigns, and watch the numbers.</p>
   <div class="cta-row">
     <a class="btn btn-solid" href="mailto:dipanjanroy369@gmail.com">Email me</a>
     <a class="btn btn-ghost" href="#work">See the work</a>
@@ -357,7 +444,7 @@
 </section>
 
 <footer>
-  <span>© 2026 Dipanjan Roy. All builds are original concept work.</span>
+  <span>© 2026 Dipanjan Roy. Sites are original concept work; the systems run in production.</span>
   <div class="foot-links">
     <a href="mailto:dipanjanroy369@gmail.com">Email</a>
   </div>
@@ -464,7 +551,7 @@ if (filters) {
 (() => {
   const el = document.getElementById('roleWord');
   if (!el || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  const ROLES = ['Web Designer', 'Motion Developer', 'AI Systems Builder', 'One-Person Studio'];
+  const ROLES = ['Tech Marketer', 'Funnel Builder', 'Performance Marketer', 'AI Automation Engineer', 'One-Person Growth Team'];
   let i = 0;
   setInterval(() => { i = (i + 1) % ROLES.length; el.textContent = ROLES[i]; }, 2600);
 })();
