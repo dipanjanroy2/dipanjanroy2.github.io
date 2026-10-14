@@ -9,10 +9,22 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<!-- URL of the deployed API Worker (see /worker). Empty until it is deployed:
+     the live engine and the chat then say so instead of failing. On localhost
+     the page talks to `wrangler dev` on :8787 regardless of this value. -->
+<meta name="portfolio-api" content="">
+<link rel="stylesheet" href="assets/lab.css?v=6">
+<!-- Scroll reveals are driven by script. Without it, show everything. -->
+<noscript><style>.reveal{opacity:1 !important;transform:none !important;}</style></noscript>
 <style>
   :root{
-    --ink:#0a0a0d; --ink2:#111116; --bone:#f2efe9; --dim:#9a97a3;
-    --line:rgba(242,239,233,.1); --accent:#c9a15a; --accent-soft:rgba(201,161,90,.16);
+    /* Gen-Z minimal: near-black, off-white, and ONE loud accent. Every tint of
+       the accent is derived from --accent-rgb, so the whole site re-skins from
+       this block alone. */
+    --ink:#0a0a0a; --ink2:#131313; --bone:#f4f4f0; --dim:#8e8e88;
+    --line:rgba(244,244,240,.1);
+    --accent:#c6ff3a; --accent-rgb:198 255 58; --accent-hi:#dcff7a;
+    --accent-soft:rgb(var(--accent-rgb) / .14);
     --serif:'Fraunces',Georgia,serif; --sans:'Inter',sans-serif;
   }
   *{margin:0;padding:0;box-sizing:border-box;}
@@ -24,7 +36,7 @@
 
   /* NAV */
   nav{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;
-    padding:1.3rem clamp(1.5rem,4vw,3rem);backdrop-filter:blur(14px);background:rgba(10,10,13,.72);
+    padding:1.3rem clamp(1.5rem,4vw,3rem);backdrop-filter:blur(14px);background:rgba(10,10,10,.72);
     border-bottom:1px solid var(--line);}
   .brand{font-family:var(--serif);font-size:1.15rem;letter-spacing:.02em;}
   .brand em{font-style:italic;color:var(--accent);}
@@ -57,19 +69,19 @@
 
   /* ── the screen: the work itself, strobing in one gold frame ── */
   .screen{position:relative;display:block;aspect-ratio:16/10;border-radius:14px;overflow:hidden;
-    border:1px solid rgba(201,161,90,.4);background:var(--ink2);text-decoration:none;
-    box-shadow:0 30px 80px -30px rgba(0,0,0,.8),0 0 0 6px rgba(201,161,90,.05);
+    border:1px solid rgb(var(--accent-rgb) / .4);background:var(--ink2);text-decoration:none;
+    box-shadow:0 30px 80px -30px rgba(0,0,0,.8),0 0 0 6px rgb(var(--accent-rgb) / .05);
     opacity:0;transform:translateY(26px);animation:screenIn 1.2s .35s cubic-bezier(.22,1,.36,1) forwards;}
   @keyframes screenIn{to{opacity:1;transform:none;}}
   .screen img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
   .screen::after{content:'';position:absolute;inset:0;
-    background:linear-gradient(180deg,rgba(10,10,13,.05) 55%,rgba(10,10,13,.82) 100%);}
+    background:linear-gradient(180deg,rgba(10,10,10,.05) 55%,rgba(10,10,10,.82) 100%);}
   .screen-cap{position:absolute;left:1.1rem;right:1.1rem;bottom:.95rem;z-index:2;
     display:flex;justify-content:space-between;align-items:baseline;gap:1rem;}
   .screen-cap .sn{font-family:var(--serif);font-size:1.05rem;color:var(--bone);}
   .screen-cap .si{font-size:.66rem;letter-spacing:.18em;color:var(--accent);font-variant-numeric:tabular-nums;}
   .screen-hint{position:absolute;top:.95rem;right:1.1rem;z-index:2;font-size:.6rem;
-    letter-spacing:.22em;text-transform:uppercase;color:rgba(242,239,233,.65);}
+    letter-spacing:.22em;text-transform:uppercase;color:rgba(244,244,240,.65);}
   /* the frame's corner ticks — reads as a viewfinder on the work */
   .screen::before{content:'';position:absolute;inset:.65rem;z-index:2;pointer-events:none;
     background:
@@ -108,12 +120,12 @@
 
   .card{position:relative;border-radius:14px;overflow:hidden;background:var(--ink2);border:1px solid var(--line);
     transition:border-color .35s ease, transform .35s ease;}
-  .card:hover{border-color:rgba(201,161,90,.4);transform:translateY(-4px);}
-  .card-media{position:relative;aspect-ratio:4/3;overflow:hidden;background:#161619;}
+  .card:hover{border-color:rgb(var(--accent-rgb) / .4);transform:translateY(-4px);}
+  .card-media{position:relative;aspect-ratio:4/3;overflow:hidden;background:#161616;}
   .card-media img{width:100%;height:100%;object-fit:cover;object-position:top;transition:transform .7s ease;}
   .card:hover .card-media img{transform:scale(1.055);}
   .card-tag{position:absolute;top:.9rem;left:.9rem;font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;
-    background:rgba(10,10,13,.72);backdrop-filter:blur(6px);border:1px solid var(--line);color:var(--accent);
+    background:rgba(10,10,10,.72);backdrop-filter:blur(6px);border:1px solid var(--line);color:var(--accent);
     padding:.35rem .7rem;border-radius:100px;}
   .card-body{padding:1.3rem 1.4rem 1.5rem;}
   .card-body h3{font-family:var(--serif);font-size:1.15rem;font-weight:500;margin-bottom:.25rem;}
@@ -133,7 +145,7 @@
   .cta-row{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;}
   .btn{padding:.9rem 1.9rem;border-radius:100px;font-size:.85rem;font-weight:500;letter-spacing:.02em;transition:.25s;}
   .btn-solid{background:var(--accent);color:var(--ink);}
-  .btn-solid:hover{background:#e0b876;}
+  .btn-solid:hover{background:var(--accent-hi);}
   .btn-ghost{border:1px solid var(--line);color:var(--bone);}
   .btn-ghost:hover{border-color:var(--accent);color:var(--accent);}
 
@@ -149,17 +161,17 @@
 
   /* FEATURED — Vidbold spotlight */
   .featured{padding:1.5rem 0 clamp(3rem,6vw,5rem);}
-  .feat-card{position:relative;border-radius:22px;overflow:hidden;border:1px solid rgba(201,161,90,.28);
-    background:linear-gradient(150deg,#141019 0%,var(--ink2) 55%);
-    box-shadow:0 40px 100px -40px rgba(201,161,90,.18);
+  .feat-card{position:relative;border-radius:22px;overflow:hidden;border:1px solid rgb(var(--accent-rgb) / .28);
+    background:var(--ink2);
+    box-shadow:none;
     padding:clamp(2rem,4.5vw,3.5rem);display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(2rem,4vw,3.5rem);align-items:center;}
   .feat-card::before{content:'';position:absolute;top:-30%;right:-10%;width:60%;height:150%;pointer-events:none;
-    background:radial-gradient(ellipse at center,rgba(139,92,246,.16),transparent 65%);}
+    background:radial-gradient(ellipse at center,transparent,transparent 65%);}
   .feat-left{position:relative;z-index:2;}
   .feat-badge{display:inline-flex;align-items:center;gap:.5rem;width:fit-content;font-size:.66rem;letter-spacing:.18em;
-    text-transform:uppercase;color:var(--accent);border:1px solid rgba(201,161,90,.35);background:rgba(201,161,90,.08);
+    text-transform:uppercase;color:var(--accent);border:1px solid rgb(var(--accent-rgb) / .35);background:rgb(var(--accent-rgb) / .08);
     padding:.4rem .85rem;border-radius:100px;margin-bottom:1.3rem;}
-  .feat-badge .dot{width:6px;height:6px;border-radius:50%;background:#3ddc84;box-shadow:0 0 8px #3ddc84;}
+  .feat-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:none;}
   .feat-left h3{font-family:var(--serif);font-size:clamp(1.9rem,3.8vw,2.9rem);font-weight:400;line-height:1.06;margin-bottom:.8rem;}
   .feat-left h3 em{font-style:italic;color:var(--accent);}
   .feat-what{color:var(--dim);font-size:clamp(.9rem,1.25vw,1.02rem);line-height:1.75;margin-bottom:1.5rem;}
@@ -168,16 +180,16 @@
     font-size:.74rem;letter-spacing:.04em;}
   .feat-flow span{border:1px solid var(--line);background:rgba(255,255,255,.03);padding:.4rem .8rem;border-radius:6px;color:var(--bone);}
   .feat-flow i{font-style:normal;color:var(--accent);opacity:.7;}
-  .feat-flow .out{border-color:rgba(201,161,90,.4);background:rgba(201,161,90,.1);color:var(--accent);}
+  .feat-flow .out{border-color:rgb(var(--accent-rgb) / .4);background:rgb(var(--accent-rgb) / .1);color:var(--accent);}
   .feat-cta{display:inline-flex;align-items:center;gap:.5rem;width:fit-content;font-size:.85rem;font-weight:500;
     background:var(--accent);color:var(--ink);padding:.85rem 1.6rem;border-radius:100px;transition:.25s;}
-  .feat-cta:hover{background:#e0b876;transform:translateY(-2px);}
+  .feat-cta:hover{background:var(--accent-hi);transform:translateY(-2px);}
 
   .feat-right{position:relative;z-index:2;}
   .feat-benefits{display:flex;flex-direction:column;gap:.9rem;margin-bottom:1.6rem;}
   .ben{display:flex;gap:.85rem;align-items:flex-start;}
   .ben-ico{flex-shrink:0;width:30px;height:30px;border-radius:8px;display:grid;place-items:center;
-    background:rgba(201,161,90,.1);border:1px solid rgba(201,161,90,.25);color:var(--accent);font-size:.82rem;}
+    background:rgb(var(--accent-rgb) / .1);border:1px solid rgb(var(--accent-rgb) / .25);color:var(--accent);font-size:.82rem;}
   .ben-txt strong{display:block;font-size:.9rem;font-weight:500;color:var(--bone);margin-bottom:.12rem;}
   .ben-txt span{font-size:.8rem;color:var(--dim);line-height:1.55;}
   .feat-stats{display:flex;gap:1.6rem;flex-wrap:wrap;padding-top:1.3rem;border-top:1px solid var(--line);}
@@ -189,7 +201,7 @@
   .chip{font-family:var(--sans);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;
     color:var(--dim);background:transparent;border:1px solid var(--line);border-radius:100px;
     padding:.55rem 1.05rem;cursor:pointer;transition:color .3s,border-color .3s,background .3s;}
-  .chip:hover{color:var(--bone);border-color:rgba(242,239,233,.28);}
+  .chip:hover{color:var(--bone);border-color:rgba(244,244,240,.28);}
   .chip[aria-pressed="true"]{color:var(--ink);background:var(--accent);border-color:var(--accent);}
   .chip .c{opacity:.55;margin-left:.4rem;font-variant-numeric:tabular-nums;}
   /* cards leave the layout without collapsing it mid-transition */
@@ -204,12 +216,12 @@
   .pcard{position:relative;display:block;aspect-ratio:3/4;border-radius:12px;overflow:hidden;
     border:1px solid var(--line);text-decoration:none;background:var(--ink2);
     transition:border-color .45s,transform .45s cubic-bezier(.22,1,.36,1);}
-  .pcard:hover{border-color:rgba(201,161,90,.45);transform:translateY(-5px);}
+  .pcard:hover{border-color:rgb(var(--accent-rgb) / .45);transform:translateY(-5px);}
   .pcard img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
     transition:transform .9s cubic-bezier(.22,1,.36,1);filter:saturate(.92);}
   .pcard:hover img{transform:scale(1.07);}
   .pcard::after{content:'';position:absolute;inset:0;
-    background:linear-gradient(180deg,rgba(10,10,13,.05) 30%,rgba(10,10,13,.88) 100%);}
+    background:linear-gradient(180deg,rgba(10,10,10,.05) 30%,rgba(10,10,10,.88) 100%);}
   .pcard-meta{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:1rem .95rem;}
   .pcard-meta .k{display:block;font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:.3rem;}
   .pcard-meta .n{font-family:var(--serif);font-size:1.02rem;font-weight:500;color:var(--bone);line-height:1.15;}
@@ -227,17 +239,17 @@
   .systems{padding:0 0 clamp(3rem,6vw,5rem);}
   .creds{display:flex;flex-wrap:wrap;gap:.6rem;margin:0 0 2.2rem;}
   .cred{display:inline-flex;align-items:center;gap:.5rem;font-size:.7rem;letter-spacing:.1em;
-    text-transform:uppercase;color:var(--bone);border:1px solid rgba(201,161,90,.35);
-    background:rgba(201,161,90,.07);padding:.5rem 1rem;border-radius:100px;}
-  .cred .dot{width:6px;height:6px;border-radius:50%;background:#3ddc84;box-shadow:0 0 8px #3ddc84;}
+    text-transform:uppercase;color:var(--bone);border:1px solid rgb(var(--accent-rgb) / .35);
+    background:rgb(var(--accent-rgb) / .07);padding:.5rem 1rem;border-radius:100px;}
+  .cred .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:none;}
   .sys-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;}
   @media (max-width:980px){.sys-grid{grid-template-columns:repeat(2,1fr);}}
   @media (max-width:620px){.sys-grid{grid-template-columns:1fr;}}
   .sys{position:relative;border:1px solid var(--line);border-radius:14px;background:var(--ink2);
     padding:1.5rem 1.5rem 1.4rem;transition:border-color .35s,transform .35s;}
-  .sys:hover{border-color:rgba(201,161,90,.4);transform:translateY(-4px);}
+  .sys:hover{border-color:rgb(var(--accent-rgb) / .4);transform:translateY(-4px);}
   .sys-ico{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;margin-bottom:1rem;
-    background:rgba(201,161,90,.1);border:1px solid rgba(201,161,90,.28);color:var(--accent);font-size:1rem;}
+    background:rgb(var(--accent-rgb) / .1);border:1px solid rgb(var(--accent-rgb) / .28);color:var(--accent);font-size:1rem;}
   .sys h3{font-family:var(--serif);font-size:1.12rem;font-weight:500;margin-bottom:.15rem;}
   .sys .sk{font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:.6rem;}
   .sys p{font-size:.83rem;color:var(--dim);line-height:1.65;}
@@ -254,9 +266,10 @@
 <nav>
   <a class="brand" href="#top">Dipanjan <em>Roy</em></a>
   <div class="nav-links">
+    <a href="#resume">Résumé</a>
+    <a href="#lab">Try it</a>
     <a href="#systems">Systems</a>
     <a href="#work">Work</a>
-    <a href="#about">About</a>
   </div>
   <a class="nav-cta" href="mailto:dipanjanroy369@gmail.com">Get in touch</a>
 </nav>
@@ -271,14 +284,15 @@
     </h1>
     <p class="role">I work as a <b id="roleWord">Tech Marketer</b></p>
     <p class="pitch">Full-stack marketing, actually full-stack: I design the landing page, run the Meta ads, and build the WhatsApp + voice AI that answers every lead in seconds and books the call. One person, zero handoffs.</p>
+    <div class="hero-cta">
+      <a class="btn btn-solid" href="resume/Dipanjan_Roy_Resume.pdf" download>Download résumé</a>
+      <a class="btn btn-ghost" href="#lab">Get a GTM plan in a minute</a>
+      <a class="btn btn-ghost" href="mailto:dipanjanroy369@gmail.com">Email me</a>
+    </div>
     <div class="hero-meta">
       <div><div class="num">16</div><div class="lbl">Sites shipped solo</div></div>
       <div><div class="num">≈2 min</div><div class="lbl">Lead → PDF audit, auto</div></div>
       <div><div class="num">24/7</div><div class="lbl">WhatsApp AI follow-up</div></div>
-    </div>
-    <div class="hero-cta">
-      <a class="btn btn-solid" href="mailto:dipanjanroy369@gmail.com">Email me</a>
-      <a class="btn btn-ghost" href="#work">See the work</a>
     </div>
   </div>
 
@@ -293,6 +307,162 @@
 <div class="mq" aria-hidden="true">
   <div class="mq-track" id="mqTrack"></div>
 </div>
+
+<!-- ══ RÉSUMÉ — plain HTML on purpose: readable in twenty seconds, with or
+     without JavaScript. Every figure is from the verified résumé (Oct 2026). ══ -->
+<section class="wrap resume" id="resume">
+  <div class="section-head reveal">
+    <p class="eyebrow">Résumé · the twenty-second version</p>
+    <h2>What I've actually done, <em>with receipts</em>.</h2>
+    <p>I count what reached the bank — not what the ad platform says it sold.</p>
+  </div>
+
+  <div class="rz-grid">
+    <ol class="rz-xp reveal">
+      <li class="rz-job">
+        <span class="rz-when">2023 — Present</span>
+        <h3>Performance Marketer</h3>
+        <p class="rz-where">Independent projects (part-time) · D2C campaigns: MilanYog and e-commerce products</p>
+        <ul>
+          <li>Planned, launched and optimised <b>30+ Meta campaigns</b> across Sales, Leads, Engagement and Click-to-WhatsApp — audience and creative testing, budget pacing, restructuring on cost per purchase.</li>
+          <li><b>MilanYog:</b> built the whole funnel — ads, animated landing page with an A/B variant, free first answer, Razorpay checkout — and a 4-tier offer ladder. <b>31% of orders chose the top tier.</b></li>
+          <li>SEO in English, Hindi and Bengali from Keyword Planner data: <b>43 pages</b> with hreflang and schema, plus 6 free calculators that lead into the paid app.</li>
+        </ul>
+      </li>
+      <li class="rz-job">
+        <span class="rz-when">2025 — Present</span>
+        <h3>AI Automation &amp; Lead Generation</h3>
+        <p class="rz-where">Part-time · B2B AI services for clinics, gyms, salons and local services</p>
+        <ul>
+          <li>AI agents that audit a prospect's website and deliver a branded 7–12 page report on WhatsApp and email, used as a free lead magnet.</li>
+          <li>An AI voice agent that calls new leads <b>within 15 minutes</b> and sends an automatic WhatsApp recap; four WhatsApp templates approved by Meta.</li>
+          <li>Prospecting: <b>640 local-business leads</b> (London, Toronto, Sydney, Dubai) via the Google Places API.</li>
+        </ul>
+      </li>
+      <li class="rz-job">
+        <span class="rz-when">Nov 2021 — Present</span>
+        <h3>Cloud &amp; Agentic AI Engineer</h3>
+        <p class="rz-where">Tata Consultancy Services · clients: British Airways, Qantas Airways</p>
+        <ul>
+          <li>Run production <b>AWS infrastructure</b> for large aviation clients: patching, monitoring, incident handling, compliance reporting.</li>
+          <li>Requirement calls, status reviews and escalations with UK and US stakeholders.</li>
+          <li>Automate repeat work with Python, Bash and AWS Systems Manager. Internal hackathon award for an AI-based innovation, and Google Cloud's "Build with Gemini" agent badge (2026).</li>
+        </ul>
+      </li>
+      <li class="rz-job">
+        <span class="rz-when">Feb — Apr 2018</span>
+        <h3>Business Developer (Intern)</h3>
+        <p class="rz-where">Inline Private Limited, Kolkata · ride-hailing startup</p>
+        <ul><li>Field acquisition: pitching, objection handling and driver sign-ups.</li></ul>
+      </li>
+    </ol>
+
+    <div class="reveal">
+      <div class="rz-nums">
+        <div class="rz-num"><div class="v">30+</div><div class="k"><b>Meta campaigns</b> since 2023, across Sales, Leads, Engagement and Click-to-WhatsApp</div></div>
+        <div class="rz-num"><div class="v">774K</div><div class="k">impressions · <b>11.6K clicks</b></div></div>
+        <div class="rz-num"><div class="v">71</div><div class="k"><b>verified paid orders</b> from 63 buyers in the first six weeks — MilanYog</div></div>
+        <div class="rz-num"><div class="v">2.2x</div><div class="k">verified revenue vs <b>Meta ad spend</b> · 2.18% CTR — MilanYog</div></div>
+      </div>
+      <p class="rz-src"><b>How these are counted:</b> every order is matched to Razorpay, not Ads Manager. That is how I found the Meta Pixel double-counting, and test orders marked as paid — I count captured payments only.</p>
+
+      <div class="rz-block">
+        <h4>Certifications</h4>
+        <ul class="rz-certs">
+          <li>AI-Powered Performance Ads Certification — Google (2026)</li>
+          <li>Certified Digital Marketing Consultant · AI-Enabled Advanced Digital Marketing Program — AADME</li>
+          <li>AWS Certified Solutions Architect — Associate</li>
+          <li>AWS Certified Machine Learning Engineer — Associate</li>
+          <li>"Build with Gemini" agent skill badge — Google Cloud (2026)</li>
+        </ul>
+      </div>
+
+      <div class="rz-block">
+        <h4>Works in</h4>
+        <div class="rz-chips">
+          <span>Meta Ads</span><span>Funnels &amp; CRO</span><span>A/B testing</span><span>Offer ladders</span><span>n8n</span><span>WhatsApp Cloud API</span><span>Supabase</span><span>AI voice agents</span><span>Meta Pixel &amp; events</span><span>GA4 &amp; Search Console</span><span>AWS</span><span>Python</span><span>HTML / CSS / JS</span>
+        </div>
+      </div>
+
+      <div class="rz-block">
+        <h4>Education &amp; languages</h4>
+        <p class="rz-edu">B.Tech, Electronics &amp; Communication — RCC Institute of Information Technology, Kolkata (2017–2021) · CGPA 7.89<br>English · Bengali · Hindi</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="rz-actions reveal">
+    <a class="btn btn-solid" href="resume/Dipanjan_Roy_Resume.pdf" download>Download the one-page PDF</a>
+    <a class="btn btn-ghost" href="#" data-open-chat>Ask my AI about any of this</a>
+    <div class="rz-listen" hidden><!-- old intro says "own money" and that the AI is live; re-record before showing -->
+      <span>Or listen · 30 sec · AI voice</span>
+      <audio controls preload="none" src="assets/intro.mp3">A 30-second spoken summary.</audio>
+    </div>
+  </div>
+</section>
+
+<!-- ══ THE LAB — the claim, made testable ══ -->
+<section class="wrap lab" id="lab">
+  <div class="section-head reveal">
+    <p class="eyebrow">Try it · live</p>
+    <h2>Don't read about it. <em>Run it.</em></h2>
+    <p>Describe your business — or paste your website — and get a go-to-market plan in under a minute. It is the same framework I use on my own brands, running live.</p>
+  </div>
+
+  <div class="lab-shell reveal" id="labApp">
+    <div class="pbox">
+      <label class="sr" for="pText" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);">Your business, or your website address</label>
+      <textarea id="pText" maxlength="1400" spellcheck="true"></textarea>
+      <div class="pbar">
+        <label class="ptoggle">
+          <input type="checkbox" id="pMode">
+          <i aria-hidden="true"></i><b>Tear down my website instead</b>
+        </label>
+        <div class="pmeta">
+          <span id="pCount">0 words</span>
+          <button class="pclear" id="pClear" type="button" aria-label="Clear">✕</button>
+        </div>
+      </div>
+    </div>
+
+    <button class="pgo" id="pGo" type="button">✦ Build my go-to-market plan</button>
+
+    <div class="ptry">
+      No business handy? Try:
+      <button type="button" data-try="Clear aligners at a dental clinic in Indiranagar, Bangalore. Mostly walk-ins and Google searches. About ₹80,000 a case.">a dental clinic</button>
+      <button type="button" data-try="A D2C skincare brand for men in India, selling a 3-step routine online. Average order around ₹1,200. Small ad budget, solo founder.">a D2C skincare brand</button>
+      <button type="button" data-try="A SaaS that lets independent gyms in the UK send class reminders and take payments. £49 a month per gym. No sales team.">a SaaS for gyms</button>
+    </div>
+
+    <p class="lab-msg" id="pMsg" hidden></p>
+
+    <div class="pout" id="pOut" hidden>
+      <div class="pout-head">
+        <span class="pout-status"><i></i><span id="pStatus">Writing</span></span>
+        <div class="pout-actions">
+          <button type="button" id="pCopy" disabled>Copy</button>
+          <button type="button" id="pPdf" disabled>Save as PDF</button>
+        </div>
+      </div>
+      <div class="md" id="pBody" aria-live="polite"></div>
+      <div class="pout-foot">
+        <div id="pLeadRow">
+          <p class="q">Want me to look at this properly? Leave an email and I'll follow up personally.</p>
+          <form class="plead" id="pLead">
+            <input type="email" id="pEmail" placeholder="you@company.com" required autocomplete="email">
+            <button type="submit" id="pLeadBtn">Send it to me</button>
+          </form>
+          <p class="lab-msg" id="pLeadErr" hidden></p>
+          <p class="n">Optional. The plan above is already yours — copy it or save the PDF.</p>
+        </div>
+        <p class="q" id="pLeadDone" hidden>Got it — I'll write to you myself.</p>
+      </div>
+    </div>
+
+    <p class="lab-fine">Written from the brief you give it. It is strategy scaffolding, not a researched market report: it has no data on your market and will not quote statistics, and anything it had to assume is listed at the end.</p>
+    <noscript><p class="lab-msg">The live engine needs JavaScript. Email me and I'll write you a plan by hand.</p></noscript>
+  </div>
+</section>
 
 <section class="featured wrap">
   <a class="feat-card reveal" href="https://vidbold.io/" target="_blank" rel="noopener">
@@ -407,7 +577,7 @@
       <img src="thumbs/canopy.jpg" alt="The Canopy — rainforest villa" loading="lazy">
       <div class="pcard-meta"><span class="k">Private Residence</span><span class="n">The Canopy</span></div>
     </a>
-    <a class="pcard" href="https://dipanjanroy2.github.io/the-meridian/" target="_blank" rel="noopener">
+    <a class="pcard" href="/the-meridian/" target="_blank" rel="noopener">
       <img src="https://boldgrowai.com/images/templates/meridian.jpg" alt="The Meridian — penthouse" loading="lazy">
       <div class="pcard-meta"><span class="k">Private Residence</span><span class="n">The Meridian</span></div>
     </a>
@@ -457,16 +627,16 @@ const PROJECTS = [
   { cat: 'Architecture', name: 'Sienna', sub: 'Interior Architecture', desc: 'Travertine, charcoal and light. Walk the whole house in one continuous scroll — room to room, no cuts.', tags: ['House Walk','Rooms','Studio'], img: 'thumbs/sienna.jpg', url: 'https://demo.boldgrowai.com/sienna/' },
   { cat: 'Architecture', name: 'Altana', sub: 'Interior Design & Contracting', desc: 'Design, build, renovate and furnish under a single point of contact — a studio site that sells the whole service, not just the mood board.', tags: ['Interiors','Contracting','Portfolio'], img: 'thumbs/altana.jpg', url: 'https://demo.boldgrowai.com/altana/' },
   { cat: 'Entertainment', name: 'Doom Network', sub: 'Fan-Concept Franchise Site', desc: 'A sovereign’s broadcast: a pinned aperture that opens onto the film, an archive that locks onto its subject, and a stock line that flies across the frame. Declared fan concept.', tags: ['Aperture','Archive','Armory'], img: 'thumbs/doom.jpg', url: 'https://doom-network.pages.dev/' },
-  { cat: 'Architecture', name: 'The Meridian', sub: 'Luxury Penthouse Real Estate', desc: 'A $12.5M single-residence penthouse listing — cinematic scroll-scrubbed video tour and private-showing booking.', tags: ['Video Tour','Listing','Booking'], img: 'https://boldgrowai.com/images/templates/meridian.jpg', url: 'https://dipanjanroy2.github.io/the-meridian/' },
-  { cat: 'Retail', name: 'Black Noir', sub: 'Luxury Fragrance Website', desc: 'A dark, cinematic 3D perfume-bottle reveal for a premium fragrance launch — scroll-driven and waitlist-gated.', tags: ['3D Reveal','Waitlist','Cinematic'], img: 'https://boldgrowai.com/images/templates/black-noir.jpg', url: 'https://dipanjanroy2.github.io/black-noir/' },
-  { cat: 'Hospitality', name: 'Saffron & Oak', sub: 'Wood-Fire Steakhouse', desc: '"Wood fire. Nothing else." Cinematic close-up food photography and a full-bleed reservation flow.', tags: ['Reservation','Menu'], img: 'https://boldgrowai.com/images/templates/saffron-oak.jpg', url: 'https://dipanjanroy2.github.io/saffron-oak/' },
-  { cat: 'Retail', name: 'Zoika', sub: 'Statement Jewelry Brand', desc: '"Measured Purity." A dark, editorial rings collection with a scroll-glide product index.', tags: ['Shop','Collection'], img: 'https://boldgrowai.com/images/templates/oyla.jpg', url: 'https://dipanjanroy2.github.io/oyla/' },
-  { cat: 'Entertainment', name: 'Verdict', sub: 'Gaming Website', desc: '"The City Keeps Score." A cinematic AAA game hero site — scroll-scrubbed reveal and a full wishlist/trailer page.', tags: ['3D WebGL','Interactive'], img: 'https://boldgrowai.com/images/templates/verdict.jpg', url: 'https://dipanjanroy2.github.io/verdict-game/' },
-  { cat: 'Entertainment', name: 'The Time Machine', sub: 'Heritage & Brand Storytelling', desc: '"One corner. One century." A single street corner scroll-morphed across a hundred years with a mechanical year odometer.', tags: ['Scroll Morph','Cinematic'], img: 'https://boldgrowai.com/images/templates/time-machine.jpg', url: 'https://dipanjanroy2.github.io/the-time-machine/' },
-  { cat: 'Fitness', name: 'Forge Fitness', sub: 'Gym & Fitness Website', desc: '"Earn it." A bold, high-energy fitness brand site with a moody fog-lit hero and kinetic typography.', tags: ['Training','Membership'], img: 'https://boldgrowai.com/images/templates/forge.jpg', url: 'https://dipanjanroy2.github.io/forge-gym/' },
-  { cat: 'Retail', name: 'Lumia', sub: 'Fashion Store', desc: '"Elevate your everyday style." A full-catalog fashion e-commerce store with curated lookbooks.', tags: ['Shop','Lookbook'], img: 'https://boldgrowai.com/images/templates/lumia.jpg', url: 'https://dipanjanroy2.github.io/lumia-astro/' },
-  { cat: 'Fitness', name: 'MuscleUp', sub: 'Fitness & Lifestyle', desc: '"Train hard. Live strong." A high-impact single-page gym showcase with bold kinetic typography.', tags: ['Programs','Nutrition'], img: 'https://boldgrowai.com/images/templates/powerlift.png', url: 'https://dipanjanroy2.github.io/powerlift-clone/' },
-  { cat: 'Healthcare', name: 'BrightSmile', sub: 'Dental & Care Website', desc: 'An elegant dental clinic site focused on high patient conversion.', tags: ['Care Plans','Booking'], img: 'https://boldgrowai.com/images/templates/lumora.png', url: 'https://dipanjanroy2.github.io/lumora-dental/' },
+  { cat: 'Architecture', name: 'The Meridian', sub: 'Luxury Penthouse Real Estate', desc: 'A $12.5M single-residence penthouse listing — cinematic scroll-scrubbed video tour and private-showing booking.', tags: ['Video Tour','Listing','Booking'], img: 'https://boldgrowai.com/images/templates/meridian.jpg', url: '/the-meridian/' },
+  { cat: 'Retail', name: 'Black Noir', sub: 'Luxury Fragrance Website', desc: 'A dark, cinematic 3D perfume-bottle reveal for a premium fragrance launch — scroll-driven and waitlist-gated.', tags: ['3D Reveal','Waitlist','Cinematic'], img: 'https://boldgrowai.com/images/templates/black-noir.jpg', url: '/black-noir/' },
+  { cat: 'Hospitality', name: 'Saffron & Oak', sub: 'Wood-Fire Steakhouse', desc: '"Wood fire. Nothing else." Cinematic close-up food photography and a full-bleed reservation flow.', tags: ['Reservation','Menu'], img: 'https://boldgrowai.com/images/templates/saffron-oak.jpg', url: '/saffron-oak/' },
+  { cat: 'Retail', name: 'Zoika', sub: 'Statement Jewelry Brand', desc: '"Measured Purity." A dark, editorial rings collection with a scroll-glide product index.', tags: ['Shop','Collection'], img: 'https://boldgrowai.com/images/templates/oyla.jpg', url: '/oyla/' },
+  { cat: 'Entertainment', name: 'Verdict', sub: 'Gaming Website', desc: '"The City Keeps Score." A cinematic AAA game hero site — scroll-scrubbed reveal and a full wishlist/trailer page.', tags: ['3D WebGL','Interactive'], img: 'https://boldgrowai.com/images/templates/verdict.jpg', url: '/verdict-game/' },
+  { cat: 'Entertainment', name: 'The Time Machine', sub: 'Heritage & Brand Storytelling', desc: '"One corner. One century." A single street corner scroll-morphed across a hundred years with a mechanical year odometer.', tags: ['Scroll Morph','Cinematic'], img: 'https://boldgrowai.com/images/templates/time-machine.jpg', url: '/the-time-machine/' },
+  { cat: 'Fitness', name: 'Forge Fitness', sub: 'Gym & Fitness Website', desc: '"Earn it." A bold, high-energy fitness brand site with a moody fog-lit hero and kinetic typography.', tags: ['Training','Membership'], img: 'https://boldgrowai.com/images/templates/forge.jpg', url: '/forge-gym/' },
+  { cat: 'Retail', name: 'Lumia', sub: 'Fashion Store', desc: '"Elevate your everyday style." A full-catalog fashion e-commerce store with curated lookbooks.', tags: ['Shop','Lookbook'], img: 'https://boldgrowai.com/images/templates/lumia.jpg', url: '/lumia-astro/' },
+  { cat: 'Fitness', name: 'MuscleUp', sub: 'Fitness & Lifestyle', desc: '"Train hard. Live strong." A high-impact single-page gym showcase with bold kinetic typography.', tags: ['Programs','Nutrition'], img: 'https://boldgrowai.com/images/templates/powerlift.png', url: '/powerlift-clone/' },
+  { cat: 'Healthcare', name: 'BrightSmile', sub: 'Dental & Care Website', desc: 'An elegant dental clinic site focused on high patient conversion.', tags: ['Care Plans','Booking'], img: 'https://boldgrowai.com/images/templates/lumora.png', url: '/lumora-dental/' },
 ];
 // Vidbold gets its own featured spotlight section above — see .feat-card
 
@@ -568,5 +738,38 @@ if (filters) {
 const io = new IntersectionObserver((es) => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: 0.12 });
 document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 </script>
+
+<!-- ══ the AI version of me — closed until asked, never in front of the résumé ══ -->
+<button class="cw-fab" id="cwFab" type="button" hidden aria-haspopup="dialog">
+  <span class="cw-av" aria-hidden="true">DR</span>
+  <span class="lbl">Ask my AI</span>
+  <span class="dot" aria-hidden="true"></span>
+</button>
+
+<div class="cw-panel" id="cwPanel" role="dialog" aria-label="Chat with the AI version of Dipanjan" hidden>
+  <div class="cw-head">
+    <span class="cw-av" aria-hidden="true">DR</span>
+    <div class="t"><b>Dipanjan — AI version</b><span>Answers only from my résumé notes</span></div>
+    <button class="cw-ic" id="cwSpeak" type="button" aria-pressed="false" title="Voice replies off" aria-label="Read answers aloud">🔊</button>
+    <button class="cw-ic" id="cwClose" type="button" aria-label="Close chat">✕</button>
+  </div>
+  <div class="cw-log" id="cwLog" aria-live="polite">
+    <div class="cw-m a">Hi — I'm the AI version of Dipanjan. Ask me about my work, my ad results, or how I'd approach your growth problem. If it's not in my notes, I'll say so.</div>
+  </div>
+  <div class="cw-sugg" id="cwSugg">
+    <button type="button">What have you built?</button>
+    <button type="button">Your Meta ads results?</button>
+    <button type="button">How would you grow a dental clinic?</button>
+  </div>
+  <form class="cw-form" id="cwForm">
+    <button class="cw-ic cw-mic" id="cwMic" type="button" hidden aria-label="Speak your question">🎤</button>
+    <input id="cwInput" type="text" placeholder="Ask me anything…" maxlength="900" autocomplete="off" aria-label="Your question">
+    <button class="cw-send" id="cwSend" type="submit" aria-label="Send">➤</button>
+  </form>
+  <p class="cw-note">An AI, speaking for me. The voice is synthetic, not mine.</p>
+</div>
+
+<div id="printRoot"></div>
+<script src="assets/lab.js?v=4" defer></script>
 </body>
 </html>

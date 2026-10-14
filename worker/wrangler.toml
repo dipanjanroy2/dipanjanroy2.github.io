@@ -1,0 +1,14 @@
+name = "dipanjan-portfolio-api"
+main = "src/index.js"
+compatibility_date = "2026-06-01"
+
+# Secrets (AZURE_OPENAI_ENDPOINT, AZURE_AI_KEY, ELEVENLABS_API_KEY, TURNSTILE_SECRET)
+# live in .dev.vars locally and in `wrangler secret put` in production — never here.
+
+[vars]
+ALLOWED_ORIGINS = "https://dipanjanroy.cloud,https://www.dipanjanroy.cloud,https://dipanjanroy2.github.io,http://localhost:4190,http://127.0.0.1:4190"
+LLM_MODEL = "DeepSeek-V4.1-Flash"
+# Placeholder voice ("Viraj"). Swap for a clone of Dipanjan's own voice when one exists.
+ELEVENLABS_VOICE_ID = "iWNf11sz1GrUE4ppxTOL"
+ELEVENLABS_MODEL_ID = "eleven_turbo_v2_5"
+LEAD_WEBHOOK = "https://n8n.boldgrow.agency/webhook/site-lead"

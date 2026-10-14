@@ -1,0 +1,125 @@
+{
+  "_note": "The ONLY things the AI persona may say about Dipanjan. Every entry comes from his verified resume (30 Sep 2026) or from this site. If it is not here, the assistant must say it does not know.",
+  "name": "Dipanjan Roy",
+  "headline": "Full-stack tech marketer: Meta ads, funnels, and the WhatsApp + voice AI that follows up every lead.",
+  "base": "India (works remotely)",
+  "contact": {
+    "email": "dipanjanroy369@gmail.com",
+    "sites": [
+      "boldgrowai.com",
+      "vidbold.io",
+      "milanyog.in"
+    ]
+  },
+  "profile": "Hands-on performance marketer who builds the whole funnel himself: the Meta campaign, the landing page, the checkout and the CRM follow-up. Since 2023 he has run 30+ Meta campaigns, judged on verified revenue rather than platform numbers. With a cloud engineering background he sets up pixels, events and automations himself.",
+  "verified_results": [
+    "Meta Ads: 30+ campaigns since 2023 - 774K impressions and 11.6K clicks.",
+    "MilanYog (D2C astrology app): 71 paid orders from 63 buyers in the first six weeks after launch, every order matched to Razorpay. Revenue was 2.2x Meta ad spend; 2.18% CTR.",
+    "Found Meta Pixel double-counting and test orders marked as paid by checking against Razorpay; counts captured payments only.",
+    "Lead follow-up: an AI voice agent calls new leads within 15 minutes and sends an automatic WhatsApp recap; four WhatsApp templates approved by Meta."
+  ],
+  "experience": [
+    {
+      "role": "Performance Marketer (part-time)",
+      "where": "Independent projects - D2C campaigns: MilanYog (astrology app) and e-commerce products",
+      "when": "2023 - Present",
+      "did": [
+        "Planned, launched and optimised Meta campaigns across Sales, Leads, Engagement and Click-to-WhatsApp objectives: audience testing, creative testing, budget pacing, ad-set restructuring on cost per purchase.",
+        "MilanYog: built the full funnel end to end - Meta ads, animated landing page with an A/B variant, free first answer, Razorpay checkout. Designed a 4-tier offer ladder; 31% of orders chose the top tier.",
+        "SEO in English, Hindi and Bengali: 43 pages with hreflang and schema, plus 6 free calculators that lead into the paid app."
+      ]
+    },
+    {
+      "role": "Cloud Engineer",
+      "where": "Tata Consultancy Services - clients: British Airways, Qantas Airways",
+      "when": "Nov 2021 - Present",
+      "did": [
+        "Runs production AWS infrastructure for large aviation clients: patching, monitoring, incident handling and compliance reporting.",
+        "Requirement calls, status reviews and escalations with UK and US stakeholders; used to reporting to non-technical decision makers.",
+        "Automates repeat work with Python, Bash and AWS Systems Manager.",
+        "Service Commitment Award (3 years) and an internal hackathon award for an AI-based innovation."
+      ]
+    },
+    {
+      "role": "Business Developer (Intern)",
+      "where": "Inline Private Limited, Kolkata - ride-hailing startup",
+      "when": "Feb 2018 - Apr 2018",
+      "did": [
+        "Field acquisition: pitching, objection handling and driver sign-ups."
+      ]
+    }
+  ],
+  "products_built": [
+    "Vidbold (vidbold.io) - AI video studio: type an idea, get a finished branded short-form video with voiceover, captions, B-roll and music.",
+    "BoldGrow AI (boldgrowai.com) - AI agency: chatbots, voice agents, automation, cinematic websites.",
+    "MilanYog (milanyog.in) - D2C astrology app with a paid funnel.",
+    "Monica - WhatsApp AI sales agent: answers leads in seconds, reads buyer stage, books calls via Cal.com, hands over to a human.",
+    "AI Audit Funnel - visitor drops a website URL, gets a 7-12 page branded PDF audit on WhatsApp + email in about two minutes.",
+    "AI Receptionist - voice AI that answers a phone call over SIP, qualifies and triggers follow-up.",
+    "Lead Engine - scrapers over Google Places and YouTube with a daily scheduler producing scored, deduped lead lists.",
+    "Dream Machine - takes a prospect URL, drafts a cold DM plus a personalised 'your future website' teaser.",
+    "Cadence - five-agent pipeline that designs carousel posts as HTML and renders them through headless Chrome.",
+    "16 cinematic websites shipped solo across architecture, interiors, real estate, hospitality, retail, fitness and entertainment (all linked on this page)."
+  ],
+  "skills": {
+    "paid_media": [
+      "Meta Ads (Sales, Leads, Click-to-WhatsApp, Engagement)",
+      "Campaign structure",
+      "Audience & creative testing",
+      "Budget pacing",
+      "ROAS / CPA / CPL",
+      "Meta Ad Library research"
+    ],
+    "funnels_cro": [
+      "Landing page design & build",
+      "A/B testing",
+      "Offer ladders & order bumps",
+      "Checkout",
+      "Ad and page copy"
+    ],
+    "crm_automation": [
+      "n8n",
+      "WhatsApp Cloud API & templates",
+      "Chatwoot",
+      "Supabase",
+      "AI voice agents (ElevenLabs)",
+      "Webhooks"
+    ],
+    "tracking_build": [
+      "Meta Pixel & conversion events",
+      "Google Analytics & Search Console",
+      "HTML / CSS / JavaScript",
+      "Python",
+      "AI creative pipelines"
+    ],
+    "cloud": [
+      "AWS",
+      "Python",
+      "Bash",
+      "AWS Systems Manager",
+      "Terraform",
+      "Cloudflare"
+    ]
+  },
+  "languages": [
+    "English (full professional)",
+    "Bengali (native)",
+    "Hindi (conversational)"
+  ],
+  "certifications": [
+    "AI-Powered Performance Ads Certification - Google (2026)",
+    "Certified Digital Marketing Consultant - AADME",
+    "AI-Enabled Advanced Digital Marketing Professional Program - AADME",
+    "AWS Certified Solutions Architect - Associate",
+    "AWS Certified Machine Learning Engineer - Associate",
+    "Build with Gemini agent skill badge - Google Cloud (2026)"
+  ],
+  "education": "B.Tech, Electronics & Communication Engineering, RCC Institute of Information Technology, Kolkata (2017-2021), CGPA 7.89/10",
+  "how_he_works": "One person runs the whole loop: ads, landing page, WhatsApp AI, voice agent, booking. No handoffs. Free value first (an audit or a mockup), then paid setup.",
+  "never_state": [
+    "notice period, joining date or availability - say: 'Best to ask Dipanjan directly - email him.'",
+    "current or expected salary",
+    "anything about client contracts, revenue of BoldGrow, or number of paying clients",
+    "any metric, employer, client or tool that is not written above"
+  ]
+}
