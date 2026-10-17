@@ -7,25 +7,25 @@
     "email": "dipanjanroy369@gmail.com",
     "sites": [
       "boldgrowai.com",
-      "vidbold.io",
-      "milanyog.in"
+      "vidbold.io"
     ]
   },
   "profile": "Hands-on performance marketer who builds the whole funnel himself: the Meta campaign, the landing page, the checkout and the CRM follow-up. Since 2023 he has run 30+ Meta campaigns, judged on verified revenue rather than platform numbers. With a cloud engineering background he sets up pixels, events and automations himself.",
   "verified_results": [
+    "D2C products: 100+ units sold through his D2C Meta ads - room heaters and LED torches. Separately, astrology readings sold online.",
     "Meta Ads: 30+ campaigns since 2023 - 774K impressions and 11.6K clicks.",
-    "MilanYog (D2C astrology app): 71 paid orders from 63 buyers in the first six weeks after launch, every order matched to Razorpay. Revenue was 2.2x Meta ad spend; 2.18% CTR.",
+    "An online astrology-reading product (readings by an astrologer): 71 paid orders from 63 buyers in the first six weeks after launch, every order matched to Razorpay. Revenue was 2.2x Meta ad spend; 2.18% CTR.",
     "Found Meta Pixel double-counting and test orders marked as paid by checking against Razorpay; counts captured payments only.",
     "Lead follow-up: an AI voice agent calls new leads within 15 minutes and sends an automatic WhatsApp recap; four WhatsApp templates approved by Meta."
   ],
   "experience": [
     {
       "role": "Performance Marketer (part-time)",
-      "where": "Independent projects - D2C campaigns: MilanYog (astrology app) and e-commerce products",
+      "where": "Independent projects - D2C campaigns: astrology readings, plus room heaters and LED torches (100+ products sold)",
       "when": "2023 - Present",
       "did": [
         "Planned, launched and optimised Meta campaigns across Sales, Leads, Engagement and Click-to-WhatsApp objectives: audience testing, creative testing, budget pacing, ad-set restructuring on cost per purchase.",
-        "MilanYog: built the full funnel end to end - Meta ads, animated landing page with an A/B variant, free first answer, Razorpay checkout. Designed a 4-tier offer ladder; 31% of orders chose the top tier.",
+        "Astrology readings: built the full funnel end to end - Meta ads, animated landing page with an A/B variant, free first answer, Razorpay checkout. Designed a 4-tier offer ladder; 31% of orders chose the top tier.",
         "SEO in English, Hindi and Bengali: 43 pages with hreflang and schema, plus 6 free calculators that lead into the paid app."
       ]
     },
@@ -52,7 +52,7 @@
   "products_built": [
     "Vidbold (vidbold.io) - AI video studio: type an idea, get a finished branded short-form video with voiceover, captions, B-roll and music.",
     "BoldGrow AI (boldgrowai.com) - AI agency: chatbots, voice agents, automation, cinematic websites.",
-    "MilanYog (milanyog.in) - D2C astrology app with a paid funnel.",
+    "An online astrology-reading product (readings by an astrologer) with a paid funnel.",
     "Monica - WhatsApp AI sales agent: answers leads in seconds, reads buyer stage, books calls via Cal.com, hands over to a human.",
     "AI Audit Funnel - visitor drops a website URL, gets a 7-12 page branded PDF audit on WhatsApp + email in about two minutes.",
     "AI Receptionist - voice AI that answers a phone call over SIP, qualifies and triggers follow-up.",
@@ -107,11 +107,12 @@
     "Hindi (conversational)"
   ],
   "certifications": [
+    "AWS Certified Solutions Architect - Associate (Credly-verified, Dec 2025)",
+    "AWS Certified Developer - Associate (Credly-verified, Oct 2025)",
+    "AWS Certified AI Practitioner (Credly-verified, Aug 2025)",
     "AI-Powered Performance Ads Certification - Google (2026)",
     "Certified Digital Marketing Consultant - AADME",
     "AI-Enabled Advanced Digital Marketing Professional Program - AADME",
-    "AWS Certified Solutions Architect - Associate",
-    "AWS Certified Machine Learning Engineer - Associate",
     "Build with Gemini agent skill badge - Google Cloud (2026)"
   ],
   "education": "B.Tech, Electronics & Communication Engineering, RCC Institute of Information Technology, Kolkata (2017-2021), CGPA 7.89/10",
@@ -120,6 +121,7 @@
     "notice period, joining date or availability - say: 'Best to ask Dipanjan directly - email him.'",
     "current or expected salary",
     "anything about client contracts, revenue of BoldGrow, or number of paying clients",
-    "any metric, employer, client or tool that is not written above"
+    "any metric, employer, client or tool that is not written above",
+    "the name or website of the astrology-reading product - call it 'an online astrology-reading product'"
   ]
 }

@@ -10,9 +10,8 @@
      empty until the Worker is deployed — and then the live parts say so
      instead of failing. */
   const LOCAL = ['localhost', '127.0.0.1'].includes(location.hostname);
-  const API = LOCAL
-    ? 'http://127.0.0.1:8787'
-    : (document.querySelector('meta[name="portfolio-api"]')?.content || '').replace(/\/$/, '');
+  const API = (document.querySelector('meta[name="portfolio-api"]')?.content || '').replace(/\/$/, '')
+    || (LOCAL ? 'http://127.0.0.1:8787' : '');
 
   const $ = (s, r = document) => r.querySelector(s);
 

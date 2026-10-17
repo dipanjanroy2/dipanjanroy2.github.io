@@ -3,19 +3,27 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Dipanjan Roy — Full-Stack Tech Marketer</title>
-<meta name="description" content="Full-stack tech marketer: conversion-first websites, Meta ads, and the WhatsApp + voice AI systems that answer, qualify and book every lead — designed, coded and wired end-to-end by one person." />
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>◆</text></svg>" />
+<title>Dipanjan Roy — Tech Marketer &amp; AI Builder</title>
+<meta name="description" content="Dipanjan Roy runs Meta ads, makes AI-generated video ads, builds landing pages and funnels, sets up tracking, and builds the AI chatbot and voice agent that follow up every lead. Proof, campaigns and case studies inside." />
+<link rel="canonical" href="https://dipanjanroy.cloud/" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://dipanjanroy.cloud/" />
+<meta property="og:title" content="Dipanjan Roy — Tech Marketer &amp; AI Builder" />
+<meta property="og:description" content="I build the ads, the funnel, and the AI that follows up every lead. 30+ Meta campaigns, 100+ D2C products sold (heaters, torches), astrology readings, AI video ads and voice agents." />
+<meta property="og:image" content="https://dipanjanroy.cloud/assets/og.jpg" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="theme-color" content="#0a0a0a" />
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <!-- URL of the deployed API Worker (see /worker). Empty until it is deployed:
-     the live engine and the chat then say so instead of failing. On localhost
-     the page talks to `wrangler dev` on :8787 regardless of this value. -->
-<meta name="portfolio-api" content="">
-<link rel="stylesheet" href="assets/lab.css?v=6">
-<!-- Scroll reveals are driven by script. Without it, show everything. -->
+     the AI demo then plays a clearly labelled scripted replay and the GTM
+     engine stays hidden. On localhost the page talks to `wrangler dev`. -->
+<meta name="portfolio-api" content="https://dipanjan-portfolio-api.aineural369.workers.dev">
+<link rel="stylesheet" href="assets/lab.css?v=8">
 <noscript><style>.reveal{opacity:1 !important;transform:none !important;}</style></noscript>
+<style>.reveal{opacity:1 !important;transform:none !important;}</style></noscript>
 <style>
   :root{
     /* Gen-Z minimal: near-black, off-white, and ONE loud accent. Every tint of
@@ -23,7 +31,7 @@
        this block alone. */
     --ink:#0a0a0a; --ink2:#131313; --bone:#f4f4f0; --dim:#8e8e88;
     --line:rgba(244,244,240,.1);
-    --accent:#c6ff3a; --accent-rgb:198 255 58; --accent-hi:#dcff7a;
+    --accent:#4da3ff; --accent-rgb:77 163 255; --accent-hi:#7cbcff;
     --accent-soft:rgb(var(--accent-rgb) / .14);
     --serif:'Fraunces',Georgia,serif; --sans:'Inter',sans-serif;
   }
@@ -260,149 +268,99 @@
   .stack-line span:not(.sl){font-size:.72rem;color:var(--dim);border:1px solid var(--line);
     padding:.32rem .7rem;border-radius:6px;}
 </style>
+<link rel="stylesheet" href="assets/v2.css?v=17">
 </head>
 <body>
 
 <nav>
   <a class="brand" href="#top">Dipanjan <em>Roy</em></a>
   <div class="nav-links">
+    <a href="#ai">AI demo</a>
+    <a href="#receipts">Receipts</a>
+    <a href="#ads">AI ads</a>
+    <a href="#funnel">Funnel</a>
+    <a href="#cases">Case studies</a>
+    <a href="#certs">Certs</a>
     <a href="#resume">Résumé</a>
-    <a href="#lab">Try it</a>
-    <a href="#systems">Systems</a>
-    <a href="#work">Work</a>
   </div>
-  <a class="nav-cta" href="mailto:dipanjanroy369@gmail.com">Get in touch</a>
+  <a class="nav-cta" href="mailto:dipanjanroy369@gmail.com">Email me</a>
 </nav>
 
-<header class="hero wrap" id="top">
+<main id="top">
+<header class="wrap v2-hero">
   <div>
-    <p class="eyebrow">Dipanjan Roy — Tech Marketer</p>
-    <h1>
-      <span class="ln"><span>The page. The ads.</span></span>
-      <span class="ln"><span><em>The AI that closes.</em></span></span>
-      <span class="ln"><span>Built by one person.</span></span>
-    </h1>
-    <p class="role">I work as a <b id="roleWord">Tech Marketer</b></p>
-    <p class="pitch">Full-stack marketing, actually full-stack: I design the landing page, run the Meta ads, and build the WhatsApp + voice AI that answers every lead in seconds and books the call. One person, zero handoffs.</p>
-    <div class="hero-cta">
-      <a class="btn btn-solid" href="resume/Dipanjan_Roy_Resume.pdf" download>Download résumé</a>
-      <a class="btn btn-ghost" href="#lab">Get a GTM plan in a minute</a>
-      <a class="btn btn-ghost" href="mailto:dipanjanroy369@gmail.com">Email me</a>
+    <p class="v2-eyebrow">Dipanjan Roy · Tech Marketer &amp; AI Builder</p>
+    <h1>I build the ads, the funnel, and <em>the AI that follows up</em> every lead.</h1>
+    <p class="v2-lede">I run <b>Meta campaigns</b>, make the <b>creative</b> — including AI-generated video ads — build the <b>landing page and checkout</b>, wire up the <b>tracking</b>, and build the <b>chatbot and voice agent</b> that follow up. My background in cloud engineering means I build those systems myself.</p>
+    <div class="v2-ctas">
+      <a class="btn btn-solid" href="#receipts">Explore my work →</a>
+      <a class="btn btn-ghost" href="resume/Dipanjan_Roy_Resume.pdf" download>Download résumé</a>
+      <a class="ai-link" href="#ai"><i aria-hidden="true"></i>Talk to my AI</a>
     </div>
-    <div class="hero-meta">
-      <div><div class="num">16</div><div class="lbl">Sites shipped solo</div></div>
-      <div><div class="num">≈2 min</div><div class="lbl">Lead → PDF audit, auto</div></div>
-      <div><div class="num">24/7</div><div class="lbl">WhatsApp AI follow-up</div></div>
-    </div>
+    <a class="hero-badges" href="#certs" aria-label="See my certifications">
+      <img src="assets/badges/aws-solutions-architect.webp" width="44" height="44" alt="AWS Solutions Architect – Associate badge">
+      <img src="assets/badges/aws-developer.webp" width="44" height="44" alt="AWS Developer – Associate badge">
+      <img src="assets/badges/aws-ai-practitioner.webp" width="44" height="44" alt="AWS AI Practitioner badge">
+      <span>3× AWS certified · AADME-certified digital marketer</span>
+    </a>
   </div>
-
-  <!-- The work itself, strobing in one frame — click lands on the grid -->
-  <a class="screen" href="#work" id="screen" aria-label="Browse the work">
-    <img id="screenImg" src="thumbs/f-doom.jpg" alt="" aria-hidden="true">
-    <span class="screen-hint">The work · live</span>
-    <span class="screen-cap"><span class="sn" id="screenName">Doom Network</span><span class="si" id="screenIdx">01 / 12</span></span>
-  </a>
+  <div class="stack" aria-label="Three AI-generated video ads I made">
+    <button class="phone p1" type="button" aria-label="Skincare UGC ad · 10 s AI video — play preview"><video src="assets/ads2/skincare-ugc.mp4" poster="assets/ads2/skincare-ugc.webp" muted loop playsinline preload="none"></video><span class="tag"><b>Skincare UGC ad · 10 s</b><span>AI video</span></span></button>
+    <button class="phone p2" type="button" aria-label="Desi ghee ad · 20 s AI video · emotional story — play preview"><video src="assets/ads2/ghee-emotion.mp4" poster="assets/ads2/ghee-emotion.webp" muted loop playsinline preload="none"></video><span class="tag"><b>Desi ghee ad · 20 s</b><span>AI video · emotional story</span></span></button>
+    <button class="phone p3" type="button" aria-label="Fashion clip · 4 s AI video — play preview"><video src="assets/ads2/clip04.mp4" poster="assets/ads2/clip04.webp" muted loop playsinline preload="none"></video><span class="tag"><b>Fashion clip · 4 s</b><span>AI video</span></span></button>
+    <p class="stack-cap">AI-generated ads I made — <b>hover or tap to preview</b></p>
+  </div>
 </header>
 
-<div class="mq" aria-hidden="true">
-  <div class="mq-track" id="mqTrack"></div>
+<div class="wrap">
+  <div class="proof" aria-label="Verified results">
+    <div class="pf"><div class="v">30<em>+</em></div><div class="k"><b>Meta campaigns</b> since 2023 · 774K impressions · 11.6K clicks</div></div>
+    <div class="pf"><div class="v">100<em>+</em></div><div class="k"><b>products sold</b> through my D2C ads — room heaters and LED torches</div></div>
+    <div class="pf"><div class="v">71</div><div class="k"><b>paid orders</b> from 63 buyers in six weeks, each matched to Razorpay</div><div class="src">Astrology readings · D2C</div></div>
+    <div class="pf"><div class="v">2.2<em>x</em></div><div class="k">revenue vs <b>Meta ad spend</b> · 2.18% CTR</div><div class="src">Astrology readings · D2C</div></div>
+  </div>
 </div>
 
-<!-- ══ RÉSUMÉ — plain HTML on purpose: readable in twenty seconds, with or
-     without JavaScript. Every figure is from the verified résumé (Oct 2026). ══ -->
-<section class="wrap resume" id="resume">
-  <div class="section-head reveal">
-    <p class="eyebrow">Résumé · the twenty-second version</p>
-    <h2>What I've actually done, <em>with receipts</em>.</h2>
-    <p>I count what reached the bank — not what the ad platform says it sold.</p>
+<section class="wrap" id="ai">
+  <div class="v2-head">
+    <div><p class="v2-eyebrow">AI demo</p><h2>Don't take my word for it. <em>Ask the AI I built.</em></h2></div>
+    <div><p>An assistant that answers questions about my work from my verified résumé notes — and a recorded call with the AI voice agent I set up for lead follow-up.</p></div>
   </div>
-
-  <div class="rz-grid">
-    <ol class="rz-xp reveal">
-      <li class="rz-job">
-        <span class="rz-when">2023 — Present</span>
-        <h3>Performance Marketer</h3>
-        <p class="rz-where">Independent projects (part-time) · D2C campaigns: MilanYog and e-commerce products</p>
-        <ul>
-          <li>Planned, launched and optimised <b>30+ Meta campaigns</b> across Sales, Leads, Engagement and Click-to-WhatsApp — audience and creative testing, budget pacing, restructuring on cost per purchase.</li>
-          <li><b>MilanYog:</b> built the whole funnel — ads, animated landing page with an A/B variant, free first answer, Razorpay checkout — and a 4-tier offer ladder. <b>31% of orders chose the top tier.</b></li>
-          <li>SEO in English, Hindi and Bengali from Keyword Planner data: <b>43 pages</b> with hreflang and schema, plus 6 free calculators that lead into the paid app.</li>
-        </ul>
-      </li>
-      <li class="rz-job">
-        <span class="rz-when">2025 — Present</span>
-        <h3>AI Automation &amp; Lead Generation</h3>
-        <p class="rz-where">Part-time · B2B AI services for clinics, gyms, salons and local services</p>
-        <ul>
-          <li>AI agents that audit a prospect's website and deliver a branded 7–12 page report on WhatsApp and email, used as a free lead magnet.</li>
-          <li>An AI voice agent that calls new leads <b>within 15 minutes</b> and sends an automatic WhatsApp recap; four WhatsApp templates approved by Meta.</li>
-          <li>Prospecting: <b>640 local-business leads</b> (London, Toronto, Sydney, Dubai) via the Google Places API.</li>
-        </ul>
-      </li>
-      <li class="rz-job">
-        <span class="rz-when">Nov 2021 — Present</span>
-        <h3>Cloud &amp; Agentic AI Engineer</h3>
-        <p class="rz-where">Tata Consultancy Services · clients: British Airways, Qantas Airways</p>
-        <ul>
-          <li>Run production <b>AWS infrastructure</b> for large aviation clients: patching, monitoring, incident handling, compliance reporting.</li>
-          <li>Requirement calls, status reviews and escalations with UK and US stakeholders.</li>
-          <li>Automate repeat work with Python, Bash and AWS Systems Manager. Internal hackathon award for an AI-based innovation, and Google Cloud's "Build with Gemini" agent badge (2026).</li>
-        </ul>
-      </li>
-      <li class="rz-job">
-        <span class="rz-when">Feb — Apr 2018</span>
-        <h3>Business Developer (Intern)</h3>
-        <p class="rz-where">Inline Private Limited, Kolkata · ride-hailing startup</p>
-        <ul><li>Field acquisition: pitching, objection handling and driver sign-ups.</li></ul>
-      </li>
-    </ol>
-
-    <div class="reveal">
-      <div class="rz-nums">
-        <div class="rz-num"><div class="v">30+</div><div class="k"><b>Meta campaigns</b> since 2023, across Sales, Leads, Engagement and Click-to-WhatsApp</div></div>
-        <div class="rz-num"><div class="v">774K</div><div class="k">impressions · <b>11.6K clicks</b></div></div>
-        <div class="rz-num"><div class="v">71</div><div class="k"><b>verified paid orders</b> from 63 buyers in the first six weeks — MilanYog</div></div>
-        <div class="rz-num"><div class="v">2.2x</div><div class="k">verified revenue vs <b>Meta ad spend</b> · 2.18% CTR — MilanYog</div></div>
+  <div class="ai-grid">
+    <div class="ai-card" aria-labelledby="aiTitle">
+      <div class="ai-top"><span class="ai-av" aria-hidden="true">DR</span><div class="t"><b id="aiTitle">The AI version of me</b><span>Answers from my résumé notes only</span></div><span class="status demo" id="aiStatus">Scripted demo</span></div>
+      <div class="ai-log" id="aiLog" aria-live="polite">
+        <div class="msg a">Hi — pick a question below. I'll answer from Dipanjan's verified résumé notes.</div>
       </div>
-      <p class="rz-src"><b>How these are counted:</b> every order is matched to Razorpay, not Ads Manager. That is how I found the Meta Pixel double-counting, and test orders marked as paid — I count captured payments only.</p>
-
-      <div class="rz-block">
-        <h4>Certifications</h4>
-        <ul class="rz-certs">
-          <li>AI-Powered Performance Ads Certification — Google (2026)</li>
-          <li>Certified Digital Marketing Consultant · AI-Enabled Advanced Digital Marketing Program — AADME</li>
-          <li>AWS Certified Solutions Architect — Associate</li>
-          <li>AWS Certified Machine Learning Engineer — Associate</li>
-          <li>"Build with Gemini" agent skill badge — Google Cloud (2026)</li>
-        </ul>
-      </div>
-
-      <div class="rz-block">
-        <h4>Works in</h4>
-        <div class="rz-chips">
-          <span>Meta Ads</span><span>Funnels &amp; CRO</span><span>A/B testing</span><span>Offer ladders</span><span>n8n</span><span>WhatsApp Cloud API</span><span>Supabase</span><span>AI voice agents</span><span>Meta Pixel &amp; events</span><span>GA4 &amp; Search Console</span><span>AWS</span><span>Python</span><span>HTML / CSS / JS</span>
+      <div class="ai-sugg" id="aiSugg" aria-label="Suggested questions"></div>
+      <form class="ai-form" id="aiForm" hidden>
+        <label class="sr-only" for="aiInput">Ask a question about Dipanjan's work</label>
+        <input id="aiInput" type="text" maxlength="600" autocomplete="off" placeholder="Ask about my work, results or skills…">
+        <button class="btn btn-solid" id="aiSend" type="submit">Ask</button>
+      </form>
+      <div class="ai-foot"><span id="aiNote">This is a <b style="color:var(--bone);font-weight:500">scripted replay</b> with fixed answers, not a live conversation. The live assistant switches on once its server is deployed.</span>
+        </div>
+    </div>
+    <div class="ai-card voice-card">
+      <div class="ai-top"><span class="ai-av" aria-hidden="true">☎</span><div class="t"><b>AI voice agent</b><span>Call it live, or play a recorded call</span></div><span class="status live">Live + recording</span></div>
+      <video controls preload="none" playsinline poster="assets/demo/voice-agent.webp?v=2" src="assets/demo/voice-agent.mp4?v=2" aria-label="Recorded call between a caller and the AI voice agent"></video>
+      <div class="vc-body">A <b>real call</b> to an ElevenLabs voice agent I configured for a <b>fictional dental clinic</b>: it answers, understands the request and books the appointment.
+        <div class="live-call">
+          <button class="btn btn-solid" id="callBtn" type="button">📞 Call the AI receptionist — live</button>
+          <p class="call-status" id="callStatus" aria-live="polite">Uses your microphone. Speak Hindi or English. Calls end after 2 minutes.</p>
         </div>
       </div>
-
-      <div class="rz-block">
-        <h4>Education &amp; languages</h4>
-        <p class="rz-edu">B.Tech, Electronics &amp; Communication — RCC Institute of Information Technology, Kolkata (2017–2021) · CGPA 7.89<br>English · Bengali · Hindi</p>
-      </div>
     </div>
   </div>
-
-  <div class="rz-actions reveal">
-    <a class="btn btn-solid" href="resume/Dipanjan_Roy_Resume.pdf" download>Download the one-page PDF</a>
-    <a class="btn btn-ghost" href="#" data-open-chat>Ask my AI about any of this</a>
-    <div class="rz-listen" hidden><!-- old intro says "own money" and that the AI is live; re-record before showing -->
-      <span>Or listen · 30 sec · AI voice</span>
-      <audio controls preload="none" src="assets/intro.mp3">A 30-second spoken summary.</audio>
-    </div>
+  <div class="ai-can">
+    <div><b>What it answers</b>My results, projects, tools, certifications and how I'd approach a growth problem.</div>
+    <div><b>What it won't do</b>Invent numbers, or talk about salary, notice period or availability — it points you to email for those.</div>
+    <div><b>How it's built</b>An LLM behind a Cloudflare Worker, grounded in a facts file, with rate limits on the server.</div>
   </div>
 </section>
 
 <!-- ══ THE LAB — the claim, made testable ══ -->
-<section class="wrap lab" id="lab">
+<section class="wrap lab" id="lab" data-needs-api hidden>
   <div class="section-head reveal">
     <p class="eyebrow">Try it · live</p>
     <h2>Don't read about it. <em>Run it.</em></h2>
@@ -464,177 +422,346 @@
   </div>
 </section>
 
-<section class="featured wrap">
-  <a class="feat-card reveal" href="https://vidbold.io/" target="_blank" rel="noopener">
-    <div class="feat-left">
-      <span class="feat-badge"><span class="dot"></span>Featured · SaaS I built &amp; market</span>
-      <h3>Vidbold — the <em>AI video studio</em> I built, shipped and market.</h3>
-      <p class="feat-what">Not a concept build. A real product people use: you <b>type an idea</b> — or drop a website, a screen recording, even an existing viral video — and Vidbold returns a <b>finished, branded short-form video</b> with AI voiceover, captions, B-roll and music. No timeline, no editing skills.</p>
-      <div class="feat-flow">
-        <span>Prompt</span><i>→</i><span>Script</span><i>→</i><span>Voiceover</span><i>→</i><span>B-roll + Captions</span><i>→</i><span class="out">Ready to post</span>
-      </div>
-      <span class="feat-cta">Visit vidbold.io ↗</span>
-    </div>
 
-    <div class="feat-right">
-      <div class="feat-benefits">
-        <div class="ben">
-          <span class="ben-ico">⚡</span>
-          <span class="ben-txt"><strong>Idea to posted reel in minutes</strong><span>What used to be a full editing session is now one prompt and a render.</span></span>
+<section class="wrap" id="receipts">
+  <div class="v2-head">
+    <div><p class="v2-eyebrow">Campaign receipts</p><h2>Real campaigns. <em>Spend hidden</em> on purpose.</h2></div>
+    <div><p>Results from my Meta campaigns, by objective. Screenshots come straight from Ads Manager with every cost column removed from the image — what's left is the objective, the click-through rate and the results.</p>
+      <div class="v2-note"><b>✓</b><span>Orders are matched to Razorpay, not Ads Manager. That is how I caught the Meta Pixel double-counting.</span></div></div>
+  </div>
+  <div class="chips2" id="rcChips" role="group" aria-label="Filter campaigns">
+    <button type="button" aria-pressed="true" data-f="all">All</button>
+    <button type="button" aria-pressed="false" data-f="sales">Sales</button>
+    <button type="button" aria-pressed="false" data-f="awareness">Awareness</button>
+    <button type="button" aria-pressed="false" data-f="test">Creative tests</button>
+  </div>
+  <div class="wall" id="wall"></div>
+</section>
+
+<section class="wrap" id="ads">
+  <div class="v2-head">
+    <div><p class="v2-eyebrow">AI-generated creative</p><h2>The ads, <em>made by me</em> with AI.</h2></div>
+    <div><p>Video ads and product shots made with AI image and video tools — the concept, script and edit are mine. They are concept ads, made to show the work. Hover to preview; tap for sound.</p></div>
+  </div>
+  <div class="ads ads3">
+    <article class="ad">
+      <button class="ad-media" type="button" aria-label="Tap for sound: Desi ghee — emotional story">
+        <video src="assets/ads2/ghee-emotion.mp4" poster="assets/ads2/ghee-emotion.webp" muted playsinline preload="none"></video>
+        <span class="playhint">Tap for sound</span><span class="snd" aria-hidden="true">🔇</span>
+      </button>
+      <div class="ad-body"><h3>Desi ghee — emotional story</h3><p class="m">Hindi · 20 s · 9:16</p><p>“Mummy kehti thi roti bina ghee ke adhuri hoti hai” — a memory-led ad for pure cow desi ghee.</p></div>
+    </article>
+    <article class="ad">
+      <button class="ad-media" type="button" aria-label="Tap for sound: Skincare — UGC style">
+        <video src="assets/ads2/skincare-ugc.mp4" poster="assets/ads2/skincare-ugc.webp" muted playsinline preload="none"></video>
+        <span class="playhint">Tap for sound</span><span class="snd" aria-hidden="true">🔇</span>
+      </button>
+      <div class="ad-body"><h3>Skincare — UGC style</h3><p class="m">English · 10 s · 9:16</p><p>A creator-style ad for a radiance cream: hello, product, application.</p></div>
+    </article>
+    <article class="ad ad-wide">
+      <button class="ad-media" type="button" aria-label="Tap for sound: englishyaari — story ad">
+        <video src="assets/ads2/englishyaari-story.mp4" poster="assets/ads2/englishyaari-story.webp" muted playsinline preload="none"></video>
+        <span class="playhint">Tap for sound</span><span class="snd" aria-hidden="true">🔇</span>
+      </button>
+      <div class="ad-body"><h3>englishyaari — story ad</h3><p class="m">English · 51 s · 16:9</p><p>A boss warns an employee who freezes on client calls — a short drama for an English-speaking app, ending on “Speak up. Move up.”</p></div>
+    </article>
+  </div>
+  <h3 class="sub-h">AI fashion &amp; product shots</h3>
+  <p class="sub-p">Short clips and stills for fashion, accessories and product ads — generated with AI, ready for Reels and Stories.</p>
+  <div class="clips">
+      <button class="clip" type="button" aria-label="Mirror selfie, menswear — AI video clip, play preview"><video src="assets/ads2/clip01.mp4" poster="assets/ads2/clip01.webp" muted loop playsinline preload="none"></video><span>Mirror selfie, menswear</span></button>
+      <button class="clip" type="button" aria-label="Doorway portrait, kurta — AI video clip, play preview"><video src="assets/ads2/clip02.mp4" poster="assets/ads2/clip02.webp" muted loop playsinline preload="none"></video><span>Doorway portrait, kurta</span></button>
+      <button class="clip" type="button" aria-label="Mirror selfie, saree — AI video clip, play preview"><video src="assets/ads2/clip03.mp4" poster="assets/ads2/clip03.webp" muted loop playsinline preload="none"></video><span>Mirror selfie, saree</span></button>
+      <button class="clip" type="button" aria-label="Elevator selfie — AI video clip, play preview"><video src="assets/ads2/clip04.mp4" poster="assets/ads2/clip04.webp" muted loop playsinline preload="none"></video><span>Elevator selfie</span></button>
+      <button class="clip" type="button" aria-label="Street walk, menswear — AI video clip, play preview"><video src="assets/ads2/clip05.mp4" poster="assets/ads2/clip05.webp" muted loop playsinline preload="none"></video><span>Street walk, menswear</span></button>
+      <button class="clip" type="button" aria-label="Escalator, blazer — AI video clip, play preview"><video src="assets/ads2/clip06.mp4" poster="assets/ads2/clip06.webp" muted loop playsinline preload="none"></video><span>Escalator, blazer</span></button>
+      <button class="clip" type="button" aria-label="Perfume product shot — AI video clip, play preview"><video src="assets/ads2/clip07.mp4" poster="assets/ads2/clip07.webp" muted loop playsinline preload="none"></video><span>Perfume product shot</span></button>
+      <button class="clip" type="button" aria-label="Lifestyle, iced coffee — AI video clip, play preview"><video src="assets/ads2/clip08.mp4" poster="assets/ads2/clip08.webp" muted loop playsinline preload="none"></video><span>Lifestyle, iced coffee</span></button>
+      <button class="clip" type="button" aria-label="Bracelet close-up — AI video clip, play preview"><video src="assets/ads2/clip09.mp4" poster="assets/ads2/clip09.webp" muted loop playsinline preload="none"></video><span>Bracelet close-up</span></button>
+      <button class="clip" type="button" aria-label="Cyclist, streetwear — AI video clip, play preview"><video src="assets/ads2/clip10.mp4" poster="assets/ads2/clip10.webp" muted loop playsinline preload="none"></video><span>Cyclist, streetwear</span></button>
+  </div>
+</section>
+
+<section class="wrap" id="funnel">
+  <div class="v2-head">
+    <div><p class="v2-eyebrow">End-to-end funnel</p><h2>From the ad to the <em>repeat order</em>.</h2></div>
+    <div><p>The pieces I have built at each stage. Pick a stage to see what I built, the tools, the evidence, and the real number there — where one exists.</p></div>
+  </div>
+  <div class="fn" id="fnSteps" role="tablist" aria-label="Funnel stages"></div>
+  <div class="fn-panel" id="fnPanel" role="tabpanel" aria-live="polite"></div>
+  <div class="fn-links">
+    <a href="https://brightside-dental-sample.pages.dev/" target="_blank" rel="noopener"><span class="status demo">Demo</span>Dental landing page ↗</a>
+    <a href="https://brightside-dental-sample.pages.dev/ad-strategy/" target="_blank" rel="noopener"><span class="status demo">Demo</span>Dental ad strategy ↗</a>
+  </div>
+</section>
+
+<section class="wrap" id="cases">
+  <div class="v2-head">
+    <div><p class="v2-eyebrow">Case studies</p><h2>Three pieces of work, <em>in detail</em>.</h2></div>
+    <div><p>What the problem was, what I did, and what can be verified.</p></div>
+  </div>
+  <div class="cases">
+    <details class="case" open>
+      <summary><span class="n">01</span><span class="ttl"><h3>Astrology readings — a D2C product, end to end</h3><span>Online astrology readings by an astrologer · ads, funnel, offer, tracking</span></span><span class="tog" aria-hidden="true">+</span></summary>
+      <div class="case-body">
+        <div>
+          <h4>The product</h4><p>Kundli-matching and relationship readings by an astrologer, sold online to people in India looking for an answer about a marriage or relationship.</p>
+          <h4>Ads and creative</h4><p>Meta Sales campaigns with audience and creative tests; budget moved to the ad that produced paid orders.</p>
+          <h4>Landing page and funnel</h4><p>An animated landing page with an A/B variant and a free first answer before payment, then a Razorpay checkout.</p>
+          <h4>Offer</h4><p>A four-tier offer ladder, from a small order bump to a premium reading.</p>
+          <h4>Tracking</h4><p>Every order reconciled against Razorpay. That check found the Meta Pixel double-counting purchases, and test orders marked as paid — so budget decisions use captured payments only.</p>
         </div>
-        <div class="ben">
-          <span class="ben-ico">◆</span>
-          <span class="ben-txt"><strong>On-brand every single time</strong><span>Set your logo, colours and fonts once — every reel comes out matching.</span></span>
-        </div>
-        <div class="ben">
-          <span class="ben-ico">▶</span>
-          <span class="ben-txt"><strong>Native 9:16, 1:1 and 16:9</strong><span>Post straight to Reels, TikTok and Shorts — no re-cropping.</span></span>
-        </div>
-        <div class="ben">
-          <span class="ben-ico">✎</span>
-          <span class="ben-txt"><strong>You stay in control</strong><span>Edit the AI script and narration per scene, then re-render as often as you like.</span></span>
+        <div class="side">
+          <div class="kpi"><div class="v">71</div><div class="k">paid orders from 63 buyers in the first six weeks</div></div>
+          <div class="kpi"><div class="v">2.2x</div><div class="k">revenue vs Meta ad spend</div></div>
+          <div class="kpi"><div class="v">31%</div><div class="k">of orders chose the top tier</div></div>
+          <div class="kpi"><div class="v">2.18%</div><div class="k">click-through rate</div></div>
         </div>
       </div>
-      <div class="feat-stats">
-        <div><div class="n">21</div><div class="l">Languages</div></div>
-        <div><div class="n">15–60s</div><div class="l">Video lengths</div></div>
-        <div><div class="n">0</div><div class="l">Editing skills needed</div></div>
+    </details>
+    <details class="case">
+      <summary><span class="n">02</span><span class="ttl"><h3>Room heater — one product, three versions of the campaign</h3><span>D2C product · creative iteration</span></span><span class="tog" aria-hidden="true">+</span></summary>
+      <div class="case-body">
+        <div>
+          <h4>The setup</h4><p>The same room heater, run as a Sales campaign three times. After each version I read the numbers and rebuilt the campaign instead of raising the budget on a weak one.</p>
+          <h4>What happened</h4><p>Click-through rate rose from 1.30% to above 2% in versions two and three, and cost per click fell by 79% from the first version to the third.</p>
+          <h4>What isn't shown here</h4><p>The original creatives for each version aren't on this page yet, so I don't claim which change caused the lift.</p>
+        </div>
+        <div class="side">
+          <div class="kpi"><div class="v">1.30% → 2.22% → 2.17%</div><div class="k">click-through rate, versions 1 to 3</div></div>
+          <div class="kpi"><div class="v">−79%</div><div class="k">cost per click, version 1 to version 3</div></div>
+        </div>
       </div>
+    </details>
+    <details class="case">
+      <summary><span class="n">03</span><span class="ttl"><h3>Dental clinic funnel — a demo</h3><span>Fictional clinic · landing page + Meta ads strategy</span></span><span class="tog" aria-hidden="true">+</span></summary>
+      <div class="case-body">
+        <div>
+          <h4>What it is</h4><p>A worked example for a made-up clinic, Brightside Family Dental — not a client and not a real result. It shows how I'd sell a new-patient visit.</p>
+          <h4>The landing page</h4><p>A direct-response page: a named $79 offer with a value stack, a guarantee, a comfort promise for nervous patients, every common objection answered, a deadline, and a free price list for visitors who aren't ready to book.</p>
+          <h4>The ad strategy</h4><p>Audiences, five booking hooks plus a lead-magnet ad, a three-campaign structure, a 30-day test plan, tracking that separates bookings from email sign-ups, and funnel maths with every figure marked as an estimate.</p>
+          <a class="out" href="https://brightside-dental-sample.pages.dev/" target="_blank" rel="noopener">Open the landing page ↗</a><br>
+          <a class="out" href="https://brightside-dental-sample.pages.dev/ad-strategy/" target="_blank" rel="noopener">Open the ad strategy ↗</a>
+        </div>
+        <div class="side">
+          <div class="kpi"><div class="v">Demo</div><div class="k">Fictional clinic, illustrative prices and reviews — labelled as such on the page.</div></div>
+        </div>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section class="wrap" id="vidbold">
+  <div class="v2-head">
+    <div><p class="v2-eyebrow">Product I built</p><h2>Vidbold — <em>an AI video studio</em>, built solo.</h2></div>
+    <div><p>A live SaaS at vidbold.io: you type an idea and it plans the script, writes the voiceover and captions, adds visuals and renders a finished short video. Below is the Create flow, recorded from the product.</p></div>
+  </div>
+  <div class="feat-card" style="grid-template-columns:1.2fr .8fr">
+    <div>
+      <video class="vb-video" controls preload="none" playsinline poster="assets/demo/vidbold-create.webp" src="assets/demo/vidbold-create.mp4" aria-label="Vidbold Create flow walkthrough"></video>
     </div>
-  </a>
+    <div class="feat-left">
+      <span class="feat-badge"><span class="dot"></span>Live product · vidbold.io</span>
+      <div class="feat-flow" style="margin-top:.4rem"><span>Idea</span><i>→</i><span>Script</span><i>→</i><span>Voiceover</span><i>→</i><span>Visuals + captions</span><i>→</i><span class="out">Rendered video</span></div>
+      <ul class="vb-list">
+        <li><b>Create:</b> from one idea to a finished video, with research, script and voice.</li>
+        <li><b>AI Edit and Viral Clips:</b> edit a video by prompt, or cut long videos into short clips.</li>
+        <li><b>Brand kit:</b> your logo, colours and fonts applied to every video.</li>
+        <li><b>Paid plans live,</b> with checkout on the site.</li>
+      </ul>
+      <a class="feat-cta" href="https://vidbold.io/" target="_blank" rel="noopener" style="margin-top:1.4rem">Visit vidbold.io ↗</a>
+    </div>
+  </div>
 </section>
 
 <section class="wrap systems" id="systems">
-  <div class="section-head reveal">
-    <p class="eyebrow">Growth Systems · In Production</p>
-    <h2>The machinery behind the <em>marketing</em>.</h2>
-    <p>Pretty pages don't close leads — systems do. These run live behind my own funnels: they answer, qualify, follow up and book while I sleep. All designed, coded and wired by me.</p>
+  <div class="v2-head">
+    <div><p class="v2-eyebrow">Systems I've built</p><h2>The machinery behind <em>the marketing</em>.</h2></div>
+    <div><p>Tools I built for my own lead generation and content. Each is marked: built for my lead-generation work, or an internal tool.</p></div>
   </div>
-
-  <div class="creds reveal">
-    <span class="cred"><span class="dot"></span>Meta-Verified Tech Provider — WhatsApp Business API</span>
-    <span class="cred">4× AWS Certified</span>
-    <span class="cred">Meta Ads — run hands-on</span>
+  <div class="sys-grid">
+    <div class="sys"><span class="status live">Built</span><div class="sys-ico">☎</div><span class="sk">Voice AI</span><h3>AI voice follow-up</h3><p>Calls a new lead <b>within 15 minutes</b> and sends a WhatsApp recap. Four WhatsApp templates approved by Meta.</p></div>
+    <div class="sys"><span class="status live">Built</span><div class="sys-ico">▤</div><span class="sk">Lead magnet</span><h3>AI Audit Funnel</h3><p>A visitor drops their website URL; AI agents audit it and deliver a branded <b>7–12 page report</b> on WhatsApp and email.</p></div>
+    <div class="sys"><span class="status live">Built</span><div class="sys-ico">⌖</div><span class="sk">Outbound data</span><h3>Lead Engine</h3><p>Google Places API scraping turned into scored, de-duplicated lead lists — <b>640 local-business leads</b> across London, Toronto, Sydney and Dubai.</p></div>
+    <div class="sys"><span class="status tool">Internal tool</span><div class="sys-ico">▦</div><span class="sk">Content studio</span><h3>Cadence</h3><p>A five-agent pipeline that designs carousel posts as HTML and renders them through headless Chrome — <b>on-brand social content</b>.</p></div>
+    <div class="sys"><span class="status tool">Internal tool</span><div class="sys-ico">✉</div><span class="sk">Cold outreach</span><h3>Dream Machine</h3><p>Drop a prospect's URL; it pulls their brand and drafts a <b>personalised cold DM and a "your future website" teaser</b>.</p></div>
+    <div class="sys"><span class="status tool">Internal tool</span><div class="sys-ico">◈</div><span class="sk">Engine</span><h3>This page's AI</h3><p>The persona chat and go-to-market engine above: an LLM behind a Cloudflare Worker, grounded in a facts file, <b>rate-limited on the server</b>.</p></div>
   </div>
-
-  <div class="sys-grid reveal">
-    <div class="sys">
-      <div class="sys-ico">◈</div>
-      <span class="sk">WhatsApp AI Sales Agent</span>
-      <h3>Monica</h3>
-      <p>Answers every WhatsApp lead <b>in seconds</b>, reads the buyer's stage, pushes toward a booked call via Cal.com — and hands over to a human the moment it should.</p>
-    </div>
-    <div class="sys">
-      <div class="sys-ico">▤</div>
-      <span class="sk">Automated Lead Magnet</span>
-      <h3>AI Audit Funnel</h3>
-      <p>A visitor drops their website URL — the system researches the site, writes a <b>7–12 page branded PDF audit</b> and delivers it on WhatsApp + email in about two minutes. No human in the loop.</p>
-    </div>
-    <div class="sys">
-      <div class="sys-ico">☎</div>
-      <span class="sk">Voice AI</span>
-      <h3>AI Receptionist</h3>
-      <p>A phone call comes in over SIP; a natural <b>AI voice answers, qualifies and triggers follow-up</b> — so a missed call is never a missed customer.</p>
-    </div>
-    <div class="sys">
-      <div class="sys-ico">⌖</div>
-      <span class="sk">Outbound Data</span>
-      <h3>Lead Engine</h3>
-      <p>Scrapers over Google Places and YouTube plus a daily scheduler that turns raw listings into <b>scored, deduped lead lists</b> ready for outreach.</p>
-    </div>
-    <div class="sys">
-      <div class="sys-ico">✉</div>
-      <span class="sk">Cold Outreach</span>
-      <h3>Dream Machine</h3>
-      <p>Drop a prospect's URL — it scrapes their brand and drafts the <b>cold DM plus a cinematic "your future website" teaser</b>, personalised to them, at batch scale.</p>
-    </div>
-    <div class="sys">
-      <div class="sys-ico">▦</div>
-      <span class="sk">Content Studio</span>
-      <h3>Cadence</h3>
-      <p>A five-agent pipeline that designs carousel posts as pure HTML and renders them through headless Chrome — <b>on-brand social content without an image model</b>.</p>
-    </div>
-  </div>
-
-  <div class="stack-line reveal">
+  <div class="stack-line">
     <span class="sl">Wired with</span>
-    <span>Meta Ads</span><span>WhatsApp Business API</span><span>n8n</span><span>Supabase</span><span>ElevenLabs</span><span>Brevo</span><span>Cal.com</span><span>Cloudflare</span><span>GA4</span>
-  </div>
-</section>
-
-<section class="wrap practice" id="practice">
-  <div class="section-head reveal">
-    <p class="eyebrow">Architecture &amp; Interiors</p>
-    <h2>Five sites for people who <em>build</em>.</h2>
-    <p>A development studio, two private residences, and two interior-architecture practices — the vertical I've built the deepest. Every one carries a scroll-scrubbed film of the space itself, not a slideshow of stills.</p>
-  </div>
-  <div class="practice-strip reveal">
-    <a class="pcard" href="https://arden-development.pages.dev/" target="_blank" rel="noopener">
-      <img src="thumbs/arden.jpg" alt="Arden — Development Group" loading="lazy">
-      <div class="pcard-meta"><span class="k">Development Studio</span><span class="n">Arden</span></div>
-    </a>
-    <a class="pcard" href="https://the-canopy.pages.dev/" target="_blank" rel="noopener">
-      <img src="thumbs/canopy.jpg" alt="The Canopy — rainforest villa" loading="lazy">
-      <div class="pcard-meta"><span class="k">Private Residence</span><span class="n">The Canopy</span></div>
-    </a>
-    <a class="pcard" href="/the-meridian/" target="_blank" rel="noopener">
-      <img src="https://boldgrowai.com/images/templates/meridian.jpg" alt="The Meridian — penthouse" loading="lazy">
-      <div class="pcard-meta"><span class="k">Private Residence</span><span class="n">The Meridian</span></div>
-    </a>
-    <a class="pcard" href="https://demo.boldgrowai.com/sienna/" target="_blank" rel="noopener">
-      <img src="thumbs/sienna.jpg" alt="Sienna — interior architecture" loading="lazy">
-      <div class="pcard-meta"><span class="k">Interior Architecture</span><span class="n">Sienna</span></div>
-    </a>
-    <a class="pcard" href="https://demo.boldgrowai.com/altana/" target="_blank" rel="noopener">
-      <img src="thumbs/altana.jpg" alt="Altana — interior design &amp; contracting" loading="lazy">
-      <div class="pcard-meta"><span class="k">Interior Design</span><span class="n">Altana</span></div>
-    </a>
+    <span>Meta Ads</span><span>WhatsApp Cloud API</span><span>n8n</span><span>Supabase</span><span>ElevenLabs</span><span>Cloudflare</span><span>AWS</span>
   </div>
 </section>
 
 <section class="wrap" id="work">
   <div class="section-head reveal">
-    <p class="eyebrow">Selected Work</p>
-    <h2>A one-of-one, <em>conversion-first</em> site for every brief.</h2>
-    <p>Architecture, interiors, real estate, hospitality, retail, entertainment — different worlds, same standard: cinematic first frame, fast load, and one clear action on every page — book, reserve, enquire, buy.</p>
+    <p class="eyebrow">Websites &amp; landing pages</p>
+    <h2>Landing pages and sites <em>I designed and built</em>.</h2>
+    <p>Concept sites across architecture, hospitality, retail and entertainment — each with a fast first frame and one clear action: book, reserve, enquire or buy. They are original concept work, not client sites.</p>
   </div>
 
   <div class="filters reveal" id="filters" role="group" aria-label="Filter work by discipline"></div>
   <div class="grid" id="grid"></div>
 </section>
 
-<section class="cta wrap" id="about">
-  <p class="eyebrow" style="justify-content:center;display:flex;">About</p>
-  <h2>One person who runs the <em>whole growth loop</em>.</h2>
-  <p>Ads, landing page, WhatsApp AI, voice agent, booking — no handoffs, no agency-inside-the-agency. I design it, code it, wire the automation, run the campaigns, and watch the numbers.</p>
-  <div class="cta-row">
-    <a class="btn btn-solid" href="mailto:dipanjanroy369@gmail.com">Email me</a>
-    <a class="btn btn-ghost" href="#work">See the work</a>
+
+<section class="wrap" id="certs">
+  <div class="v2-head">
+    <div><p class="v2-eyebrow">Certifications</p><h2>Certified in cloud <em>and</em> marketing.</h2></div>
+    <div><p>Three AWS certifications, each linked to its public record on Credly, and two marketing certificates from AADME you can open.</p>
+      <p><a class="out-link" href="https://www.credly.com/users/dipanjan-roy.8572f1d9" target="_blank" rel="noopener">See all badges on Credly ↗</a></p></div>
+  </div>
+  <div class="badges">
+      <a class="badge" href="https://www.credly.com/badges/0ace3089-54c5-4430-87ea-cda95e5afa3b/public_url" target="_blank" rel="noopener">
+        <img src="assets/badges/aws-solutions-architect.webp" width="160" height="160" alt="AWS Certified Solutions Architect – Associate badge" loading="lazy">
+        <span class="bn">AWS Certified Solutions Architect – Associate</span><span class="bi">Amazon Web Services · issued Dec 2025</span><span class="bv">Verify on Credly ↗</span>
+      </a>
+      <a class="badge" href="https://www.credly.com/badges/849c4ab4-a2a1-460a-84b9-ff8758a41117/public_url" target="_blank" rel="noopener">
+        <img src="assets/badges/aws-developer.webp" width="160" height="160" alt="AWS Certified Developer – Associate badge" loading="lazy">
+        <span class="bn">AWS Certified Developer – Associate</span><span class="bi">Amazon Web Services · issued Oct 2025</span><span class="bv">Verify on Credly ↗</span>
+      </a>
+      <a class="badge" href="https://www.credly.com/badges/63a7372e-eda8-4d86-b49f-d02ab9c48284/public_url" target="_blank" rel="noopener">
+        <img src="assets/badges/aws-ai-practitioner.webp" width="160" height="160" alt="AWS Certified AI Practitioner badge" loading="lazy">
+        <span class="bn">AWS Certified AI Practitioner</span><span class="bi">Amazon Web Services · issued Aug 2025</span><span class="bv">Verify on Credly ↗</span>
+      </a>
+  </div>
+  <div class="certs2">
+    <a class="cert" href="certificates/AADME-AI-Enabled-Advanced-Digital-Marketing.pdf" target="_blank" rel="noopener">
+      <img src="assets/badges/aadme-ai-advanced.webp" width="720" height="509" alt="AADME certificate: AI-Enabled Advanced Digital Marketing Professional Program, awarded to Dipanjan Roy" loading="lazy">
+      <span class="bn">AI-Enabled Advanced Digital Marketing Professional Program</span><span class="bi">AADME · 28 April 2026</span><span class="bv">View certificate (PDF) ↗</span>
+    </a>
+    <a class="cert" href="certificates/AADME-Digital-Marketing-Consultant.pdf" target="_blank" rel="noopener">
+      <img src="assets/badges/aadme-consultant.webp" width="720" height="509" alt="AADME certificate: Digital Marketing Consultant Certified, awarded to Dipanjan Roy" loading="lazy">
+      <span class="bn">Digital Marketing Consultant Certified</span><span class="bi">AADME · 28 April 2026</span><span class="bv">View certificate (PDF) ↗</span>
+    </a>
+  </div>
+  <div class="other-certs">
+    <span>AI-Powered Performance Ads — Google (2026)</span>
+    <span>"Build with Gemini" agent badge — Google Cloud (2026)</span>
   </div>
 </section>
 
+<!-- ══ RÉSUMÉ — plain HTML on purpose: readable in twenty seconds, with or
+     without JavaScript. Every figure is from the verified résumé (Oct 2026). ══ -->
+<section class="wrap resume" id="resume">
+  <div class="section-head reveal">
+    <p class="eyebrow">Résumé · the twenty-second version</p>
+    <h2>What I've actually done, <em>with receipts</em>.</h2>
+    <p>I count what reached the bank — not what the ad platform says it sold.</p>
+  </div>
+
+  <div class="rz-grid">
+    <ol class="rz-xp reveal">
+      <li class="rz-job">
+        <span class="rz-when">2023 — Present</span>
+        <h3>Performance Marketer</h3>
+        <p class="rz-where">Independent projects (part-time) · D2C campaigns: astrology readings, plus room heaters and LED torches — 100+ products sold</p>
+        <ul>
+          <li>Planned, launched and optimised <b>30+ Meta campaigns</b> across Sales, Leads, Engagement and Click-to-WhatsApp — audience and creative testing, budget pacing, restructuring on cost per purchase.</li>
+          <li><b>Astrology readings:</b> built the whole funnel — ads, animated landing page with an A/B variant, free first answer, Razorpay checkout — and a 4-tier offer ladder. <b>31% of orders chose the top tier.</b></li>
+          <li>SEO in English, Hindi and Bengali from Keyword Planner data: <b>43 pages</b> with hreflang and schema, plus 6 free calculators that lead into the paid app.</li>
+        </ul>
+      </li>
+      <li class="rz-job">
+        <span class="rz-when">2025 — Present</span>
+        <h3>AI Automation &amp; Lead Generation</h3>
+        <p class="rz-where">Part-time · B2B AI services for clinics, gyms, salons and local services</p>
+        <ul>
+          <li>AI agents that audit a prospect's website and deliver a branded 7–12 page report on WhatsApp and email, used as a free lead magnet.</li>
+          <li>An AI voice agent that calls new leads <b>within 15 minutes</b> and sends an automatic WhatsApp recap; four WhatsApp templates approved by Meta.</li>
+          <li>Prospecting: <b>640 local-business leads</b> (London, Toronto, Sydney, Dubai) via the Google Places API.</li>
+        </ul>
+      </li>
+      <li class="rz-job">
+        <span class="rz-when">Nov 2021 — Present</span>
+        <h3>Cloud &amp; Agentic AI Engineer</h3>
+        <p class="rz-where">Tata Consultancy Services · clients: British Airways, Qantas Airways</p>
+        <ul>
+          <li>Run production <b>AWS infrastructure</b> for large aviation clients: patching, monitoring, incident handling, compliance reporting.</li>
+          <li>Requirement calls, status reviews and escalations with UK and US stakeholders.</li>
+          <li>Automate repeat work with Python, Bash and AWS Systems Manager. Internal hackathon award for an AI-based innovation, and Google Cloud's "Build with Gemini" agent badge (2026).</li>
+        </ul>
+      </li>
+      <li class="rz-job">
+        <span class="rz-when">Feb — Apr 2018</span>
+        <h3>Business Developer (Intern)</h3>
+        <p class="rz-where">Inline Private Limited, Kolkata · ride-hailing startup</p>
+        <ul><li>Field acquisition: pitching, objection handling and driver sign-ups.</li></ul>
+      </li>
+    </ol>
+
+    <div class="reveal">
+      <div class="rz-nums">
+        <div class="rz-num"><div class="v">30+</div><div class="k"><b>Meta campaigns</b> since 2023, across Sales, Leads, Engagement and Click-to-WhatsApp</div></div>
+        <div class="rz-num"><div class="v">774K</div><div class="k">impressions · <b>11.6K clicks</b></div></div>
+        <div class="rz-num"><div class="v">71</div><div class="k"><b>verified paid orders</b> from 63 buyers in the first six weeks — astrology readings</div></div>
+        <div class="rz-num"><div class="v">2.2x</div><div class="k">verified revenue vs <b>Meta ad spend</b> · 2.18% CTR — astrology readings</div></div>
+      </div>
+      <p class="rz-src"><b>How these are counted:</b> every order is matched to Razorpay, not Ads Manager. That is how I found the Meta Pixel double-counting, and test orders marked as paid — I count captured payments only.</p>
+
+      <div class="rz-block">
+        <h4>Certifications</h4>
+        <ul class="rz-certs">
+          <li>AWS Certified Solutions Architect — Associate</li>
+                    <li>AWS Certified Developer — Associate</li>
+          <li>AWS Certified AI Practitioner</li>
+          <li>AI-Powered Performance Ads Certification — Google (2026)</li>
+          <li>Certified Digital Marketing Consultant · AI-Enabled Advanced Digital Marketing Program — AADME</li>
+          <li>"Build with Gemini" agent skill badge — Google Cloud (2026)</li>
+        </ul>
+      </div>
+
+      <div class="rz-block">
+        <h4>Skills</h4>
+        <div class="skillgroups">
+          <div><h5>Marketing</h5><div class="rz-chips"><span>Meta Ads</span><span>Performance marketing</span><span>Funnel strategy</span><span>Conversion rate optimisation</span><span>Creative testing &amp; iteration</span><span>Attribution &amp; analytics</span></div></div>
+          <div><h5>Automation &amp; AI</h5><div class="rz-chips"><span>n8n</span><span>WhatsApp Cloud API</span><span>Supabase</span><span>ElevenLabs</span><span>LLM agents</span><span>Chatbots &amp; voice agents</span></div></div>
+          <div><h5>Engineering</h5><div class="rz-chips"><span>AWS</span><span>Python</span><span>HTML / CSS / JavaScript</span><span>Cloud engineering</span></div></div>
+        </div>
+      </div>
+
+      <div class="rz-block">
+        <h4>Education &amp; languages</h4>
+        <p class="rz-edu">B.Tech, Electronics &amp; Communication — RCC Institute of Information Technology, Kolkata (2017–2021) · CGPA 7.89<br>English · Bengali · Hindi</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="rz-actions reveal">
+    <a class="btn btn-solid" href="resume/Dipanjan_Roy_Resume.pdf" download>Download the one-page PDF</a>
+    <a class="btn btn-ghost" href="#ai">Ask my AI about any of this</a>
+    <div class="rz-listen" hidden><!-- old intro says "own money" and that the AI is live; re-record before showing -->
+      <span>Or listen · 30 sec · AI voice</span>
+      <audio controls preload="none" src="assets/intro.mp3">A 30-second spoken summary.</audio>
+    </div>
+  </div>
+</section>
+
+
+<section class="cta wrap" id="contact">
+  <p class="eyebrow" style="justify-content:center;display:flex;">Contact</p>
+  <h2>Hiring for growth, paid media or <em>marketing automation</em>?</h2>
+  <p>I'd like to hear about the role. Email me, or download the one-page résumé.</p>
+  <div class="cta-row">
+    <a class="btn btn-solid" href="mailto:dipanjanroy369@gmail.com">dipanjanroy369@gmail.com</a>
+    <a class="btn btn-ghost" href="resume/Dipanjan_Roy_Resume.pdf" download>Download résumé</a>
+  </div>
+</section>
+</main>
+
 <footer>
-  <span>© 2026 Dipanjan Roy. Sites are original concept work; the systems run in production.</span>
+  <span>© 2026 Dipanjan Roy. Websites in the grid are concept work; the dental funnel is a demo for a fictional clinic.</span>
   <div class="foot-links">
     <a href="mailto:dipanjanroy369@gmail.com">Email</a>
+    <a href="resume/Dipanjan_Roy_Resume.pdf" download>Résumé</a>
   </div>
 </footer>
 
 <script>
 const PROJECTS = [
-  { cat: 'Architecture', name: 'Arden', sub: 'Private Development Studio', desc: '"Most buildings are sold. The best are inherited." A development studio that builds four private houses a year — scroll and watch one rise from bare rock.', tags: ['Scroll Build','Commissions','Studio'], img: 'thumbs/arden.jpg', url: 'https://arden-development.pages.dev/' },
-  { cat: 'Architecture', name: 'The Canopy', sub: 'Rainforest Villa Listing', desc: '"Nine hundred acres of silence." A $4.85M Costa Rica villa with a 41-second chained film tour and a section that places the house inside the forest’s own vertical layers.', tags: ['Video Tour','Strata','Listing'], img: 'thumbs/canopy.jpg', url: 'https://the-canopy.pages.dev/' },
-  { cat: 'Architecture', name: 'Sienna', sub: 'Interior Architecture', desc: 'Travertine, charcoal and light. Walk the whole house in one continuous scroll — room to room, no cuts.', tags: ['House Walk','Rooms','Studio'], img: 'thumbs/sienna.jpg', url: 'https://demo.boldgrowai.com/sienna/' },
   { cat: 'Architecture', name: 'Altana', sub: 'Interior Design & Contracting', desc: 'Design, build, renovate and furnish under a single point of contact — a studio site that sells the whole service, not just the mood board.', tags: ['Interiors','Contracting','Portfolio'], img: 'thumbs/altana.jpg', url: 'https://demo.boldgrowai.com/altana/' },
-  { cat: 'Entertainment', name: 'Doom Network', sub: 'Fan-Concept Franchise Site', desc: 'A sovereign’s broadcast: a pinned aperture that opens onto the film, an archive that locks onto its subject, and a stock line that flies across the frame. Declared fan concept.', tags: ['Aperture','Archive','Armory'], img: 'thumbs/doom.jpg', url: 'https://doom-network.pages.dev/' },
   { cat: 'Architecture', name: 'The Meridian', sub: 'Luxury Penthouse Real Estate', desc: 'A $12.5M single-residence penthouse listing — cinematic scroll-scrubbed video tour and private-showing booking.', tags: ['Video Tour','Listing','Booking'], img: 'https://boldgrowai.com/images/templates/meridian.jpg', url: '/the-meridian/' },
-  { cat: 'Retail', name: 'Black Noir', sub: 'Luxury Fragrance Website', desc: 'A dark, cinematic 3D perfume-bottle reveal for a premium fragrance launch — scroll-driven and waitlist-gated.', tags: ['3D Reveal','Waitlist','Cinematic'], img: 'https://boldgrowai.com/images/templates/black-noir.jpg', url: '/black-noir/' },
-  { cat: 'Hospitality', name: 'Saffron & Oak', sub: 'Wood-Fire Steakhouse', desc: '"Wood fire. Nothing else." Cinematic close-up food photography and a full-bleed reservation flow.', tags: ['Reservation','Menu'], img: 'https://boldgrowai.com/images/templates/saffron-oak.jpg', url: '/saffron-oak/' },
-  { cat: 'Retail', name: 'Zoika', sub: 'Statement Jewelry Brand', desc: '"Measured Purity." A dark, editorial rings collection with a scroll-glide product index.', tags: ['Shop','Collection'], img: 'https://boldgrowai.com/images/templates/oyla.jpg', url: '/oyla/' },
-  { cat: 'Entertainment', name: 'Verdict', sub: 'Gaming Website', desc: '"The City Keeps Score." A cinematic AAA game hero site — scroll-scrubbed reveal and a full wishlist/trailer page.', tags: ['3D WebGL','Interactive'], img: 'https://boldgrowai.com/images/templates/verdict.jpg', url: '/verdict-game/' },
-  { cat: 'Entertainment', name: 'The Time Machine', sub: 'Heritage & Brand Storytelling', desc: '"One corner. One century." A single street corner scroll-morphed across a hundred years with a mechanical year odometer.', tags: ['Scroll Morph','Cinematic'], img: 'https://boldgrowai.com/images/templates/time-machine.jpg', url: '/the-time-machine/' },
   { cat: 'Fitness', name: 'Forge Fitness', sub: 'Gym & Fitness Website', desc: '"Earn it." A bold, high-energy fitness brand site with a moody fog-lit hero and kinetic typography.', tags: ['Training','Membership'], img: 'https://boldgrowai.com/images/templates/forge.jpg', url: '/forge-gym/' },
-  { cat: 'Retail', name: 'Lumia', sub: 'Fashion Store', desc: '"Elevate your everyday style." A full-catalog fashion e-commerce store with curated lookbooks.', tags: ['Shop','Lookbook'], img: 'https://boldgrowai.com/images/templates/lumia.jpg', url: '/lumia-astro/' },
   { cat: 'Fitness', name: 'MuscleUp', sub: 'Fitness & Lifestyle', desc: '"Train hard. Live strong." A high-impact single-page gym showcase with bold kinetic typography.', tags: ['Programs','Nutrition'], img: 'https://boldgrowai.com/images/templates/powerlift.png', url: '/powerlift-clone/' },
   { cat: 'Healthcare', name: 'BrightSmile', sub: 'Dental & Care Website', desc: 'An elegant dental clinic site focused on high patient conversion.', tags: ['Care Plans','Booking'], img: 'https://boldgrowai.com/images/templates/lumora.png', url: '/lumora-dental/' },
 ];
@@ -681,66 +808,18 @@ if (filters) {
   });
 }
 
-/* ── hero screen: the work strobing in one frame ──
-   Preloaded before the cycle starts, so a slow connection shows a steady
-   first frame rather than a flashing broken-image icon. Pauses when the tab
-   is hidden and never runs under reduced motion. */
-(() => {
-  const img = document.getElementById('screenImg');
-  const nameEl = document.getElementById('screenName');
-  const idxEl = document.getElementById('screenIdx');
-  if (!img) return;
-  const REEL = [
-    ['thumbs/f-doom.jpg',     'Doom Network'],
-    ['thumbs/f-canopy.jpg',   'The Canopy'],
-    ['thumbs/f-meridian.jpg', 'The Meridian'],
-    ['thumbs/f-arden.jpg',    'Arden'],
-    ['thumbs/f-sienna.jpg',   'Sienna'],
-    ['thumbs/f-altana.jpg',   'Altana'],
-    ['thumbs/f-noir.jpg',     'Black Noir'],
-    ['thumbs/f-saffron.jpg',  'Saffron & Oak'],
-    ['thumbs/f-zoika.jpg',    'Zoika'],
-    ['thumbs/f-time.jpg',     'The Time Machine'],
-    ['thumbs/f-forge.jpg',    'Forge'],
-    ['thumbs/f-vidbold.jpg',  'Vidbold'],
-  ];
-  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  let loaded = 0;
-  REEL.forEach(([src]) => { const p = new Image(); p.onload = p.onerror = () => ++loaded; p.src = src; });
-  let i = 0;
-  setInterval(() => {
-    if (document.hidden || loaded < REEL.length) return;
-    i = (i + 1) % REEL.length;
-    img.src = REEL[i][0];
-    nameEl.textContent = REEL[i][1];
-    idxEl.textContent = String(i + 1).padStart(2, '0') + ' / ' + REEL.length;
-  }, 700);
-})();
 
-/* ── rotating discipline word ── */
-(() => {
-  const el = document.getElementById('roleWord');
-  if (!el || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  const ROLES = ['Tech Marketer', 'Funnel Builder', 'Performance Marketer', 'AI Automation Engineer', 'One-Person Growth Team'];
-  let i = 0;
-  setInterval(() => { i = (i + 1) % ROLES.length; el.textContent = ROLES[i]; }, 2600);
-})();
 
-/* ── marquee: one copy of the names, doubled for the seamless loop ── */
-(() => {
-  const track = document.getElementById('mqTrack');
-  if (!track) return;
-  const names = PROJECTS.map(p => p.name);
-  const half = names.map(n => `<span>${n}<b> ◆</b></span>`).join('');
-  track.innerHTML = half + half;
-})();
+
+
+
 
 const io = new IntersectionObserver((es) => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: 0.12 });
 document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 </script>
 
 <!-- ══ the AI version of me — closed until asked, never in front of the résumé ══ -->
-<button class="cw-fab" id="cwFab" type="button" hidden aria-haspopup="dialog">
+<button class="cw-fab" id="cwFab" type="button" hidden aria-haspopup="dialog" aria-label="Ask my AI">
   <span class="cw-av" aria-hidden="true">DR</span>
   <span class="lbl">Ask my AI</span>
   <span class="dot" aria-hidden="true"></span>
@@ -769,7 +848,15 @@ document.querySelectorAll('.reveal').forEach(el => io.observe(el));
   <p class="cw-note">An AI, speaking for me. The voice is synthetic, not mine.</p>
 </div>
 
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-labelledby="lbTitle">
+  <div class="lb-box">
+    <div id="lbMedia"></div>
+    <div class="lb-bar"><h3 id="lbTitle">Campaign</h3><div class="lb-btns"><button id="lbPrev" type="button" aria-label="Previous">←</button><button id="lbNext" type="button" aria-label="Next">→</button><button id="lbClose" type="button" aria-label="Close">✕</button></div></div>
+  </div>
+</div>
+
 <div id="printRoot"></div>
-<script src="assets/lab.js?v=4" defer></script>
+<script src="assets/lab.js?v=6" defer></script>
+<script src="assets/v2.js?v=12" defer></script>
 </body>
 </html>

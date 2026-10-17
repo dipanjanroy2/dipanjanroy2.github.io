@@ -7,3 +7,6 @@ worker/node_modules/
 # working notes, not part of the site
 *-PROMPT.md
 run-local.cmd
+
+# local design mockups
+_mockup/
