@@ -18,30 +18,47 @@ import { GTM_FRAMEWORK } from './framework.js';
 
 /* ── limits ──────────────────────────────────────────────────────────────── */
 const LIMITS = {
-  chat:     { perHour: 40, maxTokens: 420 },
-  gtm:      { perHour: 6,  maxTokens: 1900 },
-  teardown: { perHour: 6,  maxTokens: 800 },
-  tts:      { perHour: 40 },
-  lead:     { perHour: 5 },
+  chat:     { perHour: 25, perDay: 40, siteDay: 500, maxTokens: 420 },
+  gtm:      { perHour: 4,  perDay: 6,  siteDay: 80,  maxTokens: 1900 },
+  teardown: { perHour: 4,  perDay: 6,  siteDay: 80,  maxTokens: 800 },
+  tts:      { perHour: 20, perDay: 30, siteDay: 200 },
+  lead:     { perHour: 5,  perDay: 10, siteDay: 200 },
 };
-/* A ceiling on total AI calls per day across everyone. In-memory, so it is a
-   soft cap per running instance — the hard cap in production is the spending
-   limit set on the Azure resource itself. */
-const DAILY_CALLS = 600;
-
+/* Three layers, cheapest first:
+   1. BURST — Cloudflare's rate limiter, per IP, across every instance.
+   2. In-memory hourly counter per IP (fast, per instance).
+   3. KV daily counters, per IP and site-wide, shared across instances.
+   The last line of defence is still the spending limit on the Azure resource. */
 const hits = new Map();   // `${bucket}:${ip}` -> { n, reset }
-let day = { n: 0, reset: 0 };
 
-function rateLimit(bucket, ip) {
+function hourly(bucket, ip) {
   const now = Date.now();
-  if (now > day.reset) day = { n: 0, reset: now + 86_400_000 };
-  if (bucket !== 'lead' && ++day.n > DAILY_CALLS) return 'daily';
-
   const key = `${bucket}:${ip}`;
   const h = hits.get(key);
   if (!h || now > h.reset) { hits.set(key, { n: 1, reset: now + 3_600_000 }); return null; }
   if (++h.n > LIMITS[bucket].perHour) return 'hourly';
   return null;
+}
+
+async function daily(env, bucket, ip) {
+  if (!env.LIMITS_KV) return null;
+  const d = new Date().toISOString().slice(0, 10);
+  const kIp = `d:${d}:${bucket}:${ip}`, kSite = `d:${d}:${bucket}:all`;
+  const [a, b] = await Promise.all([env.LIMITS_KV.get(kIp), env.LIMITS_KV.get(kSite)]);
+  const nIp = +a || 0, nSite = +b || 0;
+  if (nSite >= LIMITS[bucket].siteDay) return 'daily';
+  if (nIp >= LIMITS[bucket].perDay) return 'mine';
+  const ttl = { expirationTtl: 60 * 60 * 36 };
+  await Promise.all([env.LIMITS_KV.put(kIp, String(nIp + 1), ttl), env.LIMITS_KV.put(kSite, String(nSite + 1), ttl)]);
+  return null;
+}
+
+async function rateLimit(env, bucket, ip) {
+  if (env.BURST) {
+    const { success } = await env.BURST.limit({ key: `${bucket}:${ip}` });
+    if (!success) return 'burst';
+  }
+  return hourly(bucket, ip) || (await daily(env, bucket, ip));
 }
 
 /* ── http helpers ────────────────────────────────────────────────────────── */
@@ -324,13 +341,15 @@ export default {
     const bucket = url.pathname.split('/')[2];
     if (!LIMITS[bucket]) return json({ error: 'Not found.' }, 404, origin);
 
-    const limited = rateLimit(bucket, ip);
+    const limited = await rateLimit(env, bucket, ip);
     if (limited) {
-      return json({
-        error: limited === 'daily'
-          ? "The demo has hit today's limit. Come back tomorrow, or email me."
-          : 'You have used this a lot in the last hour. Give it a little while.',
-      }, 429, origin);
+      const msg = {
+        burst: 'Slow down a little — try again in a minute.',
+        hourly: 'You have used this a lot in the last hour. Give it a little while.',
+        mine: "You've reached today's limit for this demo. Email me and I'll walk you through it.",
+        daily: "The demo has hit today's limit. Come back tomorrow, or email me.",
+      }[limited];
+      return json({ error: msg }, 429, origin);
     }
 
     try {

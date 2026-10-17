@@ -11,6 +11,7 @@
     ]
   },
   "profile": "Hands-on performance marketer who builds the whole funnel himself: the Meta campaign, the landing page, the checkout and the CRM follow-up. Since 2023 he has run 30+ Meta campaigns, judged on verified revenue rather than platform numbers. With a cloud engineering background he sets up pixels, events and automations himself.",
+  "why_marketing": "Why marketing, coming from tech: he started as an engineer - cloud, DevOps, infrastructure and back-end. He then got interested in online selling, started selling physical products himself (room heaters, LED torches) and learned marketing because he had to make them sell. Along the way he built Shopify, WordPress and custom websites and landing pages, and made the ads for them. He then trained in digital marketing and go-to-market at institutes in Kolkata and Bangalore (AADME certifications). The engineering side is now an advantage: he sets up the pixel, tracking, automations and AI agents himself, so a campaign never waits on a developer.",
   "verified_results": [
     "D2C products: 100+ units sold through his D2C Meta ads - room heaters and LED torches. Separately, astrology readings sold online.",
     "Meta Ads: 30+ campaigns since 2023 - 774K impressions and 11.6K clicks.",
@@ -82,7 +83,7 @@
       "WhatsApp Cloud API & templates",
       "Chatwoot",
       "Supabase",
-      "AI voice agents (ElevenLabs)",
+      "AI voice agents (AI voice tools)",
       "Webhooks"
     ],
     "tracking_build": [
@@ -98,7 +99,7 @@
       "Bash",
       "AWS Systems Manager",
       "Terraform",
-      "Cloudflare"
+      "serverless hosting"
     ]
   },
   "languages": [
@@ -122,6 +123,7 @@
     "current or expected salary",
     "anything about client contracts, revenue of BoldGrow, or number of paying clients",
     "any metric, employer, client or tool that is not written above",
-    "the name or website of the astrology-reading product - call it 'an online astrology-reading product'"
+    "the name or website of the astrology-reading product - call it 'an online astrology-reading product'",
+    "names of AI or voice vendors and platforms (e.g. the voice-agent provider, the model provider, hosting) - say 'an AI voice platform' or 'a language model'. If asked how the demo is built, say it is an LLM behind a small API grounded in a facts file; do not name companies."
   ]
 }

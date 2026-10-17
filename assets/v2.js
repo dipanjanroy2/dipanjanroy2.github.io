@@ -41,6 +41,8 @@
       'Since 2023 I have run <b>30+ Meta campaigns</b> — 774K impressions and 11.6K clicks. The best-documented one is an online astrology-reading product: <b>71 paid orders from 63 buyers</b> in the first six weeks, every order matched to Razorpay, and revenue of <b>2.2x the Meta ad spend</b>.',
     'Can you build the follow-up too?':
       'Yes. I built an <b>AI voice agent that calls a new lead within 15 minutes</b> and sends a WhatsApp recap afterwards. Four of my WhatsApp message templates were approved by Meta. The recording on the right is a real call to an agent I set up.',
+    'Why marketing, if you are an engineer?':
+      'I started in <b>cloud, DevOps and back-end engineering</b>. Then I got hooked on online selling — I sold physical products myself and had to learn marketing to make them sell. I built Shopify, WordPress and custom sites and landing pages, made the ads, and then trained in <b>digital marketing and go-to-market</b> in Kolkata and Bangalore. The engineering is now my edge: I set up the tracking, automations and AI agents myself.',
     'What is your technical background?':
       'Cloud and agentic-AI engineering: I run production <b>AWS</b> infrastructure for airline clients, including British Airways and Qantas. That is why I set up pixels, events, automations and AI agents myself instead of waiting on a developer.',
     'How do you know your numbers are right?':
@@ -128,41 +130,90 @@
     });
   }
 
-  /* ── live voice call to the ElevenLabs agent (public demo agent) ── */
+  /* ── live voice call to the AI receptionist (public demo agent) ── */
   const callBtn = $('#callBtn'), callStatus = $('#callStatus');
   if (callBtn) {
     const AGENT = 'agent_7601m2wbp10cftyth82jhxdbkkd8';
     const LIMIT = 120; // seconds; a courtesy limit in the page — the agent itself caps calls at 5 minutes
-    let conv = null, timer = null, left = LIMIT;
+    let conv = null, timer = null, left = LIMIT, raf = 0, ov = null;
     const idle = () => { callBtn.textContent = '📞 Call the AI receptionist — live'; callBtn.disabled = false; };
+    const fmt = (n) => `${Math.floor(n / 60)}:${String(n % 60).padStart(2, '0')}`;
+    // full-screen call stage: two orbs that move with the voices, live captions, a countdown bar
+    const openStage = () => {
+      ov = document.createElement('div');
+      ov.className = 'callstage'; ov.setAttribute('role', 'dialog'); ov.setAttribute('aria-label', 'Live call with the AI receptionist');
+      ov.innerHTML = `<div class="cs-top"><span class="cs-live"><i></i>LIVE CALL</span><span class="cs-clinic">Muskaan Dental Clinic · demo</span><span class="cs-time" id="csTime">${fmt(LIMIT)}</span></div>
+        <div class="cs-orbs"><div class="cs-p you"><div class="orb" id="orbYou"></div><b>You</b><small>caller</small></div><div class="cs-link"></div><div class="cs-p ai"><div class="orb" id="orbAi"></div><b>Riya</b><small>AI receptionist</small></div></div>
+        <div class="cs-cap"><p class="cs-ai" id="csAi">Connecting…</p><p class="cs-you" id="csYou"></p></div>
+        <div class="cs-foot"><span id="csHint">Say hello — speak Hindi or English</span><button type="button" class="btn cs-end" id="csEnd">■ End call</button></div>`;
+      document.body.appendChild(ov); document.body.classList.add('in-call');
+      $('#csEnd', ov).addEventListener('click', () => end());
+      requestAnimationFrame(() => ov && ov.classList.add('on'));
+      const oa = $('#orbAi', ov), oy = $('#orbYou', ov);
+      let ai = 0, you = 0;
+      const tick = () => {
+        let vo = 0, vi = 0;
+        try { vo = conv ? conv.getOutputVolume() : 0; vi = conv ? conv.getInputVolume() : 0; } catch {}
+        ai += (Math.min(1, vo * 2.2) - ai) * .25; you += (Math.min(1, vi * 2.2) - you) * .25;
+        oa.style.setProperty('--lv', ai.toFixed(3)); oy.style.setProperty('--lv', you.toFixed(3));
+        raf = requestAnimationFrame(tick);
+      };
+      tick();
+    };
+    const closeStage = () => {
+      cancelAnimationFrame(raf); document.body.classList.remove('in-call');
+      if (ov) { const o = ov; ov = null; o.classList.remove('on'); setTimeout(() => o.remove(), 300); }
+    };
     const end = async (msg) => {
       clearInterval(timer); timer = null;
       try { if (conv) await conv.endSession(); } catch {}
-      conv = null; idle(); callStatus.textContent = msg || 'Call ended. Thanks for trying it.';
+      conv = null; closeStage(); idle(); callStatus.textContent = msg || 'Call ended. Thanks for trying it.';
     };
     callBtn.addEventListener('click', async () => {
       if (conv) return end();
+      // per-browser courtesy cap: 3 calls a day (the agent itself is capped server-side too)
+      const today = new Date().toISOString().slice(0, 10);
+      let used = { d: today, n: 0 };
+      try { const u = JSON.parse(localStorage.getItem('dr-calls') || 'null'); if (u && u.d === today) used = u; } catch {}
+      if (used.n >= 3) { callStatus.textContent = "You've tried the live call 3 times today — play the recorded call above, or email me for a full demo."; return; }
+      try { localStorage.setItem('dr-calls', JSON.stringify({ d: today, n: used.n + 1 })); } catch {}
       callBtn.disabled = true; callStatus.textContent = 'Connecting… allow the microphone when asked.';
       try {
         await navigator.mediaDevices.getUserMedia({ audio: true });
         const { Conversation } = await import('https://esm.sh/@elevenlabs/client@0.7');
+        openStage();
         conv = await Conversation.startSession({
           agentId: AGENT,
           connectionType: 'websocket',
-          onModeChange: ({ mode }) => { if (conv) callStatus.textContent = (mode === 'speaking' ? '🔊 Riya is speaking…' : '🎙️ Listening — go ahead') + ` · ${left}s left`; },
+          onMessage: (m) => {
+            if (!ov || !m || !m.message) return;
+            if (m.source === 'ai') { $('#csAi', ov).textContent = m.message; $('#csYou', ov).textContent = ''; }
+            else $('#csYou', ov).textContent = '“' + m.message + '”';
+          },
+          onModeChange: ({ mode }) => {
+            if (!ov) return;
+            ov.dataset.mode = mode;
+            $('#csHint', ov).textContent = mode === 'speaking' ? 'Riya is speaking…' : '🎙️ Your turn — go ahead';
+          },
           onDisconnect: (d) => { if (conv) end(d && d.reason === 'error' ? 'The call dropped' + (d.message ? ' (' + d.message + ')' : '') + '. Try again.' : ''); },
           onError: (e) => end('The call could not continue' + (e && e.message ? ' (' + e.message + ')' : '') + '. Try again.')
         });
         callBtn.disabled = false; callBtn.textContent = '■ End call';
-        left = LIMIT; callStatus.textContent = '🎙️ Connected — say hello';
-        timer = setInterval(() => { left -= 1; if (left <= 0) end('Two minutes are up — that was the demo.'); }, 1000);
+        left = LIMIT; callStatus.textContent = 'On a call…';
+        timer = setInterval(() => {
+          left -= 1;
+          if (ov) { $('#csTime', ov).textContent = fmt(Math.max(left, 0)); ov.style.setProperty('--p', (left / LIMIT).toFixed(3)); }
+          if (left <= 0) end('Two minutes are up — that was the demo.');
+        }, 1000);
       } catch (e) {
-        conv = null; idle();
+        conv = null; closeStage(); idle();
         callStatus.textContent = e && e.name === 'NotAllowedError'
           ? 'The call needs microphone access. Allow it in the browser and try again.'
           : 'Could not start the call. Check your connection and try again.';
       }
     });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && conv) end(); });
+    document.addEventListener('visibilitychange', () => { if (document.hidden && conv) end('Call ended when you left the tab.'); });
   }
 
   /* ── campaign receipts ── */
@@ -253,10 +304,10 @@
 
   /* ── funnel stages ── */
   const STAGES = [
-    { t: 'The ad', built: 'Meta campaigns across Sales, Leads, Engagement and Click-to-WhatsApp — audience and creative tests, budget pacing, restructuring on cost per purchase. Creatives include my AI-generated video ads.', tools: ['Meta Ads Manager', 'AI video', 'ElevenLabs'], evidence: 'Campaign receipts and the AI ads gallery above.', metric: '2.18% CTR', msub: 'Astrology-readings campaign · 30+ campaigns since 2023', where: 'The astrology-reading product, and D2C room heaters and LED torches.' },
-    { t: 'Landing page', built: 'An animated landing page with an A/B variant and a free first answer before any payment. SEO in English, Hindi and Bengali: 43 pages with hreflang and schema, plus 6 free calculators that lead into the paid app.', tools: ['HTML / CSS / JS', 'Cloudflare Pages', 'Search Console'], evidence: 'The landing page and its A/B variant, live online.', metric: 'No stage rate published', msub: 'I don’t show a step conversion rate I can’t prove.', where: 'The astrology-reading product.' },
+    { t: 'The ad', built: 'Meta campaigns across Sales, Leads, Engagement and Click-to-WhatsApp — audience and creative tests, budget pacing, restructuring on cost per purchase. Creatives include my AI-generated video ads.', tools: ['Meta Ads Manager', 'AI video', 'AI voice'], evidence: 'Campaign receipts and the AI ads gallery above.', metric: '2.18% CTR', msub: 'Astrology-readings campaign · 30+ campaigns since 2023', where: 'The astrology-reading product, and D2C room heaters and LED torches.' },
+    { t: 'Landing page', built: 'An animated landing page with an A/B variant and a free first answer before any payment. SEO in English, Hindi and Bengali: 43 pages with hreflang and schema, plus 6 free calculators that lead into the paid app.', tools: ['HTML / CSS / JS', 'Landing pages', 'Search Console'], evidence: 'The landing page and its A/B variant, live online.', metric: 'No stage rate published', msub: 'I don’t show a step conversion rate I can’t prove.', where: 'The astrology-reading product.' },
     { t: 'Checkout', built: 'A Razorpay checkout and a four-tier offer ladder, from a small order bump up to a premium reading.', tools: ['Razorpay', 'Supabase'], evidence: 'Every order reconciled against Razorpay.', metric: '31% chose the top tier', msub: '71 paid orders, each matched to Razorpay', where: 'The astrology-reading product.' },
-    { t: 'WhatsApp + AI voice', built: 'An AI voice agent that calls a new lead within 15 minutes and sends an automatic WhatsApp recap.', tools: ['ElevenLabs', 'WhatsApp Cloud API', 'n8n', 'Supabase'], evidence: 'The recorded call in the AI demo section.', metric: '4 WhatsApp templates', msub: 'approved by Meta for follow-up', where: 'My AI automation work for small businesses (BoldGrow AI).' },
+    { t: 'WhatsApp + AI voice', built: 'An AI voice agent that calls a new lead within 15 minutes and sends an automatic WhatsApp recap.', tools: ['AI voice', 'WhatsApp Cloud API', 'n8n', 'Supabase'], evidence: 'The recorded call in the AI demo section.', metric: '4 WhatsApp templates', msub: 'approved by Meta for follow-up', where: 'My AI automation work for small businesses (BoldGrow AI).' },
     { t: 'Repeat order', built: 'The offer ladder and order bump give a buyer a reason to come back for the next reading.', tools: ['Offer design', 'Razorpay'], evidence: 'Payment records.', metric: '71 orders · 63 buyers', msub: 'Astrology readings, first six weeks', where: 'The astrology-reading product.' }
   ];
   const fn = $('#fnSteps'), panel = $('#fnPanel');

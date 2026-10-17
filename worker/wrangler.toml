@@ -12,3 +12,14 @@ LLM_MODEL = "DeepSeek-V4.1-Flash"
 ELEVENLABS_VOICE_ID = "iWNf11sz1GrUE4ppxTOL"
 ELEVENLABS_MODEL_ID = "eleven_turbo_v2_5"
 LEAD_WEBHOOK = "https://n8n.boldgrow.agency/webhook/site-lead"
+
+# Shared usage counters (per-IP and site-wide daily caps) — survive across instances.
+[[kv_namespaces]]
+binding = "LIMITS_KV"
+id = "22aa6bfe5d9a48fe8a0c5abf76b171bc"
+
+# Burst limiter per IP, enforced by Cloudflare across all instances.
+[[ratelimits]]
+name = "BURST"
+namespace_id = "7301"
+simple = { limit = 6, period = 60 }

@@ -268,7 +268,7 @@
   .stack-line span:not(.sl){font-size:.72rem;color:var(--dim);border:1px solid var(--line);
     padding:.32rem .7rem;border-radius:6px;}
 </style>
-<link rel="stylesheet" href="assets/v2.css?v=17">
+<link rel="stylesheet" href="assets/v2.css?v=18">
 </head>
 <body>
 
@@ -344,7 +344,7 @@
     <div class="ai-card voice-card">
       <div class="ai-top"><span class="ai-av" aria-hidden="true">☎</span><div class="t"><b>AI voice agent</b><span>Call it live, or play a recorded call</span></div><span class="status live">Live + recording</span></div>
       <video controls preload="none" playsinline poster="assets/demo/voice-agent.webp?v=2" src="assets/demo/voice-agent.mp4?v=2" aria-label="Recorded call between a caller and the AI voice agent"></video>
-      <div class="vc-body">A <b>real call</b> to an ElevenLabs voice agent I configured for a <b>fictional dental clinic</b>: it answers, understands the request and books the appointment.
+      <div class="vc-body">A <b>real call</b> to an AI voice agent I configured for a <b>fictional dental clinic</b>: it answers, understands the request and books the appointment.
         <div class="live-call">
           <button class="btn btn-solid" id="callBtn" type="button">📞 Call the AI receptionist — live</button>
           <p class="call-status" id="callStatus" aria-live="polite">Uses your microphone. Speak Hindi or English. Calls end after 2 minutes.</p>
@@ -355,7 +355,7 @@
   <div class="ai-can">
     <div><b>What it answers</b>My results, projects, tools, certifications and how I'd approach a growth problem.</div>
     <div><b>What it won't do</b>Invent numbers, or talk about salary, notice period or availability — it points you to email for those.</div>
-    <div><b>How it's built</b>An LLM behind a Cloudflare Worker, grounded in a facts file, with rate limits on the server.</div>
+    <div><b>How it's built</b>An LLM behind a small API, grounded in a facts file, with rate limits on the server.</div>
   </div>
 </section>
 
@@ -585,11 +585,11 @@
     <div class="sys"><span class="status live">Built</span><div class="sys-ico">⌖</div><span class="sk">Outbound data</span><h3>Lead Engine</h3><p>Google Places API scraping turned into scored, de-duplicated lead lists — <b>640 local-business leads</b> across London, Toronto, Sydney and Dubai.</p></div>
     <div class="sys"><span class="status tool">Internal tool</span><div class="sys-ico">▦</div><span class="sk">Content studio</span><h3>Cadence</h3><p>A five-agent pipeline that designs carousel posts as HTML and renders them through headless Chrome — <b>on-brand social content</b>.</p></div>
     <div class="sys"><span class="status tool">Internal tool</span><div class="sys-ico">✉</div><span class="sk">Cold outreach</span><h3>Dream Machine</h3><p>Drop a prospect's URL; it pulls their brand and drafts a <b>personalised cold DM and a "your future website" teaser</b>.</p></div>
-    <div class="sys"><span class="status tool">Internal tool</span><div class="sys-ico">◈</div><span class="sk">Engine</span><h3>This page's AI</h3><p>The persona chat and go-to-market engine above: an LLM behind a Cloudflare Worker, grounded in a facts file, <b>rate-limited on the server</b>.</p></div>
+    <div class="sys"><span class="status tool">Internal tool</span><div class="sys-ico">◈</div><span class="sk">Engine</span><h3>This page's AI</h3><p>The persona chat and go-to-market engine above: an LLM behind a small API, grounded in a facts file, <b>rate-limited on the server</b>.</p></div>
   </div>
   <div class="stack-line">
     <span class="sl">Wired with</span>
-    <span>Meta Ads</span><span>WhatsApp Cloud API</span><span>n8n</span><span>Supabase</span><span>ElevenLabs</span><span>Cloudflare</span><span>AWS</span>
+    <span>Meta Ads</span><span>WhatsApp Cloud API</span><span>n8n</span><span>Supabase</span><span>AI voice</span><span>AWS</span>
   </div>
 </section>
 
@@ -715,7 +715,7 @@
         <h4>Skills</h4>
         <div class="skillgroups">
           <div><h5>Marketing</h5><div class="rz-chips"><span>Meta Ads</span><span>Performance marketing</span><span>Funnel strategy</span><span>Conversion rate optimisation</span><span>Creative testing &amp; iteration</span><span>Attribution &amp; analytics</span></div></div>
-          <div><h5>Automation &amp; AI</h5><div class="rz-chips"><span>n8n</span><span>WhatsApp Cloud API</span><span>Supabase</span><span>ElevenLabs</span><span>LLM agents</span><span>Chatbots &amp; voice agents</span></div></div>
+          <div><h5>Automation &amp; AI</h5><div class="rz-chips"><span>n8n</span><span>WhatsApp Cloud API</span><span>Supabase</span><span>AI voice</span><span>LLM agents</span><span>Chatbots &amp; voice agents</span></div></div>
           <div><h5>Engineering</h5><div class="rz-chips"><span>AWS</span><span>Python</span><span>HTML / CSS / JavaScript</span><span>Cloud engineering</span></div></div>
         </div>
       </div>
@@ -857,6 +857,6 @@ document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
 <div id="printRoot"></div>
 <script src="assets/lab.js?v=6" defer></script>
-<script src="assets/v2.js?v=12" defer></script>
+<script src="assets/v2.js?v=15" defer></script>
 </body>
 </html>
