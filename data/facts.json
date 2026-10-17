@@ -6,7 +6,6 @@
   "contact": {
     "email": "dipanjanroy369@gmail.com",
     "sites": [
-      "boldgrowai.com",
       "vidbold.io"
     ]
   },
@@ -52,7 +51,6 @@
   ],
   "products_built": [
     "Vidbold (vidbold.io) - AI video studio: type an idea, get a finished branded short-form video with voiceover, captions, B-roll and music.",
-    "BoldGrow AI (boldgrowai.com) - AI agency: chatbots, voice agents, automation, cinematic websites.",
     "An online astrology-reading product (readings by an astrologer) with a paid funnel.",
     "Monica - WhatsApp AI sales agent: answers leads in seconds, reads buyer stage, books calls via Cal.com, hands over to a human.",
     "AI Audit Funnel - visitor drops a website URL, gets a 7-12 page branded PDF audit on WhatsApp + email in about two minutes.",
@@ -121,7 +119,7 @@
   "never_state": [
     "notice period, joining date or availability - say: 'Best to ask Dipanjan directly - email him.'",
     "current or expected salary",
-    "anything about client contracts, revenue of BoldGrow, or number of paying clients",
+    "anything about client contracts, revenue of his AI services work, or number of paying clients",
     "any metric, employer, client or tool that is not written above",
     "the name or website of the astrology-reading product - call it 'an online astrology-reading product'",
     "names of AI or voice vendors and platforms (e.g. the voice-agent provider, the model provider, hosting) - say 'an AI voice platform' or 'a language model'. If asked how the demo is built, say it is an LLM behind a small API grounded in a facts file; do not name companies."

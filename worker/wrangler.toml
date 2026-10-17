@@ -11,7 +11,6 @@ LLM_MODEL = "DeepSeek-V4.1-Flash"
 # Placeholder voice ("Viraj"). Swap for a clone of Dipanjan's own voice when one exists.
 ELEVENLABS_VOICE_ID = "iWNf11sz1GrUE4ppxTOL"
 ELEVENLABS_MODEL_ID = "eleven_turbo_v2_5"
-LEAD_WEBHOOK = "https://n8n.boldgrow.agency/webhook/site-lead"
 
 # Shared usage counters (per-IP and site-wide daily caps) — survive across instances.
 [[kv_namespaces]]

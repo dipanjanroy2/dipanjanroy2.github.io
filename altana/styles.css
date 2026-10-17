@@ -1,0 +1,660 @@
+/* ═══════════ ALTANA — Studio di Architettura ═══════════
+   One typeface at weights 100–300, matte black, photography for every other
+   colour. Sizes below are set against the reference at a 1440px viewport:
+   hero 129.6px/w100, mega 172.8px/w100, mid 53.85px/w100, servizi 97.2px/w300. */
+:root {
+  --ink:      #0d0d0d;
+  --ink-2:    #141312;
+  --paper:    #efece6;                 /* the type is near-white, not sand */
+  --dim:      rgba(239, 236, 230, .56);
+  --line:     rgba(239, 236, 230, .15);
+  /* The reference sets every headline in Astetes — a display serif, not a
+     grotesque. Marcellus is the Roman inscriptional answer to it: the weight
+     sits in the stems and the serifs are cut rather than hairlined, so the
+     huge words read carved instead of brittle. Inter stays for small UI text,
+     where the reference also uses a plain sans. */
+  --display: 'Marcellus', 'Trajan Pro', 'Times New Roman', serif;
+  --f: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --hand: 'Architects Daughter', 'Bradley Hand', cursive;   /* the marker notes */
+  --script: 'Parisienne', 'Snell Roundhand', cursive;       /* the founder's signature */
+  --ease: cubic-bezier(.22, 1, .36, 1);
+
+  /* Ramps are anchored at both ends: the phone value matches the reference at
+     375px, the desktop value matches it at 1440px. */
+  /* The nav is fixed and the hero bottom-aligns under it, so both have to be
+     driven off one number or they drift apart and the headline slides under
+     the mark on a short screen. */
+  --nav-h:   clamp(74px, 8.6vw, 124px);
+  /* The vh term is what keeps this off the nav. A laptop is wide but short —
+     a 13" MacBook browser window is ~1440x740 — so a purely vw-driven headline
+     asks for its full 129.6px on a viewport that has no room for four lines
+     of it. min() lets whichever axis is tighter win. */
+  --t-hero:  clamp(3.05rem, min(9vw, 14.2vh), 8.1rem);   /*  48.8px → 129.6px */
+  /* --t-hero's 3.05rem floor is a fixed px value, and the hero's lines are
+     set `white-space: nowrap` so they cannot reflow. Below ~412px that floor
+     makes "ARCHITECTURE" wider than the gutter allows and the hero's
+     overflow:hidden silently shears the last letters off — invisible in
+     testing precisely because nothing scrolls. Measured: this face sets that
+     word at 7.45x the font-size, so the widest size that still fits is
+     (100vw - gutters - air) / 7.45, which is what the calc below is. It meets
+     the 3.05rem floor at 436px, so there is no jump at the breakpoint.
+     Re-measure that ratio if the display face ever changes again. */
+  --t-mega:  clamp(4rem,    12vw,   10.8rem);  /*  64.2px → 172.8px */
+  --t-serv:  clamp(2.4rem,  6.75vw, 6.1rem);   /*  38px   →  97.2px */
+  --t-big:   clamp(2.6rem,  7.5vw,  6.75rem);
+  --t-mid:   clamp(1.6rem,  3.74vw, 3.37rem);  /*  25.6px →  53.8px */
+  --t-claim: clamp(1.4rem,  2.6vw,  2.35rem);
+
+  --gut: clamp(1.15rem, 7.5vw, 6.75rem);       /* reference gutter: 108/1440 */
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+/* ── Lenis ──
+   Only applied once Lenis has actually taken over (it stamps these classes on
+   <html>), so nothing here affects the page when the library is absent. Its
+   easing and the browser's own smooth-scroll would otherwise fight each other. */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+body {
+  background: var(--ink); color: var(--paper);
+  font-family: var(--f); font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;                  /* a bleeding image must never pan the page */
+}
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+::selection { background: var(--paper); color: var(--ink); }
+:focus-visible { outline: 1px solid var(--paper); outline-offset: 4px; }
+
+.container { padding-inline: var(--gut); }
+
+/* ── type ──
+   Marcellus ships a single 400 cut, but at these sizes its fine horizontals
+   already read thinner than Inter at 100 did — the contrast does the work the
+   weight used to.
+
+   The tracking below is positive where Bodoni's was negative. Marcellus is
+   drawn as capitals, and capitals set solid look jammed: the sidebearings are
+   cut for a word like ALTANA, not for a 12-letter one at 130px. Negative
+   tracking on this face closes the counters up. */
+.h-hero, .h-mega, .h-big, .h-claim { text-transform: uppercase; }
+.h-hero, .h-mega, .h-big, .h-mid, .h-claim, .serv { font-family: var(--display); font-weight: 400; }
+.h-hero  { font-size: var(--t-hero);  line-height: 1.02; letter-spacing: .03em; }
+/* Playfair rather than Bodoni for this one line: same didone flavour, but its
+   thin strokes carry real weight, so every letter survives the pool's bright
+   reflections instead of dissolving into them. */
+.h-mega  { font-family: 'Playfair Display', var(--display); font-weight: 500; font-size: var(--t-mega); line-height: .96; letter-spacing: -.005em; white-space: nowrap; }
+.h-big   { font-size: var(--t-big);   line-height: 1.02; letter-spacing: .025em; }
+/* h-mid is the one head that is not set in capitals, so it keeps neutral
+   tracking — the caps correction above would only loosen its lowercase. */
+.h-mid   { font-size: var(--t-mid);   line-height: 1.22; letter-spacing: 0; }
+.h-claim { font-size: var(--t-claim); line-height: 1.3;  letter-spacing: .035em; }
+/* each of the four lines holds together — the word splitter turns every word
+   into an inline-block, which would otherwise let a line break mid-phrase */
+.h-hero > span { display: block; white-space: nowrap; }
+/* see the --t-hero note: below this width the fixed floor shears the longest
+   word against the hero's overflow:hidden */
+@media (max-width: 435px) { :root { --t-hero: calc(13.5vw - 10px); } }
+
+p { font-size: clamp(.88rem, 1.05vw, .97rem); line-height: 1.85; color: var(--dim); }
+
+/* The reference's asides are set in a marker hand, not in the display face —
+   they read as notes pencilled onto the page rather than as headings. */
+.scribble {
+  display: block; font-family: var(--hand); text-transform: uppercase;
+  font-size: clamp(.95rem, 1.5vw, 1.35rem); line-height: 1.45; letter-spacing: .04em;
+  color: var(--paper);
+}
+/* A pencilled note plus the hand-drawn arrow that ties it to its photo — on the
+   reference the aside never floats free, it always points at something. The
+   arrow is stroked on as the note arrives, so it reads as being drawn. */
+.note { display: flex; flex-direction: column; gap: .6rem; align-items: flex-start; }
+.note-arrow { width: clamp(3.4rem, 6vw, 5.5rem); height: auto; fill: var(--paper); }
+.note-arrow path {
+  /* --len is measured per path in main.js: one figure cannot fit two different
+     arrows, and a wrong dasharray leaves the stroke visibly part-drawn */
+  stroke: var(--paper); stroke-width: 1.4; fill: none; vector-effect: non-scaling-stroke;
+  stroke-dasharray: var(--len, 900); stroke-dashoffset: var(--len, 900);
+  transition: stroke-dashoffset 1.5s var(--ease) .25s, fill .6s var(--ease) 1.2s;
+}
+.note.in .note-arrow path { stroke-dashoffset: 0; fill: var(--paper); }
+/* legible if the measuring pass never runs */
+.note:not(.measured) .note-arrow path { stroke-dashoffset: 0; fill: var(--paper); }
+.note-arrow.flip { align-self: flex-end; transform: scaleX(-1); }
+/* The two large claim lines read as statements, not pencilled asides — same
+   treatment as EQUILIBRIO (normal weight, uppercase), just smaller. */
+.scribble-lg {
+  font-family: var(--display); font-weight: 400; text-transform: uppercase;
+  letter-spacing: -.005em;
+  font-size: clamp(1.4rem, 3.1vw, 2.7rem); line-height: 1.2; max-width: 24ch;
+}
+.signature {
+  position: absolute; right: 1.4rem; bottom: 1rem; z-index: 2;
+  font-family: var(--script); font-size: clamp(1.8rem, 3.4vw, 3.1rem);
+  color: var(--paper); text-shadow: 0 2px 18px rgba(0,0,0,.6);
+}
+
+.link {
+  display: inline-block; background: none; border: 0; color: inherit; cursor: pointer;
+  font: inherit; font-size: .68rem; letter-spacing: .26em; text-transform: uppercase;
+  padding: 0 0 .45rem; position: relative;
+}
+.link::after {
+  content: ''; position: absolute; left: 0; bottom: 0; width: 100%; height: 1px;
+  background: currentColor; transform: scaleX(1); transform-origin: right;
+  transition: transform .55s var(--ease);
+}
+.link:hover::after { transform: scaleX(0); }
+.link[disabled] { opacity: .45; cursor: default; }
+
+/* ── reveal primitives, both driven from the one scroll pass in main.js ── */
+.rise { opacity: 0; transform: translateY(24px); transition: opacity .95s var(--ease), transform .95s var(--ease); transition-delay: calc(var(--d, 0) * 105ms); }
+.rise.in { opacity: 1; transform: none; }
+
+.w { display: inline-block; overflow: hidden; vertical-align: bottom; }
+.w > i { display: inline-block; font-style: normal; transform: translateY(105%); transition: transform .9s var(--ease); transition-delay: calc(var(--w, 0) * 46ms); }
+.split.in .w > i { transform: none; }
+.split:not(.done) .w > i { transform: none; }   /* legible if the splitter never runs */
+
+/* ── scroll-linked text fill ──
+   The statement writes itself in as you scroll: characters ahead of the read
+   position sit dim, characters behind it are full white. Split per character
+   rather than per word because the reference cuts mid-word — the boundary
+   lands inside "un'ope|ra", which no word- or line-level clip can reproduce. */
+.fill { color: rgba(239, 236, 230, .22); transition: none; }
+.fill .c { transition: color .45s var(--ease); }
+.fill .c.lit { color: var(--paper); }
+.fill:not(.done) { color: var(--paper); }       /* legible if the splitter never runs */
+
+/* ═══ NAV ═══
+   Taller than a normal bar (the reference runs 124px) so the lockup has room
+   to breathe, and it retracts on the way down so nothing competes with the
+   page while you are reading it. */
+.nav {
+  position: fixed; inset: 0 0 auto 0; z-index: 70;
+  display: flex; flex-wrap: wrap; align-items: center; gap: clamp(1.5rem, 5vw, 5rem);
+  min-height: var(--nav-h);
+  /* no left padding: the mark runs to the very edge and carries its own gutter,
+     the way the reference's 224×124 logo does */
+  padding: 0 var(--gut) 0 0;
+  transition: transform .25s ease-out;
+  /* Real WebKit shapes this variable serif a few px wider than Chromium does
+     at the same font-size, and a visitor with iOS's own text-size setting
+     raised pushes it further — neither shows up in a desktop devtools
+     emulator, which is still Chromium underneath. flex-wrap is the backstop:
+     if the row ever runs out of room the toggle/menu drop to their own line
+     instead of being carried off the right edge of the screen, invisible. */
+}
+/* a scrim rather than mix-blend-mode: the bar has to stay readable over a
+   bright room as well as a dark one, and difference-blending inverted it */
+.nav::before {
+  content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: linear-gradient(180deg, rgba(13,13,13,.72), rgba(13,13,13,.28) 60%, transparent);
+}
+.nav.retracted { transform: translateY(-100%); }
+
+/* The reference's mark is 224×124 — it fills the bar's whole height rather
+   than sitting inside it as small type. Scaled up to match that presence. */
+/* stretch: the lockup occupies the bar's whole height instead of floating in
+   the middle of it — that is what makes the reference's header feel anchored */
+.brand {
+  display: flex; flex-direction: column; justify-content: center; gap: .45rem;
+  align-self: stretch; padding-inline: var(--gut) clamp(1.5rem, 4vw, 3.5rem);
+  line-height: 1; min-width: 0;   /* flex items default to min-width:auto, which
+    refuses to shrink below its own content and is exactly what forces the
+    toggle/menu out past the viewport edge when the row runs tight */
+}
+.brand-name { font-size: clamp(1.35rem, 2.1vw, 1.95rem); letter-spacing: .34em; font-weight: 400; white-space: nowrap; }
+.brand-sub  { font-size: clamp(.5rem, .72vw, .64rem); letter-spacing: .38em; text-transform: uppercase; color: var(--dim); padding-left: .2em; white-space: nowrap; }
+
+/* never squeezed: the language toggle and menu button are the two controls a
+   visitor actually needs, so they are the last thing given up if space is tight */
+.nav-right { display: flex; flex-wrap: nowrap; align-items: center; gap: clamp(1rem, 2.4vw, 2.4rem); margin-left: auto; flex-shrink: 0; }
+.nav-serv {
+  display: inline-flex; align-items: center; gap: .8rem;
+  font-size: clamp(.7rem, .95vw, .88rem); letter-spacing: .28em; text-transform: uppercase;
+  /* The rule runs well past the words — on the reference it is 282px under
+     172px of text, about 1.6×. That overhang is what makes the bar read as
+     architectural rather than as a link with an underline. */
+  padding-right: clamp(2rem, 6vw, 6rem); padding-bottom: .8rem;
+  border-bottom: 1px solid rgba(239, 236, 230, .5);
+  transition: border-color .4s;
+}
+.nav-serv:hover { border-color: var(--paper); }
+/* the reference marks its nav links with a small arrow rather than an underline
+   alone; rotating one arrow glyph 135° gives the ↘ without a second asset */
+.glyph { width: 9px; height: 9px; fill: currentColor; transform: rotate(135deg); flex: 0 0 auto; }
+/* nowrap + flex-wrap:nowrap belt-and-suspenders: an in-app browser (WhatsApp,
+   Instagram) runs its own WKWebView wrapper around WebKit and has been seen
+   to break this apart into "EN /" on one line and "HI" on the next, which
+   inline-flex alone should already forbid but evidently was not enough there. */
+.lang {
+  display: inline-flex; flex-wrap: nowrap; white-space: nowrap;
+  /* align-items is load-bearing: the touch stylesheet grows the HI link with
+     padding-block for its 44px tap target, and under the default `stretch`
+     the EN/slash rendered at the top of the row while HI's text sat centred
+     in its padded box — a ~17px step that read as the group breaking onto
+     two lines on iPhones. Centring puts all three texts on one line whatever
+     height the tap padding gives the link. */
+  align-items: center;
+  gap: .4rem; font-size: .6rem; letter-spacing: .22em; flex-shrink: 0;
+}
+.lang b { font-weight: 400; }
+.lang i { font-style: normal; opacity: .4; }
+/* colour and underline set directly rather than trusted to the `a { color:
+   inherit }` reset — the same in-app browsers apply a default blue, underlined
+   link style with just enough specificity to beat a low-specificity reset. */
+.lang a { color: var(--paper); text-decoration: none; opacity: .5; transition: opacity .4s; }
+.lang a:hover { opacity: 1; }
+
+.burger {
+  background: none; border: 0; padding: .5rem 0 .5rem .8rem; cursor: pointer; flex-shrink: 0;
+  /* Buttons do not inherit color — they use the UA's `buttontext`, which is
+     black on Chromium (invisible against this page) and SYSTEM BLUE on iOS
+     WebKit. The spans below paint with currentColor, so without this line the
+     menu button was a blue dash on iPhones and vanished entirely on desktop.
+     The old mix-blend-mode:difference nav masked it by inverting the black. */
+  color: var(--paper);
+  appearance: none; -webkit-appearance: none;
+}
+.burger span { display: block; width: 26px; height: 1px; background: currentColor; transition: transform .45s var(--ease); }
+.burger span + span { margin-top: 7px; }
+.burger[aria-expanded="true"] span:first-child { transform: translateY(4px) rotate(45deg); }
+.burger[aria-expanded="true"] span:last-child  { transform: translateY(-4px) rotate(-45deg); }
+@media (max-width: 720px) { .nav-serv { display: none; } }
+/* Extra headroom below 480px: the brand's tracked-out letter-spacing is the
+   single biggest width cost in the row, so it is the first thing trimmed.
+   Widened from 400 to 480 and cut further after an in-app browser (narrower
+   effective viewport than raw device width) still ran the row out of room. */
+@media (max-width: 480px) {
+  .brand-name { letter-spacing: .16em; font-size: 1.2rem; }
+  .brand-sub { letter-spacing: .22em; font-size: .46rem; }
+  .brand { padding-inline: var(--gut) .7rem; }
+  .nav { gap: .6rem; }
+  .nav-right { gap: .55rem; }
+  .lang { font-size: .56rem; gap: .3rem; }
+}
+
+/* ═══ MENU ═══ */
+.menu {
+  position: fixed; inset: 0; z-index: 65; background: var(--ink);
+  display: flex; flex-direction: column; justify-content: center; gap: 2rem;
+  padding: 6rem var(--gut) 2rem;
+  opacity: 0; transition: opacity .5s var(--ease);
+}
+/* `display: flex` above beats the browser's own `[hidden] { display: none }`
+   in the cascade, so without this the closed menu still covered the whole
+   viewport at z-index 65 — invisible, but swallowing every hover and click on
+   the page underneath it. */
+.menu[hidden] { display: none; }
+/* and while it is fading out (.open removed, hidden not yet set) it must not
+   intercept the pointer either */
+.menu:not(.open) { pointer-events: none; }
+.menu.open { opacity: 1; }
+.menu-inner { display: flex; flex-direction: column; }
+.menu-inner a {
+  font-family: var(--display); font-weight: 400; text-transform: uppercase;
+  font-size: clamp(1.6rem, 6vw, 3rem); line-height: 1;
+  padding: .5em 0; border-bottom: 1px solid var(--line);
+  transition: padding-left .5s var(--ease);
+}
+.menu-inner a:hover { padding-left: .5rem; }
+.menu-foot { display: flex; flex-direction: column; gap: .4rem; font-size: .75rem; color: var(--dim); }
+
+/* ═══ 01 · HERO ═══ */
+/* padding-top reserves the fixed nav's own height. The type ramp above already
+   shrinks the headline to fit, so this never actually pushes the hero past one
+   screen — it is the hard backstop for the cases the ramp can't see, like a
+   visitor who has raised their browser's minimum font size. */
+.s-hero { position: relative; min-height: 100svh; padding-top: var(--nav-h);
+          display: flex; align-items: flex-end; overflow: hidden; }
+.hero-media { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.hero-veil {
+  position: absolute; inset: 0; pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(13,13,13,.62) 0%, rgba(13,13,13,.1) 30%, rgba(13,13,13,.5) 70%, rgba(13,13,13,.92) 100%),
+    radial-gradient(ellipse 72% 60% at 50% 45%, transparent 34%, rgba(13,13,13,.58) 100%);
+}
+.hero-container { position: relative; z-index: 2; width: 100%; padding-bottom: clamp(3.5rem, 11vh, 7rem); }
+.hero-tag { display: block; margin-top: 1.7rem; max-width: 28ch; color: var(--dim); font-size: clamp(.85rem, 1.2vw, 1.02rem); }
+
+/* ═══ 02 / 06 · ALTERNATING ROWS ═══
+   The figure is a fixed-height mask and the image inside it is taller, so the
+   image can travel through the mask as the row is scrolled — the reference's
+   photos are ~25% taller than the box that shows them. */
+.split-row {
+  display: grid; grid-template-columns: 48% 1fr;
+  gap: clamp(1.5rem, 4vw, 4rem); align-items: center;
+  padding-block: clamp(3.5rem, 11vh, 8rem);
+}
+.split-row.reverse { grid-template-columns: 1fr 48%; }
+.split-row.reverse .bleed { order: 2; }
+.split-row.reverse .mark, .split-row.reverse .h-claim { order: 1; }
+
+/* Each frame wipes open from one side as it arrives — from the outer edge
+   inward, so the photo appears to slide in from off the page rather than
+   simply fading up. main.js writes --wipe from 100% down to 0%. */
+.bleed { position: relative; overflow: hidden; height: clamp(20rem, 46vw, 41rem); }
+.bleed.portrait { height: clamp(24rem, 54vw, 48rem); }
+.bleed-left  { clip-path: inset(0 0 0 var(--wipe, 0%)); }
+.bleed-right { clip-path: inset(0 var(--wipe, 0%) 0 0); }
+.bleed img { width: 100%; height: 125%; object-fit: cover; will-change: transform; }
+/* the photo runs past the page gutter, exactly as it does on the reference */
+.bleed-left  { margin-left: calc(var(--gut) * -1); }
+.bleed-right { margin-right: calc(var(--gut) * -1); }
+
+.s-statement .h-mid, .concept-body { max-width: 34ch; }
+.concept-body p { margin-top: 1.5rem; max-width: 42ch; }
+.concept-body .link { margin-top: 2rem; }
+
+@media (max-width: 860px) {
+  .split-row, .split-row.reverse { grid-template-columns: 1fr; }
+  .split-row.reverse .bleed { order: 0; }
+  .split-row.reverse .mark, .split-row.reverse .h-claim { order: 1; }
+  .bleed { height: clamp(15rem, 62vw, 26rem); }
+  .bleed-left, .bleed-right { margin-inline: calc(var(--gut) * -1); }
+  .s-statement .h-mid, .concept-body { max-width: none; }
+}
+
+/* ═══ 03 · EQUILIBRIO ═══
+   A full-bleed room the headline travels across: on the reference the photo
+   runs edge to edge and the words pass over the water, so the type is read
+   against the room rather than beside it. */
+.s-equilibrio { position: relative; }              /* height measured in main.js */
+.equil-stage { position: sticky; top: 0; height: 100svh; overflow: hidden; display: flex; align-items: center; }
+/* The frame opens from a third of the page to full bleed as you scroll into it
+   — the reference calls this class `to_big`, growing a `w35l` box out to the
+   edges. Both the size and the offset are written from main.js in pixels. */
+.equil-fig {
+  position: relative; overflow: hidden;
+  width: var(--w, 35%); height: var(--h, 62svh);
+  margin-left: var(--ml, 0px);
+}
+.equil-img { width: 100%; height: 100%; object-fit: cover; will-change: transform; }
+
+/* A dark band anchored where the headline actually sits — the same idea as
+   .hero-veil. Bodoni Moda's hairline strokes have almost no width; over the
+   pool's bright reflections they were reading as missing rather than thin, so
+   the whole crossing path needs a guaranteed-dark strip under it, not just a
+   shadow on the letters themselves. */
+.equil-veil {
+  position: absolute; inset: auto 0 0 0; z-index: 1; pointer-events: none;
+  height: 44%;
+  background: linear-gradient(180deg, transparent, rgba(13, 13, 13, .82) 62%, rgba(13, 13, 13, .92));
+}
+.h-mega.enter {
+  position: absolute; left: 100%; bottom: clamp(2rem, 9vh, 6rem);
+  z-index: 2; will-change: transform;
+  /* a tight near-black pass so every hairline keeps its own dark edge
+     regardless of what is behind it, plus the soft glow for depth */
+  text-shadow: 0 0 1px rgba(0,0,0,.95), 0 1px 3px rgba(0,0,0,.9), 0 4px 40px rgba(0,0,0,.55);
+}
+
+/* ═══ 04 · MISSIONE ═══ */
+.s-missione { padding-block: clamp(3rem, 9vh, 6rem); }
+.missione-grid { display: grid; grid-template-columns: 34% 1fr 1fr; gap: clamp(1.6rem, 3.4vw, 3.6rem); align-items: start; }
+@media (max-width: 900px) { .missione-grid { grid-template-columns: 1fr; } }
+
+/* ═══ 05 · SERVIZI ═══ */
+.s-servizi { padding-block: clamp(3.5rem, 11vh, 8rem); }
+.servizi-wrap { position: relative; }
+/* The frame rides the pointer instead of sitting in a fixed slot, so the photo
+   arrives next to the word you are actually reading. Fixed, not absolute — it
+   is positioned from clientX/clientY, which are viewport coordinates. */
+.servizi-media {
+  position: fixed; top: 0; left: 0; z-index: 40;
+  width: clamp(12rem, 26vw, 24rem); aspect-ratio: 16 / 10; overflow: hidden;
+  pointer-events: none; opacity: 0;
+  transform: translate3d(-50%, -50%, 0);
+  transition: opacity .4s var(--ease), scale .5s var(--ease);
+  scale: .94;
+}
+.servizi-media.live { opacity: 1; scale: 1; }
+.servizi-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .45s var(--ease); }
+.servizi-media img.on { opacity: 1; }
+
+.servizi-list { position: relative; z-index: 2; display: flex; flex-direction: column; }
+.serv {
+  font-size: var(--t-serv); line-height: 1; text-transform: uppercase;
+  padding-block: clamp(.5rem, 1.6vh, 1rem);
+  transition: opacity .45s var(--ease);
+}
+.serv span { display: inline-block; transition: transform .6s var(--ease); }
+.servizi-list:hover .serv { opacity: .3; }
+.servizi-list .serv.on { opacity: 1; }
+.servizi-list .serv.on span { transform: translateX(clamp(.6rem, 1.6vw, 1.6rem)); }
+/* Without a pointer the frame can never be summoned, so it stops chasing and
+   simply sits above the list as a normal image. */
+@media (hover: none) {
+  .servizi-media {
+    position: static; width: 100%; margin-bottom: 1.6rem;
+    opacity: 1; scale: 1; transform: none;
+  }
+  .servizi-media img:not(.on) { opacity: 0; }
+  .servizi-list:hover .serv { opacity: 1; }
+}
+
+/* ═══ 07 · REALIZZAZIONI ═══ */
+.s-realizzazioni { position: relative; }          /* height measured in main.js */
+.realizz-pin { position: sticky; top: 0; height: 100svh; overflow: hidden; display: flex; flex-direction: column; justify-content: center; gap: clamp(1.5rem, 4vh, 3rem); }
+.realizz-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 2rem; flex-wrap: wrap; }
+.realizz-track { display: flex; align-items: center; gap: clamp(1.2rem, 3vw, 3.4rem); padding-inline: var(--gut); will-change: transform; }
+/* each frame carries its own offset and scale, so the row reads as scattered
+   rather than as a grid laid on its side */
+.realizz-item {
+  flex: 0 0 auto;
+  width: calc(clamp(13rem, 25vw, 23rem) * var(--size, 1));
+  transform: translateY(var(--drop, 0));
+}
+@media (max-width: 720px) { .realizz-item { transform: none; width: clamp(13rem, 62vw, 20rem); } }
+.realizz-media { aspect-ratio: 4 / 5; overflow: hidden; background: var(--ink-2); }
+.realizz-media img { width: 100%; height: 100%; object-fit: cover; }
+.realizz-cap { display: flex; justify-content: space-between; gap: 1rem; margin-top: .8rem; font-size: .62rem; letter-spacing: .2em; text-transform: uppercase; }
+.realizz-cap span:last-child { color: var(--dim); }
+
+/* ═══ 08 · CONTATTI ═══ */
+.s-contatti { padding-block: clamp(3.5rem, 11vh, 8rem); background: var(--ink-2); }
+.contatti-grid { display: grid; grid-template-columns: 1fr 1.15fr; gap: clamp(2.4rem, 6vw, 6rem); align-items: start; }
+@media (max-width: 900px) { .contatti-grid { grid-template-columns: 1fr; } }
+
+.details { margin-top: clamp(2rem, 5vh, 3rem); display: grid; gap: 1rem; }
+.details div { display: grid; grid-template-columns: 7rem 1fr; gap: 1rem; align-items: baseline; padding-top: 1rem; border-top: 1px solid var(--line); }
+.details dt { font-size: .58rem; letter-spacing: .26em; text-transform: uppercase; color: var(--dim); }
+.details dd { font-size: .9rem; line-height: 1.7; }
+.details a { border-bottom: 1px solid var(--line); transition: border-color .4s; }
+.details a:hover { border-color: var(--paper); }
+@media (max-width: 420px) { .details div { grid-template-columns: 1fr; gap: .35rem; } }
+
+.form { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem 1.2rem; }
+@media (max-width: 560px) { .form { grid-template-columns: 1fr; } }
+.field { position: relative; }
+.field-wide { grid-column: 1 / -1; }
+.field input, .field select, .field textarea {
+  width: 100%; background: none; border: 0; border-bottom: 1px solid var(--line);
+  color: var(--paper); font: inherit;
+  font-size: 1rem;                     /* 16px floor, or iOS zooms the page on focus */
+  padding: 1.4rem 0 .6rem; border-radius: 0;
+  transition: border-color .45s var(--ease);
+}
+.field textarea { resize: vertical; min-height: 4.4rem; }
+.field select { appearance: none; }
+.field select option { background: var(--ink-2); color: var(--paper); }
+.field-select::after { content: ''; position: absolute; right: 2px; bottom: 1.1rem; width: 7px; height: 7px; border-right: 1px solid var(--dim); border-bottom: 1px solid var(--dim); transform: rotate(45deg); pointer-events: none; }
+.field label { position: absolute; left: 0; top: 1.4rem; pointer-events: none; font-size: 1rem; color: var(--dim); transform-origin: left top; transition: transform .4s var(--ease), font-size .4s var(--ease), letter-spacing .4s var(--ease); }
+.field input:focus + label, .field textarea:focus + label,
+.field input:not(:placeholder-shown) + label, .field textarea:not(:placeholder-shown) + label,
+.field select:focus + label, .field select:valid + label {
+  transform: translateY(-1.4rem); font-size: .56rem; letter-spacing: .26em; text-transform: uppercase;
+}
+.field input:focus, .field select:focus, .field textarea:focus { outline: none; border-bottom-color: var(--paper); }
+.field.bad input, .field.bad select, .field.bad textarea { border-bottom-color: #a86b5b; }
+.link-send { grid-column: 1 / -1; justify-self: start; margin-top: .4rem; }
+.form-note { grid-column: 1 / -1; min-height: 1.1rem; font-size: .78rem; color: var(--dim); }
+.form-note.ok { color: var(--paper); }
+
+/* ═══ FOOTER ═══
+   Contact in three columns, then the name at the full width of the page — the
+   reference signs off with the studio's own name as the largest thing on it. */
+.foot { padding-top: clamp(3rem, 9vh, 6rem); border-top: 1px solid var(--line); overflow: hidden; }
+.foot-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.6rem 2rem; }
+.foot-cols p { font-size: clamp(.95rem, 1.6vw, 1.4rem); line-height: 1.55; color: var(--paper); font-weight: 200; }
+.foot-cols a { transition: opacity .4s; }
+.foot-cols a:hover { opacity: .6; }
+@media (max-width: 720px) { .foot-cols { grid-template-columns: 1fr; } }
+
+.foot-lockup { margin-top: clamp(2.5rem, 8vh, 5rem); line-height: .84; }
+.foot-name, .foot-sub {
+  font-family: var(--display); font-weight: 400; text-transform: uppercase;
+  letter-spacing: -.02em; white-space: nowrap;
+  /* width:max-content shrink-wraps to the glyphs while staying block-level, so
+     main.js can measure the real text width — a plain block would always report
+     the container's width and the fit would resolve to 1. */
+  display: block; width: max-content;
+  font-size: var(--fit, 14vw);
+}
+.foot-sub { color: rgba(239, 236, 230, .3); }
+
+.foot-base { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .8rem; padding-top: 1.6rem; padding-bottom: calc(1.6rem + env(safe-area-inset-bottom)); font-size: .58rem; letter-spacing: .2em; text-transform: uppercase; }
+.foot-dim { color: var(--dim); }
+
+/* ═══ TOUCH — every finger target reaches 44px ═══
+   Inline links grow with padding-block, which enlarges the hit area without
+   touching the line box, so nothing on the page moves. */
+@media (hover: none) {
+  .brand, .burger, .link { display: inline-flex; align-items: center; min-height: 44px; }
+  /* flex-direction is mandatory here, not cosmetic: turning the button into a
+     flex container to hit 44px made its two bars flex items, and the default
+     `row` laid them side by side — the icon stopped reading as a menu at all.
+     They are stacked bars; the container has to say so. */
+  .burger {
+    min-width: 44px; flex-direction: column;
+    align-items: flex-end; justify-content: center;
+  }
+  .details a, .nav-serv, .foot-cols a { padding-block: 13px; }
+  .menu-foot a { padding-block: 15px; }
+  /* The language link gets its 44px target from an invisible overlay instead
+     of padding. Padding made the <a> taller than its siblings inside a tight
+     flex row, and any disagreement about how that extra height is distributed
+     showed up as EN/ and HI sitting on visibly different lines. An absolutely
+     positioned hit area is outside layout entirely, so the row is identical
+     on touch and desktop and there is nothing left to diverge. */
+  .lang a { padding-block: 0; position: relative; }
+  .lang a::after { content: ''; position: absolute; inset: -17px -10px; }
+  .serv { padding-block: 12px; }
+}
+
+/* ═══ CONCIERGE ═══
+   The concierge widget, restyled to the studio: charcoal, paper,
+   hairline rules and the display serif — no rounded blue bubble anywhere.
+
+   The launcher sits as a vertical tab on the right edge rather than a floating
+   corner pill — the pill sat on top of whatever photo happened to scroll under
+   it and always looked like it was covering something. A flush edge tab reads
+   as part of the page furniture instead, the way a spine label would. */
+.cx-open {
+  position: fixed; top: 50%; right: 0; z-index: 80;
+  transform: translateY(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: .8rem;
+  padding: 1.4rem .85rem; cursor: pointer;
+  /* one step lighter than the page background, not the same colour as it —
+     var(--line)'s 15% border used to disappear entirely against a section
+     that is itself near-black (the footer's giant wordmark, the hero at rest),
+     so the whole tab read as nothing there. The shadow gives it a floor to
+     sit on regardless of what is directly behind it. */
+  background: var(--ink-2); color: var(--paper);
+  border: 1px solid rgba(239, 236, 230, .45); border-right: 0;
+  box-shadow: -6px 0 24px rgba(0, 0, 0, .45);
+  font: inherit; font-size: .62rem; letter-spacing: .28em; text-transform: uppercase;
+  transition: border-color .4s var(--ease), background .4s var(--ease), padding-right .35s var(--ease), opacity .35s;
+}
+.cx-open:hover { border-color: var(--paper); background: var(--ink); padding-right: 1.15rem; }
+.cx-open-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--paper); flex: 0 0 auto; }
+.cx-open-label { writing-mode: vertical-rl; white-space: nowrap; }
+/* hidden while the panel is up, rather than left sitting behind it */
+.cx-open.away { opacity: 0; pointer-events: none; }
+
+.cx {
+  position: fixed; z-index: 81;
+  right: var(--gut); bottom: clamp(1.2rem, 3vh, 2.2rem);
+  width: min(24rem, calc(100vw - var(--gut) * 2));
+  max-height: min(34rem, calc(100svh - 6rem));
+  display: flex; flex-direction: column;
+  background: var(--ink); border: 1px solid var(--line);
+  opacity: 0; transform: translateY(12px);
+  transition: opacity .4s var(--ease), transform .45s var(--ease);
+}
+.cx.open { opacity: 1; transform: none; }
+/* display:flex above would beat [hidden]'s display:none, the same trap the
+   fullscreen menu fell into — an invisible panel swallowing every click */
+.cx[hidden] { display: none; }
+.cx:not(.open) { pointer-events: none; }
+
+.cx-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; padding: 1.4rem 1.4rem 1rem; border-bottom: 1px solid var(--line); }
+.cx-kicker { display: block; font-size: .52rem; letter-spacing: .38em; text-transform: uppercase; color: var(--dim); }
+.cx-title { font-family: var(--display); font-weight: 400; font-size: 1.5rem; line-height: 1.1; margin-top: .4rem; }
+/* color set for the same reason as .burger: buttons default to UA buttontext,
+   not the page colour — anything painted with currentColor inside would break */
+.cx-close { background: none; border: 0; color: var(--paper); cursor: pointer; padding: .5rem; width: 30px; height: 30px; position: relative; flex: 0 0 auto; }
+.cx-close span { position: absolute; left: 6px; right: 6px; top: 50%; height: 1px; background: var(--paper); }
+.cx-close span:first-child { transform: rotate(45deg); }
+.cx-close span:last-child { transform: rotate(-45deg); }
+
+.cx-log { flex: 1; overflow-y: auto; padding: 1.2rem 1.4rem; display: flex; flex-direction: column; gap: .9rem; }
+.cx-msg { max-width: 88%; font-size: .86rem; line-height: 1.65; }
+.cx-msg.bot { align-self: flex-start; color: var(--paper); }
+.cx-msg.me {
+  align-self: flex-end; color: var(--ink); background: var(--paper);
+  padding: .6rem .85rem;
+}
+.cx-msg.bot { border-left: 1px solid var(--line); padding-left: .85rem; }
+.cx-msg a { text-decoration: underline; text-underline-offset: 3px; }
+.cx-typing { display: inline-flex; gap: .3rem; align-self: flex-start; padding-left: .85rem; border-left: 1px solid var(--line); }
+.cx-typing i { width: 4px; height: 4px; border-radius: 50%; background: var(--dim); animation: cxdot 1.2s infinite; }
+.cx-typing i:nth-child(2) { animation-delay: .15s; }
+.cx-typing i:nth-child(3) { animation-delay: .3s; }
+@keyframes cxdot { 0%,60%,100% { opacity: .25 } 30% { opacity: 1 } }
+
+.cx-chips { display: flex; flex-wrap: wrap; gap: .5rem; padding: 0 1.4rem 1rem; }
+.cx-chips:empty { display: none; }
+.cx-chip {
+  background: none; color: var(--paper); cursor: pointer; font: inherit;
+  font-size: .58rem; letter-spacing: .2em; text-transform: uppercase;
+  padding: .55rem .8rem; border: 1px solid var(--line);
+  transition: border-color .35s, background .35s;
+}
+.cx-chip:hover { border-color: var(--paper); background: var(--ink-2); }
+
+.cx-form { display: flex; align-items: center; gap: .6rem; padding: .9rem 1.4rem; border-top: 1px solid var(--line); }
+.cx-form input {
+  flex: 1; background: none; border: 0; color: var(--paper); font: inherit;
+  font-size: 1rem;                     /* 16px floor, or iOS zooms on focus */
+  padding: .5rem 0;
+}
+.cx-form input::placeholder { color: var(--dim); font-size: .86rem; }
+.cx-form input:focus { outline: none; }
+.cx-form button { background: none; border: 0; color: var(--paper); cursor: pointer; padding: .5rem; display: grid; place-items: center; }
+.cx-form button svg { width: 18px; height: 18px; fill: var(--dim); transition: fill .35s; }
+.cx-form button:hover svg { fill: var(--paper); }
+.cx-fine { padding: 0 1.4rem 1rem; font-size: .58rem; letter-spacing: .16em; text-transform: uppercase; color: var(--dim); }
+
+@media (max-width: 560px) {
+  .cx { left: var(--gut); right: var(--gut); width: auto; max-height: calc(100svh - 5rem); }
+  .cx-open { padding: 1.1rem .6rem; font-size: .56rem; }
+}
+@media (hover: none) {
+  .cx-open, .cx-chip, .cx-close, .cx-form button { min-height: 44px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .rise { opacity: 1; transform: none; transition: none; }
+  .w > i { transform: none !important; transition: none; }
+  .bleed img, .equil-fig img { transform: none !important; }
+  .serv span, .servizi-media img, .menu, .link::after { transition: none; }
+  .cx, .cx-open { transition: none; }
+  .cx-typing i { animation: none; }
+}
