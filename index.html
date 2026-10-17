@@ -21,7 +21,7 @@
      the AI demo then plays a clearly labelled scripted replay and the GTM
      engine stays hidden. On localhost the page talks to `wrangler dev`. -->
 <meta name="portfolio-api" content="https://dipanjan-portfolio-api.aineural369.workers.dev">
-<link rel="stylesheet" href="assets/lab.css?v=10">
+<link rel="stylesheet" href="assets/lab.css?v=11">
 <noscript><style>.reveal{opacity:1 !important;transform:none !important;}</style></noscript>
 <style>.reveal{opacity:1 !important;transform:none !important;}</style></noscript>
 <style>
@@ -405,21 +405,18 @@
         <span class="pout-status"><i></i><span id="pStatus">Writing</span></span>
         <div class="pout-actions">
           <button type="button" id="pCopy" disabled>Copy</button>
-          <button type="button" id="pPdf" disabled>Save as PDF</button>
+          <button type="button" id="pPdf" disabled>Download PDF</button>
         </div>
       </div>
       <div class="md" id="pBody" aria-live="polite"></div>
       <div class="pout-foot">
-        <div id="pLeadRow">
-          <p class="q">Want me to look at this properly? Leave an email and I'll follow up personally.</p>
-          <form class="plead" id="pLead">
-            <input type="email" id="pEmail" placeholder="you@company.com" required autocomplete="email">
-            <button type="submit" id="pLeadBtn">Send it to me</button>
-          </form>
-          <p class="lab-msg" id="pLeadErr" hidden></p>
-          <p class="n">Optional. The plan above is already yours — copy it or save the PDF.</p>
+        <button type="button" class="pdl" id="pDl" disabled>⬇ Download as PDF</button>
+        <div class="pcontact">
+          <p class="q">Want this built for you? Talk to me directly.</p>
+          <p class="pc-row"><b>Dipanjan Roy</b>
+            <a href="mailto:dipanjanroy369@gmail.com">dipanjanroy369@gmail.com</a>
+            <a href="https://wa.me/919874604663" target="_blank" rel="noopener">WhatsApp +91 98746 04663</a></p>
         </div>
-        <p class="q" id="pLeadDone" hidden>Got it — I'll write to you myself.</p>
       </div>
     </div>
 
@@ -862,7 +859,7 @@ document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 </div>
 
 <div id="printRoot"></div>
-<script src="assets/lab.js?v=6" defer></script>
+<script src="assets/lab.js?v=7" defer></script>
 <script src="assets/v2.js?v=15" defer></script>
 </body>
 </html>

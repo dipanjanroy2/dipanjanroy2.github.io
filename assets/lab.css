@@ -264,3 +264,18 @@
 .ptry{justify-content:center}
 .lab-fine{margin-left:auto;margin-right:auto;text-align:center}
 @media (prefers-reduced-motion:reduce){.pbox,.pgo::after,.lab-badge i{animation:none}}
+
+/* result footer: download + direct contact */
+.pdl{display:block;width:100%;padding:.95rem 1.2rem;border:0;border-radius:12px;cursor:pointer;font:inherit;font-weight:600;
+  background:linear-gradient(100deg,var(--accent),#7c8bff);color:var(--ink);box-shadow:0 12px 34px -12px rgb(var(--accent-rgb) / .7)}
+.pdl:disabled{opacity:.45;cursor:progress}
+.pcontact{margin-top:1rem}
+.pc-row{display:flex;flex-wrap:wrap;gap:.5rem .9rem;align-items:center;font-size:.88rem;margin:.35rem 0 0}
+.pc-row b{color:var(--bone);font-weight:500}
+.pc-row a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgb(var(--accent-rgb) / .35)}
+.pc-row a:hover{color:var(--accent-hi)}
+@media print{
+  #printRoot .pr-brand{display:flex;justify-content:space-between;align-items:baseline;font:12px Arial,sans-serif;color:#555;margin-bottom:14px}
+  #printRoot .pr-brand b{font:600 15px Arial,sans-serif;color:#111}
+  #printRoot .pr-foot b{color:#111}
+}
