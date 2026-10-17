@@ -5,9 +5,7 @@
   "base": "India (works remotely)",
   "contact": {
     "email": "dipanjanroy369@gmail.com",
-    "sites": [
-      "vidbold.io"
-    ]
+    "sites": []
   },
   "profile": "Hands-on performance marketer who builds the whole funnel himself: the Meta campaign, the landing page, the checkout and the CRM follow-up. Since 2023 he has run 30+ Meta campaigns, judged on verified revenue rather than platform numbers. With a cloud engineering background he sets up pixels, events and automations himself.",
   "why_marketing": "Why marketing, coming from tech: he started as an engineer - cloud, DevOps, infrastructure and back-end. He then got interested in online selling, started selling physical products himself (room heaters, LED torches) and learned marketing because he had to make them sell. Along the way he built Shopify, WordPress and custom websites and landing pages, and made the ads for them. He then trained in digital marketing and go-to-market at institutes in Kolkata and Bangalore (AADME certifications). The engineering side is now an advantage: he sets up the pixel, tracking, automations and AI agents himself, so a campaign never waits on a developer.",
@@ -50,7 +48,6 @@
     }
   ],
   "products_built": [
-    "Vidbold (vidbold.io) - AI video studio: type an idea, get a finished branded short-form video with voiceover, captions, B-roll and music.",
     "An online astrology-reading product (readings by an astrologer) with a paid funnel.",
     "Monica - WhatsApp AI sales agent: answers leads in seconds, reads buyer stage, books calls via Cal.com, hands over to a human.",
     "AI Audit Funnel - visitor drops a website URL, gets a 7-12 page branded PDF audit on WhatsApp + email in about two minutes.",

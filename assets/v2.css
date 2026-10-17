@@ -132,13 +132,13 @@
 .how i{font-style:normal;color:var(--accent);font-size:.72rem;letter-spacing:.12em}
 
 /* ── FUNNEL ── */
-.fn{display:grid;grid-template-columns:repeat(5,1fr);gap:.6rem;margin-bottom:1rem}
+.fn{display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem;margin-bottom:1rem}
 .fn button{position:relative;min-height:88px;text-align:left;padding:.9rem 1rem;border-radius:16px;border:1px solid var(--line);background:var(--ink2);color:var(--bone);font:inherit;cursor:pointer;transition:border-color .15s,background .15s}
 .fn button span{display:block;font-size:.7rem;letter-spacing:.14em;color:var(--dim);margin-bottom:.3rem}
 .fn button b{font-family:var(--serif);font-weight:400;font-size:1.15rem;line-height:1.2;display:block}
 .fn button[aria-selected="true"]{border-color:var(--accent);background:rgb(var(--accent-rgb) / .08)}
 .fn button[aria-selected="true"] span{color:var(--accent)}
-.fn button:not(:last-child)::after{content:"→";position:absolute;right:-.55rem;top:50%;transform:translateY(-50%);color:var(--accent);font-size:.9rem;z-index:2;background:var(--ink);padding:0 .1rem}
+.fn button:not(:nth-child(4n)):not(:last-child)::after{content:"→";position:absolute;right:-.55rem;top:50%;transform:translateY(-50%);color:var(--accent);font-size:.9rem;z-index:2;background:var(--ink);padding:0 .1rem}
 .fn-panel{border:1px solid var(--line);border-radius:20px;background:var(--ink2);padding:clamp(1.2rem,3vw,2rem);display:grid;grid-template-columns:repeat(2,1fr);gap:1.2rem 2rem}
 .fn-panel h3{grid-column:1/-1;font-family:var(--serif);font-weight:400;font-size:clamp(1.4rem,2.4vw,1.9rem)}
 .fn-panel h4{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);font-weight:500;margin-bottom:.35rem}
@@ -196,9 +196,10 @@
   .ai-grid{grid-template-columns:1fr}
   .voice-card{max-width:420px}
   .ai-can,.how{grid-template-columns:1fr 1fr}
-  .fn{grid-template-columns:1fr;gap:.5rem}
-  .fn button{min-height:64px}
-  .fn button:not(:last-child)::after{content:"↓";right:auto;left:1.2rem;top:auto;bottom:-.75rem;transform:none}
+  .fn{display:flex;gap:.5rem;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:.4rem;scrollbar-width:none}
+  .fn::-webkit-scrollbar{display:none}
+  .fn button{flex:0 0 auto;width:min(46vw,190px);min-height:78px;scroll-snap-align:start}
+  .fn button::after{display:none}
   .fn-panel{grid-template-columns:1fr}
   .case-body{grid-template-columns:1fr}
 }

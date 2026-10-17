@@ -189,6 +189,7 @@
 @media (max-width:520px){
   .cw-fab .lbl{display:none;}
   .cw-fab{padding:.4rem;}
+  .cw-fab .dot{display:none;}
   .cw-panel{right:.5rem;left:.5rem;bottom:.5rem;width:auto;height:min(78svh,600px);}
 }
 
@@ -231,7 +232,7 @@
 /* ── the lab as a highlighted tool ── */
 @property --lab-ang{syntax:'<angle>';inherits:false;initial-value:0deg}
 .lab{position:relative;isolation:isolate}
-.lab::before{content:"";position:absolute;inset:-2rem -1rem 0;z-index:-1;pointer-events:none;
+.lab::before{content:"";position:absolute;inset:-2rem 0 0;z-index:-1;pointer-events:none;
   background:radial-gradient(60% 55% at 50% 58%,rgb(var(--accent-rgb) / .16),transparent 70%),
     linear-gradient(rgb(var(--accent-rgb) / .05) 1px,transparent 1px) 0 0/40px 40px,
     linear-gradient(90deg,rgb(var(--accent-rgb) / .05) 1px,transparent 1px) 0 0/40px 40px;

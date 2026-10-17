@@ -21,7 +21,7 @@
      the AI demo then plays a clearly labelled scripted replay and the GTM
      engine stays hidden. On localhost the page talks to `wrangler dev`. -->
 <meta name="portfolio-api" content="https://dipanjan-portfolio-api.aineural369.workers.dev">
-<link rel="stylesheet" href="assets/lab.css?v=11">
+<link rel="stylesheet" href="assets/lab.css?v=12">
 <noscript><style>.reveal{opacity:1 !important;transform:none !important;}</style></noscript>
 <style>.reveal{opacity:1 !important;transform:none !important;}</style></noscript>
 <style>
@@ -167,7 +167,7 @@
   .reveal{opacity:0;transform:translateY(24px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);}
   .reveal.in{opacity:1;transform:translateY(0);}
 
-  /* FEATURED — Vidbold spotlight */
+  /* FEATURED spotlight */
   .featured{padding:1.5rem 0 clamp(3rem,6vw,5rem);}
   .feat-card{position:relative;border-radius:22px;overflow:hidden;border:1px solid rgb(var(--accent-rgb) / .28);
     background:var(--ink2);
@@ -268,7 +268,7 @@
   .stack-line span:not(.sl){font-size:.72rem;color:var(--dim);border:1px solid var(--line);
     padding:.32rem .7rem;border-radius:6px;}
 </style>
-<link rel="stylesheet" href="assets/v2.css?v=18">
+<link rel="stylesheet" href="assets/v2.css?v=21">
 </head>
 <body>
 
@@ -289,9 +289,9 @@
 <main id="top">
 <header class="wrap v2-hero">
   <div>
-    <p class="v2-eyebrow">Dipanjan Roy · Tech Marketer &amp; AI Builder</p>
+    <p class="v2-eyebrow">Dipanjan Roy · Performance marketer · India</p>
     <h1>I build the ads, the funnel, and <em>the AI that follows up</em> every lead.</h1>
-    <p class="v2-lede">I run <b>Meta campaigns</b>, make the <b>creative</b> — including AI-generated video ads — build the <b>landing page and checkout</b>, wire up the <b>tracking</b>, and build the <b>chatbot and voice agent</b> that follow up. My background in cloud engineering means I build those systems myself.</p>
+    <p class="v2-lede">I started out as a cloud engineer. Then I began selling things online, room heaters, torches, astrology readings, and had to learn marketing to make them sell. Today I run the <b>Meta ads</b>, make the <b>creatives</b> (a lot of them with AI), build the <b>landing page and checkout</b>, set up the <b>tracking</b>, and build the <b>WhatsApp and voice follow-up</b> myself.</p>
     <div class="v2-ctas">
       <a class="btn btn-solid" href="#receipts">Explore my work →</a>
       <a class="btn btn-ghost" href="resume/Dipanjan_Roy_Resume.pdf" download>Download résumé</a>
@@ -323,8 +323,8 @@
 
 <section class="wrap" id="ai">
   <div class="v2-head">
-    <div><p class="v2-eyebrow">AI demo</p><h2>Don't take my word for it. <em>Ask the AI I built.</em></h2></div>
-    <div><p>An assistant that answers questions about my work from my verified résumé notes — and a recorded call with the AI voice agent I set up for lead follow-up.</p></div>
+    <div><p class="v2-eyebrow">AI demo</p><h2>Ask my AI <em>about me</em>.</h2></div>
+    <div><p>It only knows what's in my résumé notes, and it says so when it doesn't know something. Next to it is a voice agent I set up for a dental clinic demo. You can call it.</p></div>
   </div>
   <div class="ai-grid">
     <div class="ai-card" aria-labelledby="aiTitle">
@@ -344,7 +344,7 @@
     <div class="ai-card voice-card">
       <div class="ai-top"><span class="ai-av" aria-hidden="true">☎</span><div class="t"><b>AI voice agent</b><span>Call it live, or play a recorded call</span></div><span class="status live">Live + recording</span></div>
       <video controls preload="none" playsinline poster="assets/demo/voice-agent.webp?v=2" src="assets/demo/voice-agent.mp4?v=2" aria-label="Recorded call between a caller and the AI voice agent"></video>
-      <div class="vc-body">A <b>real call</b> to an AI voice agent I configured for a <b>fictional dental clinic</b>: it answers, understands the request and books the appointment.
+      <div class="vc-body">Riya is a receptionist I set up for a <b>made-up dental clinic</b>. Tell her your problem and she books you a slot. Hindi or English.
         <div class="live-call">
           <button class="btn btn-solid" id="callBtn" type="button">📞 Call the AI receptionist — live</button>
           <p class="call-status" id="callStatus" aria-live="polite">Uses your microphone. Speak Hindi or English. Calls end after 2 minutes.</p>
@@ -364,7 +364,7 @@
   <div class="section-head reveal">
     <p class="lab-badge"><i></i>Live AI tool · free to try</p>
     <h2>Don't read about it. <em class="lab-grad">Run it.</em></h2>
-    <p>Describe your business — or paste your website — and get a go-to-market plan in under a minute. It is the same framework I use on my own brands, running live.</p>
+    <p>Tell it what you sell, who buys it and where. You get a go-to-market plan in about a minute. It's the same way I plan my own campaigns. Or paste a website and get a teardown.</p>
     <ul class="lab-feats">
       <li><b>01</b>Ideal customer &amp; positioning</li>
       <li><b>02</b>The offer &amp; the funnel</li>
@@ -428,9 +428,9 @@
 
 <section class="wrap" id="receipts">
   <div class="v2-head">
-    <div><p class="v2-eyebrow">Campaign receipts</p><h2>Real campaigns. <em>Spend hidden</em> on purpose.</h2></div>
-    <div><p>Results from my Meta campaigns, by objective. Screenshots come straight from Ads Manager with every cost column removed from the image — what's left is the objective, the click-through rate and the results.</p>
-      <div class="v2-note"><b>✓</b><span>Orders are matched to Razorpay, not Ads Manager. That is how I caught the Meta Pixel double-counting.</span></div></div>
+    <div><p class="v2-eyebrow">Campaign receipts</p><h2>Screenshots from <em>my Ads Manager</em>.</h2></div>
+    <div><p>Taken straight from Ads Manager. I've hidden the cost columns, so you see results, reach and click-through rate, not what I spent.</p>
+      <div class="v2-note"><b>✓</b><span>I count orders from Razorpay, not from Ads Manager. That's how I found out the Pixel was counting some purchases twice.</span></div></div>
   </div>
   <div class="chips2" id="rcChips" role="group" aria-label="Filter campaigns">
     <button type="button" aria-pressed="true" data-f="all">All</button>
@@ -443,8 +443,8 @@
 
 <section class="wrap" id="ads">
   <div class="v2-head">
-    <div><p class="v2-eyebrow">AI-generated creative</p><h2>The ads, <em>made by me</em> with AI.</h2></div>
-    <div><p>Video ads and product shots made with AI image and video tools — the concept, script and edit are mine. They are concept ads, made to show the work. Hover to preview; tap for sound.</p></div>
+    <div><p class="v2-eyebrow">AI-generated creative</p><h2>Ads I made <em>with AI</em>.</h2></div>
+    <div><p>I wrote the idea and script, generated the shots with AI and edited them. These are concept ads, not paid client work. Hover to play, tap for sound.</p></div>
   </div>
   <div class="ads ads3">
     <article class="ad">
@@ -487,8 +487,8 @@
 
 <section class="wrap" id="funnel">
   <div class="v2-head">
-    <div><p class="v2-eyebrow">End-to-end funnel</p><h2>From the ad to the <em>repeat order</em>.</h2></div>
-    <div><p>The pieces I have built at each stage. Pick a stage to see what I built, the tools, the evidence, and the real number there — where one exists.</p></div>
+    <div><p class="v2-eyebrow">The selling system</p><h2>From the dream buyer to the <em>repeat order</em>.</h2></div>
+    <div><p>Eight stages I work through on every funnel: know the buyer, find them, give value first, make the offer, capture, convert, follow up, bring them back. Pick a stage to see what I built there and the real number — where one exists.</p></div>
   </div>
   <div class="fn" id="fnSteps" role="tablist" aria-label="Funnel stages"></div>
   <div class="fn-panel" id="fnPanel" role="tabpanel" aria-live="polite"></div>
@@ -500,8 +500,8 @@
 
 <section class="wrap" id="cases">
   <div class="v2-head">
-    <div><p class="v2-eyebrow">Case studies</p><h2>Three pieces of work, <em>in detail</em>.</h2></div>
-    <div><p>What the problem was, what I did, and what can be verified.</p></div>
+    <div><p class="v2-eyebrow">Case studies</p><h2>Three projects, <em>start to finish</em>.</h2></div>
+    <div><p>What I was trying to do, what I did, and what the numbers were.</p></div>
   </div>
   <div class="cases">
     <details class="case" open>
@@ -526,13 +526,12 @@
       <summary><span class="n">02</span><span class="ttl"><h3>Room heater — one product, three versions of the campaign</h3><span>D2C product · creative iteration</span></span><span class="tog" aria-hidden="true">+</span></summary>
       <div class="case-body">
         <div>
-          <h4>The setup</h4><p>The same room heater, run as a Sales campaign three times. After each version I read the numbers and rebuilt the campaign instead of raising the budget on a weak one.</p>
-          <h4>What happened</h4><p>Click-through rate rose from 1.30% to above 2% in versions two and three, and cost per click fell by 79% from the first version to the third.</p>
+          <h4>The setup</h4><p>Same room heater, three Sales campaigns. When a version wasn't working I rebuilt it instead of putting more money into it.</p>
+          <h4>What happened</h4><p>Click-through rate went from 1.30% on the first version to 2.22% and 2.17% on the next two. Version two got 19 purchases, version three got 11.</p>
           <h4>What isn't shown here</h4><p>The original creatives for each version aren't on this page yet, so I don't claim which change caused the lift.</p>
         </div>
         <div class="side">
           <div class="kpi"><div class="v">1.30% → 2.22% → 2.17%</div><div class="k">click-through rate, versions 1 to 3</div></div>
-          <div class="kpi"><div class="v">−79%</div><div class="k">cost per click, version 1 to version 3</div></div>
         </div>
       </div>
     </details>
@@ -554,33 +553,10 @@
   </div>
 </section>
 
-<section class="wrap" id="vidbold">
-  <div class="v2-head">
-    <div><p class="v2-eyebrow">Product I built</p><h2>Vidbold — <em>an AI video studio</em>, built solo.</h2></div>
-    <div><p>A live SaaS at vidbold.io: you type an idea and it plans the script, writes the voiceover and captions, adds visuals and renders a finished short video. Below is the Create flow, recorded from the product.</p></div>
-  </div>
-  <div class="feat-card" style="grid-template-columns:1.2fr .8fr">
-    <div>
-      <video class="vb-video" controls preload="none" playsinline poster="assets/demo/vidbold-create.webp" src="assets/demo/vidbold-create.mp4" aria-label="Vidbold Create flow walkthrough"></video>
-    </div>
-    <div class="feat-left">
-      <span class="feat-badge"><span class="dot"></span>Live product · vidbold.io</span>
-      <div class="feat-flow" style="margin-top:.4rem"><span>Idea</span><i>→</i><span>Script</span><i>→</i><span>Voiceover</span><i>→</i><span>Visuals + captions</span><i>→</i><span class="out">Rendered video</span></div>
-      <ul class="vb-list">
-        <li><b>Create:</b> from one idea to a finished video, with research, script and voice.</li>
-        <li><b>AI Edit and Viral Clips:</b> edit a video by prompt, or cut long videos into short clips.</li>
-        <li><b>Brand kit:</b> your logo, colours and fonts applied to every video.</li>
-        <li><b>Paid plans live,</b> with checkout on the site.</li>
-      </ul>
-      <a class="feat-cta" href="https://vidbold.io/" target="_blank" rel="noopener" style="margin-top:1.4rem">Visit vidbold.io ↗</a>
-    </div>
-  </div>
-</section>
-
 <section class="wrap systems" id="systems">
   <div class="v2-head">
-    <div><p class="v2-eyebrow">Systems I've built</p><h2>The machinery behind <em>the marketing</em>.</h2></div>
-    <div><p>Tools I built for my own lead generation and content. Each is marked: built for my lead-generation work, or an internal tool.</p></div>
+    <div><p class="v2-eyebrow">Systems I've built</p><h2>Tools I built <em>for my own work</em>.</h2></div>
+    <div><p>Things I built because I needed them: for finding leads, following up and making content. Some are used with leads, some only by me.</p></div>
   </div>
   <div class="sys-grid">
     <div class="sys"><span class="status live">Built</span><div class="sys-ico">☎</div><span class="sk">Voice AI</span><h3>AI voice follow-up</h3><p>Calls a new lead <b>within 15 minutes</b> and sends a WhatsApp recap. Four WhatsApp templates approved by Meta.</p></div>
@@ -600,7 +576,7 @@
   <div class="section-head reveal">
     <p class="eyebrow">Websites &amp; landing pages</p>
     <h2>Landing pages and sites <em>I designed and built</em>.</h2>
-    <p>Concept sites across architecture, hospitality, retail and entertainment — each with a fast first frame and one clear action: book, reserve, enquire or buy. They are original concept work, not client sites.</p>
+    <p>Concept sites I designed and built, not client sites. Each one loads fast and asks the visitor to do one thing: book, enquire or buy.</p>
   </div>
 
   <div class="filters reveal" id="filters" role="group" aria-label="Filter work by discipline"></div>
@@ -611,7 +587,7 @@
 <section class="wrap" id="certs">
   <div class="v2-head">
     <div><p class="v2-eyebrow">Certifications</p><h2>Certified in cloud <em>and</em> marketing.</h2></div>
-    <div><p>Three AWS certifications, each linked to its public record on Credly, and two marketing certificates from AADME you can open.</p>
+    <div><p>Three AWS certifications you can check on Credly, and two marketing certificates from AADME, where I trained.</p>
       <p><a class="out-link" href="https://www.credly.com/users/dipanjan-roy.8572f1d9" target="_blank" rel="noopener">See all badges on Credly ↗</a></p></div>
   </div>
   <div class="badges">
@@ -648,9 +624,9 @@
      without JavaScript. Every figure is from the verified résumé (Oct 2026). ══ -->
 <section class="wrap resume" id="resume">
   <div class="section-head reveal">
-    <p class="eyebrow">Résumé · the twenty-second version</p>
-    <h2>What I've actually done, <em>with receipts</em>.</h2>
-    <p>I count what reached the bank — not what the ad platform says it sold.</p>
+    <p class="eyebrow">Résumé</p>
+    <h2>What I've <em>done so far</em>.</h2>
+    <p>Numbers here come from payments that actually came in, not from what the ad platform reports.</p>
   </div>
 
   <div class="rz-grid">
@@ -743,10 +719,11 @@
 
 <section class="cta wrap" id="contact">
   <p class="eyebrow" style="justify-content:center;display:flex;">Contact</p>
-  <h2>Hiring for growth, paid media or <em>marketing automation</em>?</h2>
-  <p>I'd like to hear about the role. Email me, or download the one-page résumé.</p>
+  <h2>Hiring for paid media, growth or <em>marketing automation</em>?</h2>
+  <p>Email me or message me on WhatsApp. I usually reply the same day.</p>
   <div class="cta-row">
-    <a class="btn btn-solid" href="mailto:dipanjanroy369@gmail.com">dipanjanroy369@gmail.com</a>
+    <a class="btn btn-solid" href="https://wa.me/919874604663?text=Hi%20Dipanjan%2C%20I%20saw%20your%20portfolio." target="_blank" rel="noopener">Message me on WhatsApp</a>
+    <a class="btn btn-ghost" href="mailto:dipanjanroy369@gmail.com">dipanjanroy369@gmail.com</a>
     <a class="btn btn-ghost" href="resume/Dipanjan_Roy_Resume.pdf" download>Download résumé</a>
   </div>
 </section>
@@ -768,7 +745,6 @@ const PROJECTS = [
   { cat: 'Fitness', name: 'MuscleUp', sub: 'Fitness & Lifestyle', desc: '"Train hard. Live strong." A high-impact single-page gym showcase with bold kinetic typography.', tags: ['Programs','Nutrition'], img: 'assets/work/powerlift.png', url: '/powerlift-clone/' },
   { cat: 'Healthcare', name: 'BrightSmile', sub: 'Dental & Care Website', desc: 'An elegant dental clinic site focused on high patient conversion.', tags: ['Care Plans','Booking'], img: 'assets/work/lumora.png', url: '/lumora-dental/' },
 ];
-// Vidbold gets its own featured spotlight section above — see .feat-card
 
 const grid = document.getElementById('grid');
 grid.innerHTML = PROJECTS.map(p => `
@@ -860,6 +836,6 @@ document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
 <div id="printRoot"></div>
 <script src="assets/lab.js?v=7" defer></script>
-<script src="assets/v2.js?v=16" defer></script>
+<script src="assets/v2.js?v=18" defer></script>
 </body>
 </html>
