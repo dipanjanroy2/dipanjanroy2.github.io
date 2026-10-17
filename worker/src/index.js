@@ -200,9 +200,15 @@ OUTPUT - Markdown, exactly:
 ## What I'd fix first
 (One short paragraph: the single change with the best effort-to-impact, and what to measure after.)
 ## Caveat
-(One line: this is from the homepage text only - no analytics, ads account or CRM seen.)
+(One line: this reads the homepage HTML only - no analytics, ads account or CRM seen.)
 
 RULES:
+- The extraction has page text plus "signals" read from the HTML (Meta Pixel, Google Analytics/Tag Manager, structured data, Open Graph image, mobile viewport, images without alt text, video, testimonials, pricing, forms, phone/WhatsApp/email links, chat widget). Use them - they are real checks - but write them in plain English ("no Meta Pixel on the page"), never as field names or true/false.
+- A missing tracking tag can be loaded later by a tag manager or consent tool; if Google Tag Manager is present, say the pixel "may be loaded through Tag Manager" instead of calling it missing.
+- Numbers like "0 clients" or "0%" are often animated counters that count up in the browser: do not call them placeholders or empty proof.
+- If signals.mostlyJavaScript is true, the site renders in the browser and the fetch saw little: say the teardown is limited for that reason.
+- Do not assume they run paid ads, have a CRM or get traffic - say "if you run ads".
+- Each bullet's bold headline must agree with its own evidence (never call something missing and then mention it exists).
 - Refer only to what the extraction shows. Do not invent traffic, rankings, conversion rates, load speed or revenue.
 - If you cannot tell something from the text, say "can't tell from the page" rather than guessing.
 - No flattery, no insults. Under 260 words.
@@ -238,6 +244,17 @@ async function extractPage(url) {
   const pick = (re) => (html.match(re)?.[1] || '').replace(/\s+/g, ' ').trim();
   const all = (re, n) => [...html.matchAll(re)].map((m) => m[1].replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim()).filter(Boolean).slice(0, n);
 
+  const attrs = (tag) => {
+    const o = {};
+    for (const m of tag.matchAll(/([a-zA-Z:-]+)\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'>]+))/g)) o[m[1].toLowerCase()] = m[2] ?? m[3] ?? m[4] ?? '';
+    return o;
+  };
+  const metas = [...html.matchAll(/<meta\b[^>]*>/gi)].map((m) => attrs(m[0]));
+  const meta = (k, v) => metas.find((a) => (a[k] || '').toLowerCase() === v);
+  const links = [...html.matchAll(/<link\b[^>]*>/gi)].map((m) => attrs(m[0]));
+  const hrefs = [...html.matchAll(/<a\b[^>]*>/gi)].map((m) => (attrs(m[0]).href || '').toLowerCase());
+  const imgs = [...html.matchAll(/<img\b[^>]*>/gi)].map((m) => attrs(m[0]));
+
   const body = html
     .replace(/<(script|style|noscript|svg|template)[\s\S]*?<\/\1>/gi, ' ')
     .replace(/<[^>]+>/g, ' ')
@@ -247,16 +264,34 @@ async function extractPage(url) {
   return {
     url: res.url,
     title: pick(/<title[^>]*>([\s\S]*?)<\/title>/i).slice(0, 200),
-    metaDescription: pick(/<meta[^>]+name=["']description["'][^>]+content=["']([^"']*)["']/i).slice(0, 320),
+    metaDescription: (meta('name', 'description')?.content || '').replace(/\s+/g, ' ').trim().slice(0, 320),
     h1: all(/<h1[^>]*>([\s\S]*?)<\/h1>/gi, 3),
     h2: all(/<h2[^>]*>([\s\S]*?)<\/h2>/gi, 12),
     buttons: [...new Set(all(/<(?:button|a)[^>]*>([\s\S]*?)<\/(?:button|a)>/gi, 400).filter((t) => t.length > 1 && t.length < 40))].slice(0, 40),
     forms: (html.match(/<form\b/gi) || []).length,
-    hasPhoneLink: /href=["']tel:/i.test(html),
-    hasWhatsAppLink: /wa\.me\/|api\.whatsapp\.com/i.test(html),
-    hasEmailLink: /href=["']mailto:/i.test(html),
+    hasPhoneLink: hrefs.some((h) => h.startsWith('tel:')),
+    hasWhatsAppLink: /wa\.me\/|api\.whatsapp\.com|whatsapp:\/\//i.test(html),
+    hasEmailLink: hrefs.some((h) => h.startsWith('mailto:')),
     hasChatWidget: /intercom|tawk|crisp\.chat|drift|tidio|chatwoot|hubspot.*messages/i.test(html),
     text: body.slice(0, 3600),
+    /* tracking and technical signals a marketer would check, read from the HTML */
+    signals: {
+      metaPixel: /connect\.facebook\.net\/[^"']*fbevents|fbq\(\s*['"]init/i.test(html),
+      googleAnalytics: /googletagmanager\.com\/gtag\/js|gtag\(\s*['"]config|google-analytics\.com/i.test(html),
+      googleTagManager: /googletagmanager\.com\/gtm\.js|GTM-[A-Z0-9]{4,}/.test(html),
+      structuredData: /application\/ld\+json/i.test(html),
+      openGraphImage: !!meta('property', 'og:image'),
+      mobileViewport: !!meta('name', 'viewport'),
+      canonical: links.some((l) => (l.rel || '').toLowerCase() === 'canonical'),
+      images: imgs.length,
+      imagesWithoutAlt: imgs.filter((a) => !('alt' in a)).length, // alt="" is a valid decorative image
+      videos: (html.match(/<video\b|youtube\.com\/embed|player\.vimeo\.com/gi) || []).length,
+      testimonialsMentioned: /testimonial|review|what (our )?clients say|trusted by|case stud/i.test(body),
+      pricingMentioned: /pricing|₹|\$\s?\d|£\s?\d|€\s?\d|per month|\/mo\b/i.test(body),
+      wordCount: body.split(' ').length,
+      /* very little server-rendered text usually means a JavaScript app the fetch cannot see */
+      mostlyJavaScript: body.length < 400,
+    },
   };
 }
 
