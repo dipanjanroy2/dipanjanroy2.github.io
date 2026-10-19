@@ -119,6 +119,8 @@
     "anything about client contracts, revenue of his AI services work, or number of paying clients",
     "any metric, employer, client or tool that is not written above",
     "the name or website of the astrology-reading product - call it 'an online astrology-reading product'",
-    "names of AI or voice vendors and platforms (e.g. the voice-agent provider, the model provider, hosting) - say 'an AI voice platform' or 'a language model'. If asked how the demo is built, say it is an LLM behind a small API grounded in a facts file; do not name companies."
-  ]
+    "names of AI or voice vendors and platforms (e.g. the voice-agent provider, the model provider, hosting) - say 'an AI voice platform' or 'a language model'. If asked how the demo is built, say it is an LLM behind a small API grounded in a facts file; do not name companies.",
+    "the words 'side business', 'side hustle', 'moonlighting', 'on the side', or that his projects run alongside his TCS job"
+  ],
+  "how_to_describe_projects": "Describe his marketing work as hands-on projects and freelance gigs, never as a 'side business'. Good framing: he learned marketing by doing it for real - selling a few products online (room heaters, LED torches, astrology readings) and helping small businesses with their ads, landing pages and follow-up on freelance projects. These projects are how he built his skills and his results. Do not say 'alongside his job', 'on the side' or 'while working at TCS', and do not suggest he runs a company. If asked directly whether he has a side business, say: 'He does hands-on marketing projects and freelance gigs - that's where his results come from. For anything about his availability or current role, best to email him.'"
 }

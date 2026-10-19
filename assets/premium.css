@@ -1,0 +1,154 @@
+/* ════════════════════════════════════════════════════════════════════════
+   OBSIDIAN — premium black skin. Loaded last; overrides tokens and surfaces
+   only, so removing this file (and premium.js) restores the previous look.
+   ════════════════════════════════════════════════════════════════════════ */
+:root{
+  --ink:#000; --ink2:#0b0b0c; --ink3:#111113;
+  --bone:#f2f2f0; --dim:#8a8a87; --dim2:#5d5d5a;
+  --line:rgba(255,255,255,.075); --line2:rgba(255,255,255,.14);
+  --accent:#6ab0ff; --accent-rgb:106 176 255; --accent-hi:#9ccbff;
+  --accent-soft:rgb(var(--accent-rgb) / .12);
+  --display:'Inter Tight','Inter',system-ui,sans-serif;
+  --serif:'Inter Tight','Inter',system-ui,sans-serif;
+  --italic:'Instrument Serif',Georgia,serif;
+  --sans:'Inter',system-ui,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+  --surface:linear-gradient(180deg,#0f0f11 0%,#0a0a0b 100%);
+  --edge:inset 0 1px 0 rgba(255,255,255,.055);
+  --lift:0 40px 80px -48px rgba(0,0,0,.95);
+}
+html{background:#000}
+body{background:#000;font-weight:400;letter-spacing:-.005em;color:#d9d9d6}
+::selection{background:rgb(var(--accent-rgb) / .35);color:#fff}
+
+/* atmosphere: a cold glow at the top and a film grain over everything */
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:radial-gradient(1100px 620px at 50% -180px,rgb(var(--accent-rgb) / .13),transparent 70%),
+    radial-gradient(700px 500px at 100% 30%,rgba(255,255,255,.025),transparent 70%)}
+body::after{content:"";position:fixed;inset:0;z-index:300;pointer-events:none;opacity:.035;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* ── type ── */
+h1,h2,h3,.v2-hero h1,.v2-head h2,.section-head h2,.cta h2,.fn-panel h3,.case .ttl h3,.rc h3,.ad-body h3,
+.card-body h3,.sys h3,.rz-job h3,.lab h2{font-family:var(--display);font-weight:500;letter-spacing:-.035em;color:#f5f5f3}
+h1 em,h2 em,.v2-hero h1 em,.v2-head h2 em,.section-head h2 em,.cta h2 em,.lab-grad{
+  font-family:var(--italic);font-style:italic;font-weight:400;letter-spacing:-.01em;
+  background:linear-gradient(100deg,#ffffff 0%,#cfe4ff 45%,var(--accent) 100%);-webkit-background-clip:text;background-clip:text;color:transparent;
+  padding-right:.08em;margin-right:-.08em}
+.v2-hero h1{font-size:clamp(2.7rem,6.4vw,5.4rem);line-height:.98;
+  background:linear-gradient(180deg,#fff 30%,#a9a9a6 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.v2-hero h1 em{-webkit-text-fill-color:transparent}
+.v2-head h2,.section-head h2,.lab h2{font-size:clamp(2rem,4.2vw,3.3rem);line-height:1.02}
+.v2-lede,.v2-head p,.section-head p,.lab .section-head>p{color:#9d9d99}
+.v2-lede b,.v2-head p b{color:#f2f2f0;font-weight:500}
+b,strong{font-weight:500}
+
+/* eyebrows become numbered mono labels */
+main{counter-reset:sec}
+section.wrap{counter-increment:sec}
+.v2-eyebrow,.eyebrow{font-family:var(--mono);font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:#a3a3a0}
+.v2-eyebrow::before{content:counter(sec,decimal-leading-zero);display:inline-block;margin-right:.75rem;padding:.18rem .45rem;
+  border:1px solid var(--line2);border-radius:6px;color:var(--accent);background:none;width:auto;height:auto;box-shadow:none;animation:none;font-size:.62rem}
+.v2-hero .v2-eyebrow::before{content:"";width:6px;height:6px;padding:0;border:0;border-radius:50%;background:#3ddc84;box-shadow:0 0 0 4px rgba(61,220,132,.15);vertical-align:middle}
+.section-head .eyebrow::before{content:counter(sec,decimal-leading-zero);margin-right:.75rem;padding:.18rem .45rem;border:1px solid var(--line2);border-radius:6px;color:var(--accent);font-size:.62rem}
+
+/* ── nav: a floating glass bar ── */
+nav{position:sticky;top:12px;margin:12px auto 0;max-width:1180px;width:calc(100% - 24px);border-radius:16px;
+  padding:.85rem 1.2rem;border:1px solid var(--line);background:rgba(8,8,9,.62);
+  backdrop-filter:blur(18px) saturate(140%);-webkit-backdrop-filter:blur(18px) saturate(140%);box-shadow:var(--edge),0 20px 50px -30px #000}
+.brand{font-family:var(--display);font-weight:600;letter-spacing:-.02em;font-size:1.05rem}
+.brand em{font-family:var(--italic);font-style:italic;font-weight:400;font-size:1.12em;color:var(--accent)}
+.nav-links{gap:1.8rem;font-size:.82rem;color:#8f8f8c}
+.nav-links a{transition:color .2s}
+.nav-cta{border:1px solid var(--line2);color:#fff;background:rgba(255,255,255,.04);border-radius:10px;padding:.5rem 1rem;letter-spacing:0;font-weight:500}
+.nav-cta:hover{background:#fff;color:#000;border-color:#fff}
+
+/* ── buttons: white primary, glass secondary ── */
+.btn{border-radius:12px;font-weight:500;letter-spacing:-.005em;transition:transform .2s,background .2s,border-color .2s,box-shadow .2s}
+.btn-solid,.cta-row .btn-solid{background:#fff;color:#000;border:1px solid #fff;box-shadow:0 10px 30px -10px rgba(255,255,255,.25)}
+.btn-solid:hover{background:#e9e9e7;transform:translateY(-1px)}
+.btn-ghost{background:rgba(255,255,255,.03);border:1px solid var(--line2);color:#f2f2f0}
+.btn-ghost:hover{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.28)}
+
+/* ── surfaces: one card language everywhere ── */
+.ai-card,.voice-card,.rc,.ad,.fn-panel,.case,.sys,.card,.cert,.kpi,.rz-num,.pbox,.pout,.clip,.badge,.hero-badges,.fn-links a,.v2-note{
+  background:var(--surface);border:1px solid var(--line);box-shadow:var(--edge),var(--lift)}
+.ai-card,.voice-card,.rc,.ad,.fn-panel,.case,.sys,.card,.cert{border-radius:20px}
+.rc:hover,.sys:hover,.card:hover,.cert:hover,.ad:hover,.case:hover{border-color:var(--line2);transform:translateY(-3px)}
+.rc,.sys,.card,.cert,.ad,.case{transition:border-color .3s,transform .4s cubic-bezier(.22,1,.36,1)}
+
+/* spotlight that follows the cursor (premium.js sets --mx/--my) */
+.spot{position:relative;isolation:isolate}
+.spot::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:2;opacity:0;transition:opacity .35s;
+  background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.065),transparent 45%)}
+.spot:hover::before{opacity:1}
+
+/* proof strip: big numbers, hairline grid */
+.proof{border:1px solid var(--line);border-radius:20px;background:var(--surface);box-shadow:var(--edge);overflow:hidden}
+.pf{border-color:var(--line)}
+.pf .v,.rz-num .v,.kpi .v,.fn-panel .metric{font-family:var(--display);font-weight:500;letter-spacing:-.04em;
+  background:linear-gradient(180deg,#fff,#bdbdba);-webkit-background-clip:text;background-clip:text;color:transparent}
+.pf .v em{font-family:var(--display);font-style:normal;-webkit-text-fill-color:var(--accent);color:var(--accent)}
+.pf .src,.rz-when,.fn button span,.case .n,.obj,.ad-body .m,.card-tag,.sys .sk{font-family:var(--mono);letter-spacing:.08em}
+
+/* chat bubbles */
+.msg.q{background:#fff;color:#000}
+.msg.a{background:#121214;border:1px solid var(--line)}
+.ai-sugg button,.chip,.chips2 button,.ptry button,.lab-feats li{border-color:var(--line2);background:rgba(255,255,255,.025);color:#bdbdba}
+.ai-sugg button:hover,.chip:hover,.chips2 button:hover{border-color:rgba(255,255,255,.3);color:#fff}
+.chip[aria-pressed="true"],.chips2 button[aria-pressed="true"]{background:#fff;color:#000;border-color:#fff}
+.ai-form input{background:#0c0c0d;border-color:var(--line2)}
+.ai-av,.cw-av{background:linear-gradient(135deg,#fff,#9ccbff);color:#000}
+
+/* funnel tabs */
+.fn button{background:var(--surface);border-color:var(--line);box-shadow:var(--edge);border-radius:16px}
+.fn button b{font-family:var(--display);font-weight:500;letter-spacing:-.02em}
+.fn button[aria-selected="true"]{background:linear-gradient(180deg,#16181c,#0d0e10);border-color:rgb(var(--accent-rgb) / .55);
+  box-shadow:var(--edge),0 0 0 1px rgb(var(--accent-rgb) / .15),0 18px 40px -20px rgb(var(--accent-rgb) / .35)}
+.fn button:not(:nth-child(4n)):not(:last-child)::after{background:#000;color:var(--dim2)}
+
+/* lab: keep the running light but in silver-blue */
+.lab::before{opacity:.8}
+.pgo{background:#fff;color:#000;box-shadow:0 16px 40px -14px rgba(255,255,255,.35)}
+.pgo:hover:not(:disabled){background:#ececea}
+.pgo::after{background:linear-gradient(90deg,transparent,rgba(106,176,255,.35),transparent)}
+.pdl{background:#fff;color:#000;box-shadow:none}
+.lab-badge{font-family:var(--mono);letter-spacing:.12em;border-color:var(--line2);background:rgba(255,255,255,.03);color:#d9d9d6}
+
+/* status pills */
+.status{font-family:var(--mono);letter-spacing:.08em;border-color:var(--line2)}
+
+/* résumé */
+.rz-xp{border-left-color:var(--line2)}
+.rz-job::before{background:#000;border-color:var(--accent);box-shadow:0 0 0 4px rgb(var(--accent-rgb) / .12)}
+.rz-block{border-top-color:var(--line)}
+.skb{background:linear-gradient(180deg,#121214,#0b0b0c);border-color:var(--line);box-shadow:var(--edge);border-radius:10px}
+
+/* sections breathe more, with a hairline that fades at the edges */
+section.wrap,.section-head{border-top:0}
+section.wrap{position:relative;padding-top:clamp(4.5rem,9vw,7.5rem)}
+section.wrap::after{content:"";position:absolute;top:0;left:clamp(1.5rem,4vw,3rem);right:clamp(1.5rem,4vw,3rem);height:1px;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.12),transparent)}
+#lab.wrap::after{display:none}
+.v2-head{margin-bottom:clamp(2rem,4vw,3rem)}
+
+/* contact: a closing card */
+.cta{position:relative}
+.cta h2{font-size:clamp(2.2rem,5.4vw,4rem);line-height:1.02;max-width:18ch}
+footer{border-top:1px solid var(--line);color:var(--dim2)}
+
+/* floating chat */
+.cw-fab{background:rgba(10,10,11,.8);border-color:var(--line2);border-radius:14px}
+.cw-panel{background:#09090a;border-color:var(--line2);border-radius:20px}
+
+@media (max-width:860px){
+  nav{top:8px;margin-top:8px;width:calc(100% - 16px);padding:.75rem 1rem}
+}
+@media (prefers-reduced-motion:reduce){.spot::before{display:none}}
+
+/* card titles and links in the display face; neutral link buttons */
+.cert .bn,.badge .bn,.card-body h3,.sys h3,.rz-job h3,.case .ttl h3,.kpi .v,.ad-body h3,.sub-h{font-family:var(--display);font-weight:500;letter-spacing:-.02em}
+.cs-ai{font-family:var(--italic);font-style:italic}
+.card-link{border-color:var(--line2);color:#f2f2f0;background:rgba(255,255,255,.03);border-radius:10px}
+.card-link:hover{background:#fff;color:#000;border-color:#fff}
+.systems{padding-left:clamp(1.5rem,4vw,3rem);padding-right:clamp(1.5rem,4vw,3rem)}

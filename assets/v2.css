@@ -320,3 +320,15 @@ body.in-call{overflow:hidden}
 .cs-end{background:#ff4d5e;color:#fff;border:0;min-height:48px;padding:0 1.4rem}
 .callstage::after{content:"";position:absolute;left:0;bottom:0;height:3px;width:calc(var(--p)*100%);background:var(--accent);transition:width 1s linear}
 @media (prefers-reduced-motion:reduce){.cs-link,.cs-live i{animation:none}.orb{transform:none}}
+
+/* ── skills as logo badges ── */
+.sk-badges{display:flex;flex-wrap:wrap;gap:.5rem}
+.skb{--c:var(--accent);display:inline-flex;align-items:center;gap:.5rem;padding:.45rem .85rem .45rem .6rem;border-radius:100px;
+  border:1px solid var(--line);background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.01));
+  font-size:.84rem;color:#dcdcd6;line-height:1;transition:border-color .2s,box-shadow .2s,transform .2s}
+.skb svg{width:18px;height:18px;flex:none;fill:var(--c)}
+.skb svg.ln{fill:none;stroke:var(--c);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.skb:hover{border-color:color-mix(in srgb,var(--c) 60%,transparent);box-shadow:0 0 18px -6px var(--c);transform:translateY(-1px)}
+.skb.gen{color:#c9c9c3}
+.skillgroups h5{margin-bottom:.6rem}
+@media (max-width:600px){.skb{font-size:.8rem;padding:.4rem .75rem .4rem .55rem}.skb svg{width:16px;height:16px}}
