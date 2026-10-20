@@ -152,3 +152,8 @@ footer{border-top:1px solid var(--line);color:var(--dim2)}
 .card-link{border-color:var(--line2);color:#f2f2f0;background:rgba(255,255,255,.03);border-radius:10px}
 .card-link:hover{background:#fff;color:#000;border-color:#fff}
 .systems{padding-left:clamp(1.5rem,4vw,3rem);padding-right:clamp(1.5rem,4vw,3rem)}
+
+/* while a picture or poster is on its way, the frame shimmers instead of sitting black */
+.ad-media,.clip,.card-media,.rc .shot,.cert-img{background:linear-gradient(110deg,#0d0d0e 30%,#18181b 50%,#0d0d0e 70%) 0 0/220% 100%;animation:mshim 1.6s linear infinite}
+@keyframes mshim{to{background-position:-220% 0}}
+@media (prefers-reduced-motion:reduce){.ad-media,.clip,.card-media{animation:none}}

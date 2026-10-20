@@ -14,11 +14,37 @@
   }, { passive: true });
 })();
 
-/* posters: fetch a video's poster only when it is about to scroll into view */
+/* posters: the first screens load at once; the rest follow quietly after the page is up,
+   so nothing is black by the time you scroll to it. A failed image is retried once. */
 (() => {
   const vids = [...document.querySelectorAll('video[data-poster]')];
-  const show = (v) => { v.poster = v.dataset.poster; v.removeAttribute('data-poster'); };
-  if (!('IntersectionObserver' in window)) { vids.forEach(show); return; }
-  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { show(e.target); io.unobserve(e.target); } }), { rootMargin: '600px 0px' });
+  const show = (v, tries = 0) => {
+    const src = v.dataset.poster;
+    if (!src) return;
+    const im = new Image();
+    im.onload = () => { v.poster = src; v.removeAttribute('data-poster'); };
+    im.onerror = () => { if (tries < 2) setTimeout(() => show(v, tries + 1), 900); else { v.poster = src; v.removeAttribute('data-poster'); } };
+    im.src = tries ? src + (src.includes('?') ? '&' : '?') + 'r=' + tries : src;
+  };
+  if (!('IntersectionObserver' in window)) { vids.forEach((v) => show(v)); return; }
+  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { show(e.target); io.unobserve(e.target); } }), { rootMargin: '1400px 0px' });
   vids.forEach((v) => io.observe(v));
+  const later = () => {
+    const rest = vids.filter((v) => v.dataset.poster);
+    let i = 0;
+    const next = () => { if (i < rest.length) { io.unobserve(rest[i]); show(rest[i++]); setTimeout(next, 120); } };
+    next();
+  };
+  addEventListener('load', () => setTimeout(later, 1200));
 })();
+
+/* any <img> that fails on a flaky connection gets two more tries */
+document.addEventListener('error', (e) => {
+  const el = e.target;
+  if (!el || el.tagName !== 'IMG') return;
+  const n = +(el.dataset.retry || 0);
+  if (n >= 2) return;
+  el.dataset.retry = n + 1;
+  const base = el.getAttribute('src').replace(/[?&]r=\d+$/, '');
+  setTimeout(() => { el.src = base + (base.includes('?') ? '&' : '?') + 'r=' + (n + 1); }, 900);
+}, true);
