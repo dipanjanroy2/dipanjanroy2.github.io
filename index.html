@@ -21,7 +21,7 @@
      the AI demo then plays a clearly labelled scripted replay and the GTM
      engine stays hidden. On localhost the page talks to `wrangler dev`. -->
 <meta name="portfolio-api" content="https://dipanjan-portfolio-api.aineural369.workers.dev">
-<link rel="stylesheet" href="assets/lab.css?v=12">
+<link rel="stylesheet" href="assets/lab.css?v=15">
 <noscript><style>.reveal{opacity:1 !important;transform:none !important;}</style></noscript>
 <style>.reveal{opacity:1 !important;transform:none !important;}</style></noscript>
 <style>
@@ -290,7 +290,7 @@
 <main id="top">
 <header class="wrap v2-hero">
   <div>
-    <p class="v2-eyebrow">Dipanjan Roy · Performance marketer · India</p>
+    <p class="v2-eyebrow">Dipanjan Roy · Tech marketer · India</p>
     <h1>I build the ads, the funnel, and <em>the AI that follows up</em> every lead.</h1>
     <p class="v2-lede">I started out as a cloud engineer. Then I began selling things online, room heaters, torches, astrology readings, and had to learn marketing to make them sell. Today I run the <b>Meta ads</b>, make the <b>creatives</b> (a lot of them with AI), build the <b>landing page and checkout</b>, set up the <b>tracking</b>, and build the <b>WhatsApp and voice follow-up</b> myself.</p>
     <div class="v2-ctas">
@@ -365,24 +365,21 @@
   <div class="section-head reveal">
     <p class="lab-badge"><i></i>Live AI tool · free to try</p>
     <h2>Don't read about it. <em class="lab-grad">Run it.</em></h2>
-    <p>Tell it what you sell, who buys it and where. You get a go-to-market plan in about a minute. It's the same way I plan my own campaigns. Or paste a website and get a teardown.</p>
+    <p>Paste your website, describe your business, or both. In under a minute you get a scored website audit and a full go-to-market plan, built the way I plan campaigns for real businesses.</p>
     <ul class="lab-feats">
-      <li><b>01</b>Ideal customer &amp; positioning</li>
-      <li><b>02</b>The offer &amp; the funnel</li>
-      <li><b>03</b>First 14 days of content</li>
-      <li><b>04</b>Or a teardown of any website</li>
+      <li><b>01</b>Website audit &amp; scorecard</li>
+      <li><b>02</b>Ideal customer &amp; positioning</li>
+      <li><b>03</b>Offer, funnel &amp; ad hooks</li>
+      <li><b>04</b>14-day content &amp; 30-day plan</li>
     </ul>
   </div>
 
   <div class="lab-shell reveal" id="labApp">
     <div class="pbox">
-      <label class="sr" for="pText" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);">Your business, or your website address</label>
-      <textarea id="pText" maxlength="1400" spellcheck="true"></textarea>
+      <label class="sr" for="pText" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);">Your website, your business, or both</label>
+      <textarea id="pText" maxlength="1400" spellcheck="true" placeholder="Paste your website, describe your business, or both.&#10;e.g. yourclinic.com — family dental clinic in Indiranagar, Bangalore. Mostly walk-ins, about ₹80k per aligner case."></textarea>
       <div class="pbar">
-        <label class="ptoggle">
-          <input type="checkbox" id="pMode">
-          <i aria-hidden="true"></i><b>Tear down my website instead</b>
-        </label>
+        <span class="phint">🔗 Add your website link to get a scored audit</span>
         <div class="pmeta">
           <span id="pCount">0 words</span>
           <button class="pclear" id="pClear" type="button" aria-label="Clear">✕</button>
@@ -390,12 +387,13 @@
       </div>
     </div>
 
-    <button class="pgo" id="pGo" type="button">✦ Build my go-to-market plan</button>
+    <button class="pgo" id="pGo" type="button">✦ Build my GTM plan + audit</button>
 
     <div class="ptry">
       No business handy? Try:
       <button type="button" data-try="Clear aligners at a dental clinic in Indiranagar, Bangalore. Mostly walk-ins and Google searches. About ₹80,000 a case.">a dental clinic</button>
       <button type="button" data-try="A D2C skincare brand for men in India, selling a 3-step routine online. Average order around ₹1,200. Small ad budget, solo founder.">a D2C skincare brand</button>
+      <button type="button" data-try="https://brightside-dental-sample.pages.dev — family dental clinic in Mississauga, new patients for a $79 check-up">audit a real website</button>
       <button type="button" data-try="A SaaS that lets independent gyms in the UK send class reminders and take payments. £49 a month per gym. No sales team.">a SaaS for gyms</button>
     </div>
 
@@ -421,7 +419,7 @@
       </div>
     </div>
 
-    <p class="lab-fine">Written from the brief you give it. It is strategy scaffolding, not a researched market report: it has no data on your market and will not quote statistics, and anything it had to assume is listed at the end.</p>
+    <p class="lab-fine">It reads your homepage and up to two inner pages, plus whatever you tell it. It sees no analytics, ad account or CRM, quotes no market statistics, scores only what is on the page, and lists every assumption at the end.</p>
     <noscript><p class="lab-msg">The live engine needs JavaScript. Email me and I'll write you a plan by hand.</p></noscript>
   </div>
 </section>
@@ -430,8 +428,7 @@
 <section class="wrap" id="receipts">
   <div class="v2-head">
     <div><p class="v2-eyebrow">Campaign receipts</p><h2>Screenshots from <em>my Ads Manager</em>.</h2></div>
-    <div><p>Taken straight from Ads Manager. I've hidden the cost columns, so you see results, reach and click-through rate, not what I spent.</p>
-      <div class="v2-note"><b>✓</b><span>I count orders from Razorpay, not from Ads Manager. That's how I found out the Pixel was counting some purchases twice.</span></div></div>
+    <div><p>Taken straight from Ads Manager. I've hidden the cost columns, so you see results, reach and click-through rate, not what I spent.</p></div>
   </div>
   <div class="chips2" id="rcChips" role="group" aria-label="Filter campaigns">
     <button type="button" aria-pressed="true" data-f="all">All</button>
@@ -449,18 +446,18 @@
   </div>
   <div class="ads ads3">
     <article class="ad">
+      <button class="ad-media" type="button" aria-label="Tap for sound: This could be your ad">
+        <video src="assets/ads2/ugc-mic-pitch.mp4" poster="assets/ads2/ugc-mic-pitch.webp" muted playsinline preload="none"></video>
+        <span class="playhint">Tap for sound</span><span class="snd" aria-hidden="true">🔇</span>
+      </button>
+      <div class="ad-body"><h3>This could be your ad</h3><p class="m">English · 6 s · 9:16</p><p>A creator with a clip mic, pitching the service itself: “This is a sample UGC video. Want one for your brand?”</p></div>
+    </article>
+    <article class="ad">
       <button class="ad-media" type="button" aria-label="Tap for sound: Desi ghee — emotional story">
         <video src="assets/ads2/ghee-emotion.mp4" poster="assets/ads2/ghee-emotion.webp" muted playsinline preload="none"></video>
         <span class="playhint">Tap for sound</span><span class="snd" aria-hidden="true">🔇</span>
       </button>
       <div class="ad-body"><h3>Desi ghee — emotional story</h3><p class="m">Hindi · 20 s · 9:16</p><p>“Mummy kehti thi roti bina ghee ke adhuri hoti hai” — a memory-led ad for pure cow desi ghee.</p></div>
-    </article>
-    <article class="ad">
-      <button class="ad-media" type="button" aria-label="Tap for sound: Skincare — UGC style">
-        <video src="assets/ads2/skincare-ugc.mp4" poster="assets/ads2/skincare-ugc.webp" muted playsinline preload="none"></video>
-        <span class="playhint">Tap for sound</span><span class="snd" aria-hidden="true">🔇</span>
-      </button>
-      <div class="ad-body"><h3>Skincare — UGC style</h3><p class="m">English · 10 s · 9:16</p><p>A creator-style ad for a radiance cream: hello, product, application.</p></div>
     </article>
     <article class="ad ad-wide">
       <button class="ad-media" type="button" aria-label="Tap for sound: englishyaari — story ad">
@@ -468,6 +465,27 @@
         <span class="playhint">Tap for sound</span><span class="snd" aria-hidden="true">🔇</span>
       </button>
       <div class="ad-body"><h3>englishyaari — story ad</h3><p class="m">English · 51 s · 16:9</p><p>A boss warns an employee who freezes on client calls — a short drama for an English-speaking app, ending on “Speak up. Move up.”</p></div>
+    </article>
+    <article class="ad">
+      <button class="ad-media" type="button" aria-label="Tap for sound: Festive jewellery — Diwali look">
+        <video src="assets/ads2/festive-jewellery.mp4" poster="assets/ads2/festive-jewellery.webp" muted playsinline preload="none"></video>
+        <span class="playhint">Tap for sound</span><span class="snd" aria-hidden="true">🔇</span>
+      </button>
+      <div class="ad-body"><h3>Festive jewellery — Diwali look</h3><p class="m">Music only · 10 s · 9:16</p><p>Pearl bangles, gold jhumkas and a silk saree against marigolds and diyas — a festive product reel with no voiceover.</p></div>
+    </article>
+    <article class="ad">
+      <button class="ad-media" type="button" aria-label="Tap for sound: Skincare — UGC style">
+        <video src="assets/ads2/skincare-studio.mp4" poster="assets/ads2/skincare-studio.webp" muted playsinline preload="none"></video>
+        <span class="playhint">Tap for sound</span><span class="snd" aria-hidden="true">🔇</span>
+      </button>
+      <div class="ad-body"><h3>Skincare — UGC style</h3><p class="m">English · 10 s · 9:16</p><p>A creator-style ad for a radiance cream: the hook, the texture close-up, the application.</p></div>
+    </article>
+    <article class="ad ad-wide">
+      <button class="ad-media" type="button" aria-label="Tap for sound: Luxury villa — walkthrough">
+        <video src="assets/ads2/villa-walkthrough.mp4" poster="assets/ads2/villa-walkthrough.webp" muted playsinline preload="none"></video>
+        <span class="playhint">Tap for sound</span><span class="snd" aria-hidden="true">🔇</span>
+      </button>
+      <div class="ad-body"><h3>Luxury villa — walkthrough</h3><p class="m">English · 10 s · 16:9</p><p>A narrated tour of a modern villa, room by room, for a real-estate listing.</p></div>
     </article>
   </div>
   <h3 class="sub-h">AI fashion &amp; product shots</h3>
@@ -785,6 +803,7 @@ const PROJECTS = [
   { cat: 'Fitness', name: 'Forge Fitness', sub: 'Gym & Fitness Website', desc: '"Earn it." A bold, high-energy fitness brand site with a moody fog-lit hero and kinetic typography.', tags: ['Training','Membership'], img: 'assets/work/forge.jpg', url: '/forge-gym/' },
   { cat: 'Fitness', name: 'MuscleUp', sub: 'Fitness & Lifestyle', desc: '"Train hard. Live strong." A high-impact single-page gym showcase with bold kinetic typography.', tags: ['Programs','Nutrition'], img: 'assets/work/powerlift.png', url: '/powerlift-clone/' },
   { cat: 'Healthcare', name: 'BrightSmile', sub: 'Dental & Care Website', desc: 'An elegant dental clinic site focused on high patient conversion.', tags: ['Care Plans','Booking'], img: 'assets/work/lumora.png', url: '/lumora-dental/' },
+  { cat: 'Healthcare', name: 'Brightside Family Dental', sub: 'Direct-response landing page', desc: 'A sample new-patient page for a made-up dental clinic: a $79 offer with a value stack, a guarantee, objections answered and a booking form above the fold.', tags: ['Lead form','Offer','Demo'], img: 'assets/work/brightside-sample.jpg', url: 'https://brightside-dental-sample.pages.dev/' },
 ];
 
 const grid = document.getElementById('grid');
@@ -876,7 +895,7 @@ document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 </div>
 
 <div id="printRoot"></div>
-<script src="assets/lab.js?v=7" defer></script>
+<script src="assets/lab.js?v=8" defer></script>
 <script src="assets/v2.js?v=18" defer></script>
 <script src="assets/premium.js?v=1" defer></script>
 </body>

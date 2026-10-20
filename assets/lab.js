@@ -45,8 +45,27 @@
     .replace(/(^|[^*])\*([^*\n]+)\*/g, '$1<em>$2</em>')
     .replace(/`([^`]+)`/g, '<code>$1</code>');
 
+  /* "Area | 1-5 | evidence" lines -> a visual scorecard */
+  function scorecard(lines) {
+    const rows = lines.map((l) => l.split('|').map((c) => c.trim())).filter((r) => r.length >= 2 && r[0]);
+    if (!rows.length) return '';
+    const nums = rows.map((r) => parseInt(r[1], 10)).filter((n) => n >= 1 && n <= 5);
+    const avg = nums.length ? (nums.reduce((a, b) => a + b, 0) / nums.length) : 0;
+    const band = (n) => (n >= 4 ? 'good' : n === 3 ? 'mid' : 'low');
+    return '<div class="sc"><div class="sc-total" data-b="' + band(Math.round(avg)) + '"><b>' + (avg ? avg.toFixed(1) : '–')
+      + '</b><span>/ 5</span><small>Website score</small></div><div class="sc-rows">'
+      + rows.map((r) => {
+        const n = parseInt(r[1], 10);
+        const ok = n >= 1 && n <= 5;
+        return '<div class="sc-row" data-b="' + (ok ? band(n) : 'na') + '"><span class="sc-name">' + inline(r[0]) + '</span>'
+          + '<span class="sc-bar" aria-hidden="true">' + [1, 2, 3, 4, 5].map((k) => '<i' + (ok && k <= n ? ' class="on"' : '') + '></i>').join('') + '</span>'
+          + '<span class="sc-num">' + (ok ? n + '/5' : 'n/a') + '</span>'
+          + (r[2] ? '<span class="sc-ev">' + inline(r.slice(2).join(' | ')) + '</span>' : '') + '</div>';
+      }).join('') + '</div></div>';
+  }
+
   function md(src) {
-    let html = '', para = [], list = null, table = null;
+    let html = '', para = [], list = null, table = null, fence = null;
     const flushP = () => { if (para.length) { html += `<p>${inline(para.join(' '))}</p>`; para = []; } };
     const flushL = () => { if (list) { html += `</${list}>`; list = null; } };
     const flushT = () => {
@@ -60,8 +79,16 @@
       table = null;
     };
 
+    const flushF = () => {
+      if (!fence) return;
+      html += fence.lang === 'scorecard' ? scorecard(fence.lines) : `<pre><code>${esc(fence.lines.join('\n'))}</code></pre>`;
+      fence = null;
+    };
     for (const raw of src.split('\n')) {
       const l = raw.replace(/\s+$/, '');
+      if (fence) { if (/^\s*```/.test(l)) flushF(); else fence.lines.push(l); continue; }
+      let f;
+      if ((f = l.match(/^\s*```\s*([a-z]*)/i))) { flushP(); flushL(); flushT(); fence = { lang: f[1].toLowerCase(), lines: [] }; continue; }
       if (/^\s*\|.*\|\s*$/.test(l)) { flushP(); flushL(); (table = table || []).push(l); continue; }
       flushT();
       let m;
@@ -77,48 +104,38 @@
         flushP();
         const want = /\d/.test(m[2]) ? 'ol' : 'ul';
         if (list !== want) { flushL(); html += `<${want}>`; list = want; }
-        html += `<li${m[1].length >= 2 ? ' class="sub"' : ''}>${inline(m[3])}</li>`;
+        const box = m[3].match(/^\[( |x)\]\s+(.*)$/i);
+        html += box ? `<li class="chk${m[1].length >= 2 ? ' sub' : ''}"><span class="cb" aria-hidden="true"></span>${inline(box[2])}</li>`
+          : `<li${m[1].length >= 2 ? ' class="sub"' : ''}>${inline(m[3])}</li>`;
         continue;
       }
       flushL();
       para.push(l.trim());
     }
-    flushP(); flushL(); flushT();
+    flushP(); flushL(); flushT(); flushF();
     return html;
   }
 
   /* ═══ the GTM / teardown engine ════════════════════════════════════════ */
   const lab = $('#labApp');
   if (lab) {
-    const ta = $('#pText'), tog = $('#pMode'), go = $('#pGo'), count = $('#pCount');
+    const ta = $('#pText'), go = $('#pGo'), count = $('#pCount');
     const out = $('#pOut'), body = $('#pBody'), status = $('#pStatus'), msg = $('#pMsg');
-    const btnCopy = $('#pCopy'), btnPdf = $('#pPdf');
-    let raw = '', busy = false, lastKind = 'gtm', lastInput = '';
+    const btnCopy = $('#pCopy'), btnPdf = $('#pPdf'), btnDl = $('#pDl');
+    let raw = '', busy = false, lastInput = '', lastSite = '', cover = '';
 
-    const PLACE = {
-      gtm: "What do you sell, to whom, and where?\ne.g. Clear aligners at a dental clinic in Indiranagar, Bangalore — mostly walk-ins, about ₹80k a case.",
-      teardown: 'Paste your website address — e.g. yourclinic.com',
-    };
-    const looksLikeUrl = (t) => /^(https?:\/\/)?([a-z0-9-]+\.)+[a-z]{2,}(\/\S*)?$/i.test(t.trim());
+    const URL_IN = /\b((?:https?:\/\/)?(?:[a-z0-9-]+\.)+[a-z]{2,}(?:\/[^\s"'<>)]*)?)/i;
+    const siteOf = (t) => { const m = t.match(URL_IN); if (!m) return ''; try { return new URL(/^https?:/i.test(m[1]) ? m[1] : 'https://' + m[1]).hostname.replace(/^www\./, ''); } catch { return ''; } };
+    const GO = '✦ Build my GTM plan + audit';
 
     const sync = () => {
       const words = ta.value.trim() ? ta.value.trim().split(/\s+/).length : 0;
-      count.textContent = `${words} word${words === 1 ? '' : 's'}`;
-      const mode = tog.checked ? 'teardown' : 'gtm';
-      ta.placeholder = PLACE[mode];
-      if (!busy) go.textContent = mode === 'teardown' ? '✦ Tear down this site' : '✦ Build my go-to-market plan';
+      count.textContent = siteOf(ta.value) ? `🔗 ${siteOf(ta.value)} · audit on` : `${words} word${words === 1 ? '' : 's'}`;
+      if (!busy) go.textContent = GO;
     };
-
-    ta.addEventListener('input', () => {
-      /* a bare web address can only mean one thing — flip the toggle for them */
-      if (looksLikeUrl(ta.value) && !tog.checked) tog.checked = true;
-      sync();
-    });
-    tog.addEventListener('change', sync);
-    $('#pClear').addEventListener('click', () => { ta.value = ''; tog.checked = false; sync(); ta.focus(); });
-    lab.querySelectorAll('[data-try]').forEach((b) => b.addEventListener('click', () => {
-      ta.value = b.dataset.try; tog.checked = false; sync(); ta.focus();
-    }));
+    ta.addEventListener('input', sync);
+    $('#pClear').addEventListener('click', () => { ta.value = ''; sync(); ta.focus(); });
+    lab.querySelectorAll('[data-try]').forEach((b) => b.addEventListener('click', () => { ta.value = b.dataset.try; sync(); ta.focus(); }));
 
     if (!API) {
       go.disabled = true;
@@ -126,36 +143,60 @@
       msg.textContent = 'The live engine is being connected. Email me and I will send you a plan by hand.';
     }
 
+    /* what the engine is doing while the first words are on their way */
+    let stepTimer = 0;
+    const startSteps = (withSite) => {
+      const steps = (withSite
+        ? ['Opening ' + withSite, 'Reading the homepage and two inner pages', 'Checking offer, trust, CTA and tracking', 'Scoring the website', 'Locking your ideal customer', 'Building the offer and funnel']
+        : ['Reading your brief', 'Ranking customer segments', 'Locking your ideal customer', 'Building the offer and funnel', 'Planning content and the first 30 days']);
+      let i = 0;
+      const draw = () => {
+        body.innerHTML = '<ol class="rp-steps">' + steps.map((s, k) => `<li class="${k < i ? 'done' : k === i ? 'now' : ''}">${esc(s)}</li>`).join('') + '</ol>';
+      };
+      draw();
+      stepTimer = setInterval(() => { if (i < steps.length - 1) { i += 1; draw(); } }, 2600);
+    };
+    const stopSteps = () => { clearInterval(stepTimer); stepTimer = 0; };
+
+    const makeCover = (text, site) => {
+      const what = site || text.replace(/\s+/g, ' ').slice(0, 90) + (text.length > 90 ? '…' : '');
+      const date = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+      return '<div class="rp-cover"><span class="rp-k">' + (site ? 'GTM plan + website audit' : 'Go-to-market plan') + '</span>'
+        + `<b>${esc(what)}</b><span class="rp-by">Prepared by Dipanjan Roy's GTM engine · ${date}</span></div>`;
+    };
+
     let raf = 0;
     const paint = (text) => {
       raw = text;
+      if (stepTimer) stopSteps();
       if (raf) return;
-      raf = requestAnimationFrame(() => { raf = 0; body.innerHTML = md(raw); });
+      raf = requestAnimationFrame(() => { raf = 0; body.innerHTML = cover + md(raw); });
     };
 
     async function run() {
       if (busy) return;
       const text = ta.value.trim();
-      const kind = tog.checked ? 'teardown' : 'gtm';
+      const site = siteOf(text);
       msg.hidden = true;
-      if (kind === 'gtm' && text.length < 12) { msg.hidden = false; msg.textContent = 'Give me a little more: what you sell, to whom, and where.'; return; }
-      if (kind === 'teardown' && !looksLikeUrl(text)) { msg.hidden = false; msg.textContent = 'That does not look like a website address. Try yourbusiness.com'; return; }
+      if (!site && text.length < 12) { msg.hidden = false; msg.textContent = 'Give me a little more: what you sell, to whom, and where — or paste your website.'; return; }
 
-      busy = true; lastKind = kind; lastInput = text; raw = '';
-      go.disabled = true; go.textContent = kind === 'teardown' ? 'Reading the site…' : 'Writing your plan…';
+      busy = true; lastInput = text; lastSite = site; raw = ''; cover = makeCover(text, site);
+      go.disabled = true; go.textContent = site ? 'Auditing the site…' : 'Writing your plan…';
       out.hidden = false; out.classList.add('busy');
-      body.innerHTML = ''; status.textContent = kind === 'teardown' ? 'Reading the site' : 'Writing';
-      btnCopy.disabled = btnPdf.disabled = $('#pDl').disabled = true;
-      out.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      status.textContent = site ? 'Reading the website' : 'Writing';
+      btnCopy.disabled = btnPdf.disabled = btnDl.disabled = true;
+      startSteps(site);
+      out.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
       const t0 = performance.now();
       try {
-        const final = await streamPost(kind === 'teardown' ? '/api/teardown' : '/api/gtm',
-          kind === 'teardown' ? { url: text } : { brief: text }, paint);
-        body.innerHTML = md(final); raw = final;
+        const final = await streamPost('/api/gtm', { brief: text }, (t) => { status.textContent = 'Writing your report'; paint(t); });
+        stopSteps();
+        raw = final; body.innerHTML = cover + md(final);
         status.textContent = `Done in ${Math.max(1, Math.round((performance.now() - t0) / 1000))}s`;
-        btnCopy.disabled = btnPdf.disabled = $('#pDl').disabled = false;
+        btnCopy.disabled = btnPdf.disabled = btnDl.disabled = false;
       } catch (e) {
+        stopSteps();
         if (!raw) out.hidden = true;
         msg.hidden = false; msg.textContent = e.message;
         status.textContent = 'Stopped';
@@ -177,21 +218,21 @@
       const root = $('#printRoot');
       root.innerHTML =
         '<div class="pr-brand"><b>Dipanjan Roy</b><span>Tech marketer &amp; AI builder</span></div>'
-        + `<div class="pr-top"><b>${lastKind === 'teardown' ? 'Growth teardown' : 'Go-to-market plan'}</b>`
+        + `<div class="pr-top"><b>${lastSite ? 'GTM plan + website audit' : 'Go-to-market plan'}</b>`
         + `<span>${esc(lastInput.slice(0, 160))}</span></div>`
         + `<div class="md">${md(raw)}</div>`
         + '<div class="pr-foot"><b>Want this built for you? Talk to me.</b><br>'
         + 'Dipanjan Roy · dipanjanroy369@gmail.com · WhatsApp +91 98746 04663 · dipanjanroy.cloud<br>'
-        + '<small>Strategy scaffolding from the brief given, not a researched market report.</small></div>';
+        + '<small>Built from the brief and the public website only: no analytics, ad account or CRM was seen. Scores reflect what is on the page.</small></div>';
       document.documentElement.classList.add('printing');
       const prev = document.title;
-      document.title = (lastKind === 'teardown' ? 'Growth teardown' : 'GTM plan') + ' - Dipanjan Roy';
+      document.title = (lastSite ? 'GTM plan + audit - ' + lastSite : 'GTM plan') + ' - Dipanjan Roy';
       const done = () => { document.documentElement.classList.remove('printing'); document.title = prev; removeEventListener('afterprint', done); };
       addEventListener('afterprint', done);
       print();
     };
     btnPdf.addEventListener('click', savePdf);
-    $('#pDl').addEventListener('click', savePdf);
+    btnDl.addEventListener('click', savePdf);
 
     sync();
   }

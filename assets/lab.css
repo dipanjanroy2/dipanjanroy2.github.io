@@ -280,3 +280,62 @@
   #printRoot .pr-brand b{font:600 15px Arial,sans-serif;color:#111}
   #printRoot .pr-foot b{color:#111}
 }
+
+/* ── GTM + audit report ── */
+.phint{font-size:.78rem;color:var(--dim)}
+.rp-cover{display:flex;flex-direction:column;gap:.35rem;padding:1.3rem 1.4rem;margin:-.2rem 0 1.6rem;border-radius:16px;
+  background:radial-gradient(600px 200px at 0% 0%,rgb(var(--accent-rgb) / .16),transparent 70%),linear-gradient(180deg,#121316,#0b0b0c);
+  border:1px solid var(--line2,rgba(255,255,255,.14))}
+.rp-k{font-family:var(--mono,ui-monospace,monospace);font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
+.rp-cover b{font-family:var(--display,inherit);font-weight:500;font-size:clamp(1.3rem,2.6vw,1.8rem);letter-spacing:-.02em;color:#fff;line-height:1.2;word-break:break-word}
+.rp-by{font-size:.78rem;color:var(--dim)}
+.rp-steps{list-style:none;margin:.4rem 0;padding:0;display:grid;gap:.75rem}
+.rp-steps li{display:flex;align-items:center;gap:.75rem;color:#6f6f6c;font-size:.95rem;transition:color .3s}
+.rp-steps li::before{content:"";width:18px;height:18px;border-radius:50%;border:1.5px solid #3a3a3a;flex:none;box-sizing:border-box}
+.rp-steps li.now{color:#fff}
+.rp-steps li.now::before{border-color:var(--accent);border-top-color:transparent;animation:rpspin .8s linear infinite}
+.rp-steps li.done{color:#bdbdba}
+.rp-steps li.done::before{border-color:#3ddc84;background:#3ddc84 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 12 5 5 9-10'/%3E%3C/svg%3E") center/11px no-repeat}
+@keyframes rpspin{to{transform:rotate(360deg)}}
+.sc{display:grid;grid-template-columns:auto 1fr;gap:1.2rem 1.6rem;align-items:start;margin:1rem 0 1.4rem;padding:1.2rem;border-radius:16px;border:1px solid var(--line);background:#0c0c0d}
+.sc-total{display:grid;place-items:center;align-content:center;width:128px;height:128px;border-radius:50%;
+  border:2px solid var(--c,#f5b942);box-shadow:0 0 40px -12px var(--c,#f5b942);text-align:center;line-height:1}
+.sc-total b{font-family:var(--display,inherit);font-size:2.4rem;font-weight:600;color:#fff;letter-spacing:-.03em}
+.sc-total span{font-size:.8rem;color:var(--dim);margin-top:.2rem}
+.sc-total small{font-size:.55rem;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);margin-top:.35rem;max-width:88px}
+[data-b=good]{--c:#3ddc84}[data-b=mid]{--c:#f5b942}[data-b=low]{--c:#ff6b6b}[data-b=na]{--c:#5d5d5a}
+.sc-rows{display:grid;gap:.85rem}
+.sc-row{display:grid;grid-template-columns:minmax(150px,190px) auto 3rem;gap:.35rem .9rem;align-items:center}
+.sc-name{font-weight:500;color:#f2f2f0;font-size:.9rem}
+.sc-bar{display:flex;gap:4px}
+.sc-bar i{width:26px;height:8px;border-radius:3px;background:#222}
+.sc-bar i.on{background:var(--c);box-shadow:0 0 10px -2px var(--c)}
+.sc-num{font-family:var(--mono,ui-monospace,monospace);font-size:.78rem;color:var(--c)}
+.sc-ev{grid-column:1/-1;font-size:.8rem;color:#9d9d99;line-height:1.5;margin-top:-.15rem}
+.md li.chk{list-style:none;margin-left:-1.15rem;display:flex;gap:.6rem;align-items:flex-start}
+.md li.chk .cb{flex:none;width:15px;height:15px;margin-top:.3em;border:1.5px solid var(--line2,rgba(255,255,255,.25));border-radius:4px}
+@media (max-width:640px){
+  .sc{grid-template-columns:1fr;justify-items:start}
+  .sc-total{width:96px;height:96px}
+  .sc-row{grid-template-columns:1fr auto}
+  .sc-bar{grid-column:1/2}
+  .sc-bar i{width:20px}
+}
+@media print{
+  #printRoot .sc{border:1px solid #ccc;background:#fff;break-inside:avoid}
+  #printRoot .sc-total b,#printRoot .sc-name{color:#111}
+  #printRoot .sc-bar i{background:#e5e5e5;box-shadow:none}
+  #printRoot .sc-bar i.on{background:var(--c)}
+  #printRoot .sc-ev{color:#444}
+  #printRoot .rp-cover{display:none}
+  #printRoot .md li.chk .cb{border-color:#999}
+  #printRoot *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+
+/* PDF: zero page margin hides the browser's date/URL header and footer; padding gives the real margin */
+@page{size:A4;margin:0}
+@media print{
+  html.printing #printRoot{padding:14mm 14mm 12mm}
+  #printRoot tr,#printRoot .sc-row,#printRoot li{break-inside:avoid}
+  #printRoot .md h3,#printRoot .md h4{break-after:avoid}
+}
