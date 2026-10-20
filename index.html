@@ -16,7 +16,7 @@
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=Inter:wght@300;400;500;600&family=Inter+Tight:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Inter+Tight:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <!-- URL of the deployed API Worker (see /worker). Empty until it is deployed:
      the AI demo then plays a clearly labelled scripted replay and the GTM
      engine stays hidden. On localhost the page talks to `wrangler dev`. -->
@@ -344,7 +344,7 @@
     </div>
     <div class="ai-card voice-card">
       <div class="ai-top"><span class="ai-av" aria-hidden="true">☎</span><div class="t"><b>AI voice agent</b><span>Call it live, or play a recorded call</span></div><span class="status live">Live + recording</span></div>
-      <video controls preload="none" playsinline poster="assets/demo/voice-agent.webp?v=2" src="assets/demo/voice-agent.mp4?v=2" aria-label="Recorded call between a caller and the AI voice agent"></video>
+      <video controls preload="none" playsinline data-poster="assets/demo/voice-agent.webp?v=2" src="assets/demo/voice-agent.mp4?v=2" aria-label="Recorded call between a caller and the AI voice agent"></video>
       <div class="vc-body">Riya is a receptionist I set up for a <b>made-up dental clinic</b>. Tell her your problem and she books you a slot. Hindi or English.
         <div class="live-call">
           <button class="btn btn-solid" id="callBtn" type="button">📞 Call the AI receptionist — live</button>
@@ -447,42 +447,42 @@
   <div class="ads ads3">
     <article class="ad">
       <button class="ad-media" type="button" aria-label="Tap for sound: This could be your ad">
-        <video src="assets/ads2/ugc-mic-pitch.mp4" poster="assets/ads2/ugc-mic-pitch.webp" muted playsinline preload="none"></video>
+        <video src="assets/ads2/ugc-mic-pitch.mp4" data-poster="assets/ads2/ugc-mic-pitch.webp" muted playsinline preload="none"></video>
         <span class="playhint">Tap for sound</span><span class="snd" aria-hidden="true">🔇</span>
       </button>
       <div class="ad-body"><h3>This could be your ad</h3><p class="m">English · 6 s · 9:16</p><p>A creator with a clip mic, pitching the service itself: “This is a sample UGC video. Want one for your brand?”</p></div>
     </article>
     <article class="ad">
       <button class="ad-media" type="button" aria-label="Tap for sound: Desi ghee — emotional story">
-        <video src="assets/ads2/ghee-emotion.mp4" poster="assets/ads2/ghee-emotion.webp" muted playsinline preload="none"></video>
+        <video src="assets/ads2/ghee-emotion.mp4" data-poster="assets/ads2/ghee-emotion.webp" muted playsinline preload="none"></video>
         <span class="playhint">Tap for sound</span><span class="snd" aria-hidden="true">🔇</span>
       </button>
       <div class="ad-body"><h3>Desi ghee — emotional story</h3><p class="m">Hindi · 20 s · 9:16</p><p>“Mummy kehti thi roti bina ghee ke adhuri hoti hai” — a memory-led ad for pure cow desi ghee.</p></div>
     </article>
     <article class="ad ad-wide">
       <button class="ad-media" type="button" aria-label="Tap for sound: englishyaari — story ad">
-        <video src="assets/ads2/englishyaari-story.mp4" poster="assets/ads2/englishyaari-story.webp" muted playsinline preload="none"></video>
+        <video src="assets/ads2/englishyaari-story.mp4" data-poster="assets/ads2/englishyaari-story.webp" muted playsinline preload="none"></video>
         <span class="playhint">Tap for sound</span><span class="snd" aria-hidden="true">🔇</span>
       </button>
       <div class="ad-body"><h3>englishyaari — story ad</h3><p class="m">English · 51 s · 16:9</p><p>A boss warns an employee who freezes on client calls — a short drama for an English-speaking app, ending on “Speak up. Move up.”</p></div>
     </article>
     <article class="ad">
       <button class="ad-media" type="button" aria-label="Tap for sound: Festive jewellery — Diwali look">
-        <video src="assets/ads2/festive-jewellery.mp4" poster="assets/ads2/festive-jewellery.webp" muted playsinline preload="none"></video>
+        <video src="assets/ads2/festive-jewellery.mp4" data-poster="assets/ads2/festive-jewellery.webp" muted playsinline preload="none"></video>
         <span class="playhint">Tap for sound</span><span class="snd" aria-hidden="true">🔇</span>
       </button>
       <div class="ad-body"><h3>Festive jewellery — Diwali look</h3><p class="m">Music only · 10 s · 9:16</p><p>Pearl bangles, gold jhumkas and a silk saree against marigolds and diyas — a festive product reel with no voiceover.</p></div>
     </article>
     <article class="ad">
       <button class="ad-media" type="button" aria-label="Tap for sound: Skincare — UGC style">
-        <video src="assets/ads2/skincare-studio.mp4" poster="assets/ads2/skincare-studio.webp" muted playsinline preload="none"></video>
+        <video src="assets/ads2/skincare-studio.mp4" data-poster="assets/ads2/skincare-studio.webp" muted playsinline preload="none"></video>
         <span class="playhint">Tap for sound</span><span class="snd" aria-hidden="true">🔇</span>
       </button>
       <div class="ad-body"><h3>Skincare — UGC style</h3><p class="m">English · 10 s · 9:16</p><p>A creator-style ad for a radiance cream: the hook, the texture close-up, the application.</p></div>
     </article>
     <article class="ad ad-wide">
       <button class="ad-media" type="button" aria-label="Tap for sound: Luxury villa — walkthrough">
-        <video src="assets/ads2/villa-walkthrough.mp4" poster="assets/ads2/villa-walkthrough.webp" muted playsinline preload="none"></video>
+        <video src="assets/ads2/villa-walkthrough.mp4" data-poster="assets/ads2/villa-walkthrough.webp" muted playsinline preload="none"></video>
         <span class="playhint">Tap for sound</span><span class="snd" aria-hidden="true">🔇</span>
       </button>
       <div class="ad-body"><h3>Luxury villa — walkthrough</h3><p class="m">English · 10 s · 16:9</p><p>A narrated tour of a modern villa, room by room, for a real-estate listing.</p></div>
@@ -491,16 +491,16 @@
   <h3 class="sub-h">AI fashion &amp; product shots</h3>
   <p class="sub-p">Short clips and stills for fashion, accessories and product ads — generated with AI, ready for Reels and Stories.</p>
   <div class="clips">
-      <button class="clip" type="button" aria-label="Mirror selfie, menswear — AI video clip, play preview"><video src="assets/ads2/clip01.mp4" poster="assets/ads2/clip01.webp" muted loop playsinline preload="none"></video><span>Mirror selfie, menswear</span></button>
-      <button class="clip" type="button" aria-label="Doorway portrait, kurta — AI video clip, play preview"><video src="assets/ads2/clip02.mp4" poster="assets/ads2/clip02.webp" muted loop playsinline preload="none"></video><span>Doorway portrait, kurta</span></button>
-      <button class="clip" type="button" aria-label="Mirror selfie, saree — AI video clip, play preview"><video src="assets/ads2/clip03.mp4" poster="assets/ads2/clip03.webp" muted loop playsinline preload="none"></video><span>Mirror selfie, saree</span></button>
-      <button class="clip" type="button" aria-label="Elevator selfie — AI video clip, play preview"><video src="assets/ads2/clip04.mp4" poster="assets/ads2/clip04.webp" muted loop playsinline preload="none"></video><span>Elevator selfie</span></button>
-      <button class="clip" type="button" aria-label="Street walk, menswear — AI video clip, play preview"><video src="assets/ads2/clip05.mp4" poster="assets/ads2/clip05.webp" muted loop playsinline preload="none"></video><span>Street walk, menswear</span></button>
-      <button class="clip" type="button" aria-label="Escalator, blazer — AI video clip, play preview"><video src="assets/ads2/clip06.mp4" poster="assets/ads2/clip06.webp" muted loop playsinline preload="none"></video><span>Escalator, blazer</span></button>
-      <button class="clip" type="button" aria-label="Perfume product shot — AI video clip, play preview"><video src="assets/ads2/clip07.mp4" poster="assets/ads2/clip07.webp" muted loop playsinline preload="none"></video><span>Perfume product shot</span></button>
-      <button class="clip" type="button" aria-label="Lifestyle, iced coffee — AI video clip, play preview"><video src="assets/ads2/clip08.mp4" poster="assets/ads2/clip08.webp" muted loop playsinline preload="none"></video><span>Lifestyle, iced coffee</span></button>
-      <button class="clip" type="button" aria-label="Bracelet close-up — AI video clip, play preview"><video src="assets/ads2/clip09.mp4" poster="assets/ads2/clip09.webp" muted loop playsinline preload="none"></video><span>Bracelet close-up</span></button>
-      <button class="clip" type="button" aria-label="Cyclist, streetwear — AI video clip, play preview"><video src="assets/ads2/clip10.mp4" poster="assets/ads2/clip10.webp" muted loop playsinline preload="none"></video><span>Cyclist, streetwear</span></button>
+      <button class="clip" type="button" aria-label="Mirror selfie, menswear — AI video clip, play preview"><video src="assets/ads2/clip01.mp4" data-poster="assets/ads2/clip01.webp" muted loop playsinline preload="none"></video><span>Mirror selfie, menswear</span></button>
+      <button class="clip" type="button" aria-label="Doorway portrait, kurta — AI video clip, play preview"><video src="assets/ads2/clip02.mp4" data-poster="assets/ads2/clip02.webp" muted loop playsinline preload="none"></video><span>Doorway portrait, kurta</span></button>
+      <button class="clip" type="button" aria-label="Mirror selfie, saree — AI video clip, play preview"><video src="assets/ads2/clip03.mp4" data-poster="assets/ads2/clip03.webp" muted loop playsinline preload="none"></video><span>Mirror selfie, saree</span></button>
+      <button class="clip" type="button" aria-label="Elevator selfie — AI video clip, play preview"><video src="assets/ads2/clip04.mp4" data-poster="assets/ads2/clip04.webp" muted loop playsinline preload="none"></video><span>Elevator selfie</span></button>
+      <button class="clip" type="button" aria-label="Street walk, menswear — AI video clip, play preview"><video src="assets/ads2/clip05.mp4" data-poster="assets/ads2/clip05.webp" muted loop playsinline preload="none"></video><span>Street walk, menswear</span></button>
+      <button class="clip" type="button" aria-label="Escalator, blazer — AI video clip, play preview"><video src="assets/ads2/clip06.mp4" data-poster="assets/ads2/clip06.webp" muted loop playsinline preload="none"></video><span>Escalator, blazer</span></button>
+      <button class="clip" type="button" aria-label="Perfume product shot — AI video clip, play preview"><video src="assets/ads2/clip07.mp4" data-poster="assets/ads2/clip07.webp" muted loop playsinline preload="none"></video><span>Perfume product shot</span></button>
+      <button class="clip" type="button" aria-label="Lifestyle, iced coffee — AI video clip, play preview"><video src="assets/ads2/clip08.mp4" data-poster="assets/ads2/clip08.webp" muted loop playsinline preload="none"></video><span>Lifestyle, iced coffee</span></button>
+      <button class="clip" type="button" aria-label="Bracelet close-up — AI video clip, play preview"><video src="assets/ads2/clip09.mp4" data-poster="assets/ads2/clip09.webp" muted loop playsinline preload="none"></video><span>Bracelet close-up</span></button>
+      <button class="clip" type="button" aria-label="Cyclist, streetwear — AI video clip, play preview"><video src="assets/ads2/clip10.mp4" data-poster="assets/ads2/clip10.webp" muted loop playsinline preload="none"></video><span>Cyclist, streetwear</span></button>
   </div>
 </section>
 
@@ -611,25 +611,25 @@
   </div>
   <div class="badges">
       <a class="badge" href="https://www.credly.com/badges/0ace3089-54c5-4430-87ea-cda95e5afa3b/public_url" target="_blank" rel="noopener">
-        <img src="assets/badges/aws-solutions-architect.webp" width="160" height="160" alt="AWS Certified Solutions Architect – Associate badge" loading="lazy">
+        <img src="assets/badges/aws-solutions-architect.webp" width="160" height="160" alt="AWS Certified Solutions Architect – Associate badge" loading="lazy" decoding="async">
         <span class="bn">AWS Certified Solutions Architect – Associate</span><span class="bi">Amazon Web Services · issued Dec 2025</span><span class="bv">Verify on Credly ↗</span>
       </a>
       <a class="badge" href="https://www.credly.com/badges/849c4ab4-a2a1-460a-84b9-ff8758a41117/public_url" target="_blank" rel="noopener">
-        <img src="assets/badges/aws-developer.webp" width="160" height="160" alt="AWS Certified Developer – Associate badge" loading="lazy">
+        <img src="assets/badges/aws-developer.webp" width="160" height="160" alt="AWS Certified Developer – Associate badge" loading="lazy" decoding="async">
         <span class="bn">AWS Certified Developer – Associate</span><span class="bi">Amazon Web Services · issued Oct 2025</span><span class="bv">Verify on Credly ↗</span>
       </a>
       <a class="badge" href="https://www.credly.com/badges/63a7372e-eda8-4d86-b49f-d02ab9c48284/public_url" target="_blank" rel="noopener">
-        <img src="assets/badges/aws-ai-practitioner.webp" width="160" height="160" alt="AWS Certified AI Practitioner badge" loading="lazy">
+        <img src="assets/badges/aws-ai-practitioner.webp" width="160" height="160" alt="AWS Certified AI Practitioner badge" loading="lazy" decoding="async">
         <span class="bn">AWS Certified AI Practitioner</span><span class="bi">Amazon Web Services · issued Aug 2025</span><span class="bv">Verify on Credly ↗</span>
       </a>
   </div>
   <div class="certs2">
     <a class="cert" href="certificates/AADME-AI-Enabled-Advanced-Digital-Marketing.pdf" target="_blank" rel="noopener">
-      <img src="assets/badges/aadme-ai-advanced.webp" width="720" height="509" alt="AADME certificate: AI-Enabled Advanced Digital Marketing Professional Program, awarded to Dipanjan Roy" loading="lazy">
+      <img src="assets/badges/aadme-ai-advanced.webp" width="720" height="509" alt="AADME certificate: AI-Enabled Advanced Digital Marketing Professional Program, awarded to Dipanjan Roy" loading="lazy" decoding="async">
       <span class="bn">AI-Enabled Advanced Digital Marketing Professional Program</span><span class="bi">AADME · 28 April 2026</span><span class="bv">View certificate (PDF) ↗</span>
     </a>
     <a class="cert" href="certificates/AADME-Digital-Marketing-Consultant.pdf" target="_blank" rel="noopener">
-      <img src="assets/badges/aadme-consultant.webp" width="720" height="509" alt="AADME certificate: Digital Marketing Consultant Certified, awarded to Dipanjan Roy" loading="lazy">
+      <img src="assets/badges/aadme-consultant.webp" width="720" height="509" alt="AADME certificate: Digital Marketing Consultant Certified, awarded to Dipanjan Roy" loading="lazy" decoding="async">
       <span class="bn">Digital Marketing Consultant Certified</span><span class="bi">AADME · 28 April 2026</span><span class="bv">View certificate (PDF) ↗</span>
     </a>
   </div>
@@ -798,12 +798,12 @@
 
 <script>
 const PROJECTS = [
-  { cat: 'Architecture', name: 'Altana', sub: 'Interior Design & Contracting', desc: 'Design, build, renovate and furnish under a single point of contact — a studio site that sells the whole service, not just the mood board.', tags: ['Interiors','Contracting','Portfolio'], img: 'thumbs/altana.jpg', url: '/altana/' },
-  { cat: 'Architecture', name: 'The Meridian', sub: 'Luxury Penthouse Real Estate', desc: 'A $12.5M single-residence penthouse listing — cinematic scroll-scrubbed video tour and private-showing booking.', tags: ['Video Tour','Listing','Booking'], img: 'assets/work/meridian.jpg', url: '/the-meridian/' },
-  { cat: 'Fitness', name: 'Forge Fitness', sub: 'Gym & Fitness Website', desc: '"Earn it." A bold, high-energy fitness brand site with a moody fog-lit hero and kinetic typography.', tags: ['Training','Membership'], img: 'assets/work/forge.jpg', url: '/forge-gym/' },
-  { cat: 'Fitness', name: 'MuscleUp', sub: 'Fitness & Lifestyle', desc: '"Train hard. Live strong." A high-impact single-page gym showcase with bold kinetic typography.', tags: ['Programs','Nutrition'], img: 'assets/work/powerlift.png', url: '/powerlift-clone/' },
-  { cat: 'Healthcare', name: 'BrightSmile', sub: 'Dental & Care Website', desc: 'An elegant dental clinic site focused on high patient conversion.', tags: ['Care Plans','Booking'], img: 'assets/work/lumora.png', url: '/lumora-dental/' },
-  { cat: 'Healthcare', name: 'Brightside Family Dental', sub: 'Direct-response landing page', desc: 'A sample new-patient page for a made-up dental clinic: a $79 offer with a value stack, a guarantee, objections answered and a booking form above the fold.', tags: ['Lead form','Offer','Demo'], img: 'assets/work/brightside-sample.jpg', url: 'https://brightside-dental-sample.pages.dev/' },
+  { cat: 'Architecture', name: 'Altana', sub: 'Interior Design & Contracting', desc: 'Design, build, renovate and furnish under a single point of contact — a studio site that sells the whole service, not just the mood board.', tags: ['Interiors','Contracting','Portfolio'], img: 'thumbs/altana.webp', url: '/altana/' },
+  { cat: 'Architecture', name: 'The Meridian', sub: 'Luxury Penthouse Real Estate', desc: 'A $12.5M single-residence penthouse listing — cinematic scroll-scrubbed video tour and private-showing booking.', tags: ['Video Tour','Listing','Booking'], img: 'assets/work/meridian.webp', url: '/the-meridian/' },
+  { cat: 'Fitness', name: 'Forge Fitness', sub: 'Gym & Fitness Website', desc: '"Earn it." A bold, high-energy fitness brand site with a moody fog-lit hero and kinetic typography.', tags: ['Training','Membership'], img: 'assets/work/forge.webp', url: '/forge-gym/' },
+  { cat: 'Fitness', name: 'MuscleUp', sub: 'Fitness & Lifestyle', desc: '"Train hard. Live strong." A high-impact single-page gym showcase with bold kinetic typography.', tags: ['Programs','Nutrition'], img: 'assets/work/powerlift.webp', url: '/powerlift-clone/' },
+  { cat: 'Healthcare', name: 'BrightSmile', sub: 'Dental & Care Website', desc: 'An elegant dental clinic site focused on high patient conversion.', tags: ['Care Plans','Booking'], img: 'assets/work/lumora.webp', url: '/lumora-dental/' },
+  { cat: 'Healthcare', name: 'Brightside Family Dental', sub: 'Direct-response landing page', desc: 'A sample new-patient page for a made-up dental clinic: a $79 offer with a value stack, a guarantee, objections answered and a booking form above the fold.', tags: ['Lead form','Offer','Demo'], img: 'assets/work/brightside-sample.webp', url: 'https://brightside-dental-sample.pages.dev/' },
 ];
 
 const grid = document.getElementById('grid');
@@ -811,7 +811,7 @@ grid.innerHTML = PROJECTS.map(p => `
   <a class="card reveal" data-cat="${p.cat}" href="${p.url}" target="_blank" rel="noopener">
     <div class="card-media">
       <span class="card-tag">${p.sub}</span>
-      <img src="${p.img}" alt="${p.name}" loading="lazy">
+      <img src="${p.img}" alt="${p.name}" loading="lazy" decoding="async" width="800" height="600">
     </div>
     <div class="card-body">
       <h3>${p.name}</h3>
@@ -897,6 +897,6 @@ document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 <div id="printRoot"></div>
 <script src="assets/lab.js?v=8" defer></script>
 <script src="assets/v2.js?v=18" defer></script>
-<script src="assets/premium.js?v=1" defer></script>
+<script src="assets/premium.js?v=2" defer></script>
 </body>
 </html>

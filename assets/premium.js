@@ -13,3 +13,12 @@
     el.style.setProperty('--my', `${e.clientY - r.top}px`);
   }, { passive: true });
 })();
+
+/* posters: fetch a video's poster only when it is about to scroll into view */
+(() => {
+  const vids = [...document.querySelectorAll('video[data-poster]')];
+  const show = (v) => { v.poster = v.dataset.poster; v.removeAttribute('data-poster'); };
+  if (!('IntersectionObserver' in window)) { vids.forEach(show); return; }
+  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { show(e.target); io.unobserve(e.target); } }), { rootMargin: '600px 0px' });
+  vids.forEach((v) => io.observe(v));
+})();
